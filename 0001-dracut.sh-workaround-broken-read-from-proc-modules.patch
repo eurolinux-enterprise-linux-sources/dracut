@@ -1,0 +1,46 @@
+From 14af2ab39994576bda1d2a6b9c7980f08473e784 Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Mon, 11 Jun 2018 11:07:59 +0200
+Subject: [PATCH] dracut.sh: workaround broken read from /proc/modules
+
+RHEL-only (upstream is using libkmod)
+Resolves: #1578222
+---
+ dracut.sh | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/dracut.sh b/dracut.sh
+index 873274c..9dadece 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -1145,10 +1145,23 @@ if [[ $hostonly ]]; then
+ 
+     # check /proc/modules
+     declare -A host_modules
+-    while read m rest; do
+-        [ -z "$m" ] && continue
+-        host_modules["$m"]=1
+-    done </proc/modules
++    declare new_module_found=1
++    declare tmpmodules=$(mktemp --tmpdir="$TMPDIR/" -t proc_modules.XXXXXX)
++    while [[ $new_module_found ]]; do
++        new_module_found=
++        sleep 0.1
++        #reading from procfs can be broken, so copy the file elsewhere
++        cp -f /proc/modules "$tmpmodules"
++        while read m rest; do
++            [ -z "$m" ] && continue
++            [[ ${host_modules["$m"]} ]] && continue
++            host_modules["$m"]=1
++            new_module_found=1
++        done < "$tmpmodules"
++    done
++    rm "$tmpmodules"
++    unset new_module_found
++    unset tmpmodules
+ fi
+ 
+ unset m
+-- 
+2.14.4
+

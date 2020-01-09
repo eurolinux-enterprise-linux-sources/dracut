@@ -10,7 +10,7 @@
 
 Name: dracut
 Version: 033
-Release: 535%{?dist}
+Release: 535%{?dist}.1
 
 Summary: Initramfs generator using udev
 %if 0%{?fedora} || 0%{?rhel}
@@ -564,6 +564,8 @@ Patch532: 0532-base-dracut-lib.sh-remove-bashism.patch
 Patch533: 0533-base-dracut-lib.sh-dev_unit_name-guard-against-dev-b.patch
 Patch534: 0534-90lvm-always-add-dm-snapshot.patch
 
+Patch900: 0001-dracut.sh-workaround-broken-read-from-proc-modules.patch
+
 
 BuildRequires: bash git
 
@@ -995,6 +997,10 @@ rm -rf -- $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jun 13 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-535.1
+- dracut.sh: workaround broken read from /proc/modules
+Resolves: #1578222
+
 * Mon Feb 19 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-535
 - 90lvm: always add dm-snapshot
 Resolves: #1546577
