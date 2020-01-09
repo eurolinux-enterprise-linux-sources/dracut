@@ -13,10 +13,10 @@
 
 Name: dracut
 Version: 004
-Release: 388%{?dist}
+Release: 409%{?dist}
 Summary: Initramfs generator using udev
-Group: System Environment/Base		
-License: GPLv2+	
+Group: System Environment/Base
+License: GPLv2+
 URL: http://apps.sourceforge.net/trac/dracut/wiki
 
 Source0: http://www.kernel.org/pub/linux/utils/boot/dracut/dracut-%{version}.tar.bz2
@@ -407,6 +407,27 @@ Patch384: 0384-dracut-functions-degrade-message-about-optional-miss.patch
 Patch385: 0385-lvm-optionally-install-thin-tools.patch
 Patch386: 0386-base-add-hostname-hostname-kernel-cmdline-parameter.patch
 Patch387: 0387-crypt-add-drbg-kernel-module.patch
+Patch388: 0388-crypt-installkernel-add-all-kernel-modules-regardles.patch
+Patch389: 0389-dracut-set-pipefail-in-the-final-initramfs-creation-.patch
+Patch390: 0390-plymouth-add-hyperv_fb-kernel-module.patch
+Patch391: 0391-network-ifup-create-bond-interface-if-it-does-not-ye.patch
+Patch392: 0392-dracut-use-cpio-with-R-root-root-rather-than-R-0-0.patch
+Patch393: 0393-network-handle-macaddr-and-mtu.patch
+Patch394: 0394-network-handle-multiple-vlan-parameters.patch
+Patch395: 0395-dracut.8-mention-vlan-can-be-specified-multiple-time.patch
+Patch396: 0396-nfs-install-also-add-group-nobody-for-rpc.idmapd.patch
+Patch397: 0397-wait_for_if_up-check-for-UP-rather-than-state-UP.patch
+Patch398: 0398-add-more-hyperv-kernel-modules.patch
+Patch399: 0399-dracut-add-strglob.patch
+Patch400: 0400-network-net-genrules.sh-add-physical-vlan-network-in.patch
+Patch401: 0401-network-ifup-use-the-correct-interface-name-for-the-.patch
+Patch402: 0402-iscsiroot-for-iscsi_firmware-retry-if-iscsistart-N-f.patch
+Patch403: 0403-fix-typo.patch
+Patch404: 0404-dracut.spec-remove-trailing-whitespace.patch
+Patch405: 0405-network-ifup-fix-vlan-get_vid.patch
+Patch406: 0406-plymouth-plymouth-pretrigger.sh-also-trigger-acpi-su.patch
+Patch407: 0407-crypt-installkernel-install-more-crypto-modules.patch
+Patch408: 0408-iscsi-iscsiroot-don-t-evaluate-iscsistart-N-return-v.patch
 
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -457,7 +478,7 @@ dracut is a new, event-driven initramfs infrastructure based around udev.
 %package network
 Summary: Dracut modules to build a dracut initramfs with network support
 Requires: %{name} = %{version}-%{release}
-Requires: dhclient rpcbind nfs-utils 
+Requires: dhclient rpcbind nfs-utils
 Requires: iscsi-initiator-utils
 %if %{with_nbd}
 Requires: nbd
@@ -491,7 +512,7 @@ Requires: %{name}-fips = %{version}-%{release}
 
 %description fips-aesni
 This package requires everything which is needed to build an
-all purpose initramfs with dracut, which does an integrity check 
+all purpose initramfs with dracut, which does an integrity check
 and adds the aesni-intel kernel module.
 
 %package caps
@@ -661,7 +682,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 %{_datadir}/dracut/modules.d/02caps
 
-%files kernel 
+%files kernel
 %defattr(-,root,root,0755)
 %doc README.kernel
 
@@ -669,7 +690,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,0755)
 %doc README.generic
 
-%files tools 
+%files tools
 %defattr(-,root,root,0755)
 %doc COPYING NEWS
 %{_mandir}/man8/dracut-gencmdline.8*
@@ -679,8 +700,56 @@ rm -rf $RPM_BUILD_ROOT
 %dir /boot/dracut
 %dir /var/lib/dracut
 %dir /var/lib/dracut/overlay
- 
+
 %changelog
+* Thu Apr 07 2016 Harald Hoyer <harald@redhat.com> - 004-409
+- don't handle "iscsistart -N" exit value
+  start iscsistart -b more reliably in the background
+Resolves: rhbz#1324340
+
+* Wed Apr 06 2016 Harald Hoyer <harald@redhat.com> - 004-408
+- add more kernel modules for crypt
+Resolves: rhbz#1322893
+- trigger acpi subsystem before running plymouth
+Resolves: rhbz#1218130
+
+* Thu Mar 10 2016 Harald Hoyer <harald@redhat.com> - 004-406
+- network/ifup: fix vlan get_vid()
+Resolves: rhbz#1111358
+
+* Thu Mar 10 2016 Harald Hoyer <harald@redhat.com> - 004-405
+- iscsiroot: fixed typo
+Resolves: rhbz#1111358
+
+* Thu Mar 10 2016 Harald Hoyer <harald@redhat.com> - 004-403
+- network/ifup: use the correct interface name for the vlan parent
+- iscsiroot: for iscsi_firmware retry, if iscsistart -N fails
+Resolves: rhbz#1111358
+
+* Mon Mar 07 2016 Harald Hoyer <harald@redhat.com> 004-401
+- generate udev rules for the physical interface of vlans
+Resolves: rhbz#1111358
+
+* Thu Feb 18 2016 Harald Hoyer <harald@redhat.com> 004-400
+- backport the strglob function
+Resolves: rhbz#1309298
+
+* Tue Jan 19 2016 Harald Hoyer <harald@redhat.com> 004-399
+- add hyper kernel modules
+Resolves: rhbz#1298445 rhbz#1223315
+- fix ifcfg generation
+Resolves: rhbz#1261893
+- support multiple vlan definitions
+Resolves: rhbz#1111358
+- support setting of MTU via ip=..:ibft:<mtu>
+Resolves: rhbz#1076465
+- use cpio -R root:root rather than cpio -R 0:0
+Resolves: rhbz#1049763
+- fail hard if final image could not be written
+Resolves: rhbz#1252449
+- create correct bonding interface
+Resolves: rhbz#1263013
+
 * Tue Jun 23 2015 Harald Hoyer <harald@redhat.com> 004-388
 - add drbg kernel module for crypto
 Resolves: rhbz#1233683
