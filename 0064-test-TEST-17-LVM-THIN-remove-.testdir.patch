@@ -10,7 +10,7 @@ Subject: [PATCH] test/TEST-17-LVM-THIN: remove .testdir
 
 diff --git a/test/TEST-17-LVM-THIN/.testdir b/test/TEST-17-LVM-THIN/.testdir
 deleted file mode 100644
-index 9af2638..0000000
+index 9af2638c..00000000
 --- a/test/TEST-17-LVM-THIN/.testdir
 +++ /dev/null
 @@ -1 +0,0 @@

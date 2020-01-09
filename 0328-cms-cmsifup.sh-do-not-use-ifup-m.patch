@@ -9,7 +9,7 @@ we don't want to bring the interface up several times
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/80cms/cmsifup.sh b/modules.d/80cms/cmsifup.sh
-index b361650..9ffe971 100755
+index b3616504..9ffe971a 100755
 --- a/modules.d/80cms/cmsifup.sh
 +++ b/modules.d/80cms/cmsifup.sh
 @@ -37,4 +37,4 @@ fi

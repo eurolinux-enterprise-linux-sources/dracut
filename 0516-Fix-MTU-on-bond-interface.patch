@@ -1,0 +1,30 @@
+From 50c3405ce0a62439708c51be949f275d2714d887 Mon Sep 17 00:00:00 2001
+From: Robert LeBlanc <robert@leblancnet.us>
+Date: Thu, 21 Sep 2017 14:33:59 -0600
+Subject: [PATCH] Fix MTU on bond interface.
+
+The MTU is only being set on the slave devices and the MTU of the
+bonding master is not being updated. This updates the bonding master and
+also changes the MTU on the slaves as expected.
+
+Signed-Off-By: Robert LeBlanc <robert@leblancnet.us>
+
+Cherry-picked from: d0eabcab43f2c47ca38dba41453f97c6a7d362fc
+Resolves: #1494265
+---
+ modules.d/40network/ifup.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
+index 38c7b709..b3219fc1 100755
+--- a/modules.d/40network/ifup.sh
++++ b/modules.d/40network/ifup.sh
+@@ -250,7 +250,7 @@ if [ -z "$NO_BOND_MASTER" ]; then
+             done
+ 
+             # Set mtu on bond master
+-            [ -n "$bondmtu" ] && ip link set mtu $bondmtu dev $netif
++            [ -n "$bondmtu" ] && ip link set mtu $bondmtu dev $bondname
+ 
+             # add the bits to setup the needed post enslavement parameters
+             for arg in $bondoptions ; do

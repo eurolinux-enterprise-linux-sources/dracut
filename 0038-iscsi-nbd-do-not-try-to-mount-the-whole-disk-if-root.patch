@@ -11,7 +11,7 @@ only mount the whole disk for root=dhcp
  2 files changed, 3 insertions(+), 10 deletions(-)
 
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
-index 5181f52..738fff4 100755
+index 5181f523..738fff44 100755
 --- a/modules.d/95iscsi/iscsiroot.sh
 +++ b/modules.d/95iscsi/iscsiroot.sh
 @@ -40,14 +40,6 @@ modprobe crc32c 2>/dev/null
@@ -47,7 +47,7 @@ index 5181f52..738fff4 100755
          printf 'SYMLINK=="disk/by-path/*-iscsi-*-%s", SYMLINK+="root"\n' $iscsi_lun >> /etc/udev/rules.d/99-iscsi-root.rules
          udevadm control --reload
 diff --git a/modules.d/95nbd/nbdroot.sh b/modules.d/95nbd/nbdroot.sh
-index 823da0e..2e9d917 100755
+index 823da0ea..2e9d9174 100755
 --- a/modules.d/95nbd/nbdroot.sh
 +++ b/modules.d/95nbd/nbdroot.sh
 @@ -97,7 +97,7 @@ done

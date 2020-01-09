@@ -11,7 +11,7 @@ skip all ".asc" files for the AMD microcode generation
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 5b72221..6bbde70 100755
+index 5b72221e..6bbde70b 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1497,7 +1497,12 @@ if [[ $early_microcode = yes ]]; then

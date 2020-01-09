@@ -21,7 +21,7 @@ foo < <$(bar)
  1 file changed, 29 insertions(+), 20 deletions(-)
 
 diff --git a/lsinitrd.sh b/lsinitrd.sh
-index 70e12f8..2fbebd8 100755
+index 70e12f81..2fbebd8e 100755
 --- a/lsinitrd.sh
 +++ b/lsinitrd.sh
 @@ -160,27 +160,36 @@ case $bin in

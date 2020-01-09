@@ -8,7 +8,7 @@ Subject: [PATCH] lvm: fixed lvm thin check
  1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/90lvm/module-setup.sh b/modules.d/90lvm/module-setup.sh
-index 877631b..f0c9b96 100755
+index 877631bb..f0c9b964 100755
 --- a/modules.d/90lvm/module-setup.sh
 +++ b/modules.d/90lvm/module-setup.sh
 @@ -97,9 +97,16 @@ install() {

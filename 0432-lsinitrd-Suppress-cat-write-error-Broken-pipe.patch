@@ -54,7 +54,7 @@ Conflicts:
  1 file changed, 28 insertions(+), 32 deletions(-)
 
 diff --git a/lsinitrd.sh b/lsinitrd.sh
-index 88fe983..4103ee2 100755
+index 88fe9834..4103ee23 100755
 --- a/lsinitrd.sh
 +++ b/lsinitrd.sh
 @@ -171,39 +171,35 @@ case $bin in

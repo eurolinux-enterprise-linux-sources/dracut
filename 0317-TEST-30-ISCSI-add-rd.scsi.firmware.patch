@@ -8,7 +8,7 @@ Subject: [PATCH] TEST-30-ISCSI: add rd.scsi.firmware
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
-index 92ddc86..fc4bdce 100755
+index 92ddc860..fc4bdce9 100755
 --- a/test/TEST-30-ISCSI/test.sh
 +++ b/test/TEST-30-ISCSI/test.sh
 @@ -3,8 +3,9 @@ TEST_DESCRIPTION="root filesystem over iSCSI"

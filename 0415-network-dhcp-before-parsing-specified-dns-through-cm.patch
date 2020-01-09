@@ -25,7 +25,7 @@ cherry-pick of commit cf376023e6d0d4abd9816fa954bb917fc2557713
  1 file changed, 15 insertions(+), 16 deletions(-)
 
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
-index 37f51b9..19b7bbd 100755
+index 37f51b9d..19b7bbdc 100755
 --- a/modules.d/40network/ifup.sh
 +++ b/modules.d/40network/ifup.sh
 @@ -350,16 +350,15 @@ fi

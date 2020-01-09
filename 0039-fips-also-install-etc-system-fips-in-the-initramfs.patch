@@ -8,7 +8,7 @@ Subject: [PATCH] fips: also install /etc/system-fips in the initramfs
  1 file changed, 1 insertion(+)
 
 diff --git a/modules.d/01fips/module-setup.sh b/modules.d/01fips/module-setup.sh
-index 1ab4999..35cfdc5 100755
+index 1ab4999a..35cfdc5a 100755
 --- a/modules.d/01fips/module-setup.sh
 +++ b/modules.d/01fips/module-setup.sh
 @@ -41,5 +41,6 @@ install() {

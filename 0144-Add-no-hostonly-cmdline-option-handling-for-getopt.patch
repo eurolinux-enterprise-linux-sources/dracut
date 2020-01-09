@@ -12,7 +12,7 @@ Signed-off-by: WANG Chao <chaowang@redhat.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index 2d5b7dc..78d7fad 100755
+index 2d5b7dc7..78d7fadd 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -347,6 +347,8 @@ TEMP=$(unset POSIXLY_CORRECT; getopt \

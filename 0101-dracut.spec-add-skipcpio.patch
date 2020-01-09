@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.spec: add skipcpio
  1 file changed, 1 insertion(+)
 
 diff --git a/dracut.spec b/dracut.spec
-index 596d728..d6f1a88 100644
+index 596d7283..d6f1a884 100644
 --- a/dracut.spec
 +++ b/dracut.spec
 @@ -302,6 +302,7 @@ rm -rf -- $RPM_BUILD_ROOT

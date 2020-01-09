@@ -9,7 +9,7 @@ Subject: [PATCH] network:dhcp:wait_for_ipv6_dad() in PREINIT6
  2 files changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/modules.d/40network/dhclient-script.sh b/modules.d/40network/dhclient-script.sh
-index 885303a..aef94d6 100755
+index 885303a2..aef94d6c 100755
 --- a/modules.d/40network/dhclient-script.sh
 +++ b/modules.d/40network/dhclient-script.sh
 @@ -95,8 +95,9 @@ case $reason in
@@ -24,7 +24,7 @@ index 885303a..aef94d6 100755
  
      BOUND)
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 89b1101..220480b 100755
+index 89b1101d..220480b2 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -522,7 +522,7 @@ wait_for_ipv6_dad() {

@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.modules.7.asc: removed empty section
  1 file changed, 1 deletion(-)
 
 diff --git a/dracut.modules.7.asc b/dracut.modules.7.asc
-index 4cb2aa1..17acdb4 100644
+index 4cb2aa15..17acdb4d 100644
 --- a/dracut.modules.7.asc
 +++ b/dracut.modules.7.asc
 @@ -10,7 +10,6 @@ dracut.modules - dracut modules

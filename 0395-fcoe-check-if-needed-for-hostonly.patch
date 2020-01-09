@@ -9,7 +9,7 @@ Subject: [PATCH] fcoe: check if needed for hostonly
  2 files changed, 17 insertions(+)
 
 diff --git a/modules.d/95fcoe-uefi/module-setup.sh b/modules.d/95fcoe-uefi/module-setup.sh
-index f5277f4..242363e 100755
+index f5277f48..242363ef 100755
 --- a/modules.d/95fcoe-uefi/module-setup.sh
 +++ b/modules.d/95fcoe-uefi/module-setup.sh
 @@ -4,6 +4,14 @@
@@ -28,7 +28,7 @@ index f5277f4..242363e 100755
          [ -d /sys/firmware/efi ] || return 255
      }
 diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
-index 646cfa8..ba10b0a 100755
+index 646cfa84..ba10b0ab 100755
 --- a/modules.d/95fcoe/module-setup.sh
 +++ b/modules.d/95fcoe/module-setup.sh
 @@ -3,6 +3,15 @@

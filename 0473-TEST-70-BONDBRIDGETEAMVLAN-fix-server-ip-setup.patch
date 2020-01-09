@@ -8,7 +8,7 @@ Subject: [PATCH] TEST-70-BONDBRIDGETEAMVLAN: fix server ip setup
  1 file changed, 3 insertions(+), 5 deletions(-)
 
 diff --git a/test/TEST-70-BONDBRIDGETEAMVLAN/server-init.sh b/test/TEST-70-BONDBRIDGETEAMVLAN/server-init.sh
-index 9585a47..9f45c42 100755
+index 9585a47c..9f45c420 100755
 --- a/test/TEST-70-BONDBRIDGETEAMVLAN/server-init.sh
 +++ b/test/TEST-70-BONDBRIDGETEAMVLAN/server-init.sh
 @@ -58,7 +58,6 @@ ip addr add 192.168.50.1/24 dev ens3

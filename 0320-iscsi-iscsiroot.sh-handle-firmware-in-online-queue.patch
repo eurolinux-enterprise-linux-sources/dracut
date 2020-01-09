@@ -9,7 +9,7 @@ otherwise it does not get called, if no netroot is set
  1 file changed, 15 insertions(+), 17 deletions(-)
 
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
-index b7370f6..7688b28 100755
+index b7370f6f..7688b282 100755
 --- a/modules.d/95iscsi/iscsiroot.sh
 +++ b/modules.d/95iscsi/iscsiroot.sh
 @@ -238,28 +238,26 @@ if [ "$netif" = "timeout" ] && all_ifaces_up; then

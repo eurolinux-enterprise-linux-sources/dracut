@@ -9,7 +9,7 @@ Subject: [PATCH] ARM: update modules for ARM host only options
  1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/modules.d/90kernel-modules/module-setup.sh b/modules.d/90kernel-modules/module-setup.sh
-index da3b1f3..fba2bc1 100755
+index da3b1f3f..fba2bc1a 100755
 --- a/modules.d/90kernel-modules/module-setup.sh
 +++ b/modules.d/90kernel-modules/module-setup.sh
 @@ -50,9 +50,10 @@ installkernel() {

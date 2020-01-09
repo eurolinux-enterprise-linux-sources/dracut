@@ -21,7 +21,7 @@ Subject: [PATCH] multipath: fix majmin_to_mpath_dev()
  1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/modules.d/90multipath/module-setup.sh b/modules.d/90multipath/module-setup.sh
-index 4971d18..3983b7b 100755
+index 4971d18d..3983b7b7 100755
 --- a/modules.d/90multipath/module-setup.sh
 +++ b/modules.d/90multipath/module-setup.sh
 @@ -11,9 +11,10 @@ is_mpath() {

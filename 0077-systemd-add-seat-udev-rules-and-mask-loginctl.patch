@@ -8,7 +8,7 @@ Subject: [PATCH] systemd: add seat udev rules and mask loginctl
  1 file changed, 3 insertions(+)
 
 diff --git a/modules.d/98systemd/module-setup.sh b/modules.d/98systemd/module-setup.sh
-index 7178d2b..a99c699 100755
+index 7178d2ba..a99c699d 100755
 --- a/modules.d/98systemd/module-setup.sh
 +++ b/modules.d/98systemd/module-setup.sh
 @@ -180,6 +180,9 @@ install() {

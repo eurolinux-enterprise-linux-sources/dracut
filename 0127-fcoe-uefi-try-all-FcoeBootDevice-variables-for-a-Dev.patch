@@ -11,7 +11,7 @@ until one has a MAC.
  1 file changed, 8 insertions(+), 7 deletions(-)
 
 diff --git a/modules.d/95fcoe-uefi/parse-uefifcoe.sh b/modules.d/95fcoe-uefi/parse-uefifcoe.sh
-index e03bcb3..0799cdd 100755
+index e03bcb39..0799cdd6 100755
 --- a/modules.d/95fcoe-uefi/parse-uefifcoe.sh
 +++ b/modules.d/95fcoe-uefi/parse-uefifcoe.sh
 @@ -9,10 +9,10 @@ command -v set_ifname >/dev/null || . /lib/net-lib.sh

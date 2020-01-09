@@ -11,7 +11,7 @@ options need to be seperated by ,
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/40network/dhclient.conf b/modules.d/40network/dhclient.conf
-index 7b06763..a1739ce 100644
+index 7b067632..a1739ce3 100644
 --- a/modules.d/40network/dhclient.conf
 +++ b/modules.d/40network/dhclient.conf
 @@ -3,4 +3,4 @@ option classless-routes code 121 = array of unsigned integer 8;

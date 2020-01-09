@@ -9,7 +9,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1359677
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/modules.d/01fips/module-setup.sh b/modules.d/01fips/module-setup.sh
-index 32d10d0..43d170f 100755
+index 32d10d06..43d170f1 100755
 --- a/modules.d/01fips/module-setup.sh
 +++ b/modules.d/01fips/module-setup.sh
 @@ -20,8 +20,8 @@ installkernel() {

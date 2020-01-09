@@ -9,7 +9,7 @@ first rule for a bash programmer
  1 file changed, 31 insertions(+), 31 deletions(-)
 
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
-index ea1bead..ce8f547 100755
+index ea1bead7..ce8f5479 100755
 --- a/modules.d/95iscsi/iscsiroot.sh
 +++ b/modules.d/95iscsi/iscsiroot.sh
 @@ -78,23 +78,23 @@ handle_netroot()

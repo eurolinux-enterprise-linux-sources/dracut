@@ -8,7 +8,7 @@ Subject: [PATCH] base/dracut-lib.sh:vinfo/vwarn handle lines without newline
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
-index 3ffbb02..b6593a0 100755
+index 3ffbb021..b6593a06 100755
 --- a/modules.d/99base/dracut-lib.sh
 +++ b/modules.d/99base/dracut-lib.sh
 @@ -67,13 +67,13 @@ else

@@ -1,0 +1,70 @@
+From 015d5aee92d461ce44d8b8cf941fb45855c13c3b Mon Sep 17 00:00:00 2001
+From: Robert Scheck <robert@fedoraproject.org>
+Date: Tue, 22 Aug 2017 23:44:41 +0200
+Subject: [PATCH] Add NTFS support to 90dmsquash-live module
+
+Support booting from USB media with NTFS filesystem (optionally),
+which removes the FAT32 related 4 GB file size limit for LiveOS/
+squashfs.img (and any other file on the same USB media).
+
+Backports 37437cac8a1f2c411ead5fca28fb743a6f36f912 from dracut 046
+---
+ modules.d/90dmsquash-live-ntfs/module-setup.sh  | 22 ++++++++++++++++++++++
+ modules.d/90dmsquash-live/dmsquash-live-root.sh | 15 ++++++++++++++-
+ 2 files changed, 36 insertions(+), 1 deletion(-)
+ create mode 100755 modules.d/90dmsquash-live-ntfs/module-setup.sh
+
+diff --git a/modules.d/90dmsquash-live-ntfs/module-setup.sh b/modules.d/90dmsquash-live-ntfs/module-setup.sh
+new file mode 100755
+index 00000000..bc77376b
+--- /dev/null
++++ b/modules.d/90dmsquash-live-ntfs/module-setup.sh
+@@ -0,0 +1,22 @@
++#!/bin/bash
++
++command -v
++
++check() {
++    require_binaries ntfs-3g || return 1
++    return 255
++}
++
++depends() {
++    echo 90dmsquash-live
++    return 0
++}
++
++install() {
++    inst_multiple fusermount ulockmgr_server mount.fuse ntfs-3g
++    dracut_need_initqueue
++}
++
++installkernel() {
++    hostonly='' instmods fuse
++}
+diff --git a/modules.d/90dmsquash-live/dmsquash-live-root.sh b/modules.d/90dmsquash-live/dmsquash-live-root.sh
+index 6631d9a8..5fb798c7 100755
+--- a/modules.d/90dmsquash-live/dmsquash-live-root.sh
++++ b/modules.d/90dmsquash-live/dmsquash-live-root.sh
+@@ -79,7 +79,20 @@ if [ -f $livedev ]; then
+     esac
+     [ -e /sys/fs/$fstype ] || modprobe $fstype
+ else
+-    mount -n -t $fstype -o ${liverw:-ro} $livedev /run/initramfs/live
++    if [ "$(blkid -o value -s TYPE $livedev)" != "ntfs" ]; then
++        mount -n -t $fstype -o ${liverw:-ro} $livedev /run/initramfs/live
++    else
++        # Symlinking /usr/bin/ntfs-3g as /sbin/mount.ntfs seems to boot
++        # at the first glance, but ends with lots and lots of squashfs
++        # errors, because systemd attempts to kill the ntfs-3g process?!
++        if [ -x "$(find_binary "ntfs-3g")" ]; then
++            ( exec -a @ntfs-3g ntfs-3g -o ${liverw:-ro} $livedev /run/initramfs/live ) | vwarn
++        else
++            die "Failed to mount block device of live image: Missing NTFS support"
++            exit 1
++        fi
++    fi
++
+     if [ "$?" != "0" ]; then
+         die "Failed to mount block device of live image"
+         exit 1

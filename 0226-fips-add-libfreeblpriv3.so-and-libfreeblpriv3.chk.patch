@@ -9,7 +9,7 @@ Subject: [PATCH] fips: add libfreeblpriv3.so and libfreeblpriv3.chk
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/01fips/module-setup.sh b/modules.d/01fips/module-setup.sh
-index 35cfdc5..2b0e836 100755
+index 35cfdc5a..2b0e836c 100755
 --- a/modules.d/01fips/module-setup.sh
 +++ b/modules.d/01fips/module-setup.sh
 @@ -38,7 +38,8 @@ install() {

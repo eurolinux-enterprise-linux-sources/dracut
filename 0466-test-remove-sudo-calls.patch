@@ -29,7 +29,7 @@ $ sudo make check
  19 files changed, 68 insertions(+), 68 deletions(-)
 
 diff --git a/test/TEST-01-BASIC/test.sh b/test/TEST-01-BASIC/test.sh
-index aef0737..97e8017 100755
+index aef07373..97e8017e 100755
 --- a/test/TEST-01-BASIC/test.sh
 +++ b/test/TEST-01-BASIC/test.sh
 @@ -45,7 +45,7 @@ test_setup() {
@@ -51,7 +51,7 @@ index aef0737..97e8017 100755
          -o "plymouth" \
  	-d "piix ide-gd_mod ata_piix ext3 sd_mod i6300esb ib700wdt" \
 diff --git a/test/TEST-02-SYSTEMD/test.sh b/test/TEST-02-SYSTEMD/test.sh
-index 6f33181..2a077b0 100755
+index 6f33181c..2a077b04 100755
 --- a/test/TEST-02-SYSTEMD/test.sh
 +++ b/test/TEST-02-SYSTEMD/test.sh
 @@ -45,7 +45,7 @@ test_setup() {
@@ -73,7 +73,7 @@ index 6f33181..2a077b0 100755
  	-o "network plymouth" \
  	-d "piix ide-gd_mod ata_piix ext3 sd_mod" \
 diff --git a/test/TEST-03-USR-MOUNT/test.sh b/test/TEST-03-USR-MOUNT/test.sh
-index 363f8b0..c3f810a 100755
+index 363f8b04..c3f810ab 100755
 --- a/test/TEST-03-USR-MOUNT/test.sh
 +++ b/test/TEST-03-USR-MOUNT/test.sh
 @@ -72,7 +72,7 @@ test_setup() {
@@ -95,7 +95,7 @@ index 363f8b0..c3f810a 100755
          -o "network plymouth" \
  	-d "piix ide-gd_mod ata_piix btrfs sd_mod i6300esb ib700wdt" \
 diff --git a/test/TEST-04-FULL-SYSTEMD/test.sh b/test/TEST-04-FULL-SYSTEMD/test.sh
-index 93c3389..1adb34e 100755
+index 93c33890..1adb34e9 100755
 --- a/test/TEST-04-FULL-SYSTEMD/test.sh
 +++ b/test/TEST-04-FULL-SYSTEMD/test.sh
 @@ -263,7 +263,7 @@ EOF
@@ -108,7 +108,7 @@ index 93c3389..1adb34e 100755
  	-I "/etc/machine-id /etc/hostname" \
          -o "network plymouth lvm mdraid resume crypt i18n caps dm terminfo usrmount" \
 diff --git a/test/TEST-10-RAID/test.sh b/test/TEST-10-RAID/test.sh
-index 45edda2..7f99c0e 100755
+index 45edda2c..7f99c0e0 100755
 --- a/test/TEST-10-RAID/test.sh
 +++ b/test/TEST-10-RAID/test.sh
 @@ -43,7 +43,7 @@ test_setup() {
@@ -130,7 +130,7 @@ index 45edda2..7f99c0e 100755
  	-a "debug" \
  	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
 diff --git a/test/TEST-11-LVM/test.sh b/test/TEST-11-LVM/test.sh
-index dd1f8ea..a4ee86d 100755
+index dd1f8ead..a4ee86da 100755
 --- a/test/TEST-11-LVM/test.sh
 +++ b/test/TEST-11-LVM/test.sh
 @@ -40,7 +40,7 @@ test_setup() {
@@ -152,7 +152,7 @@ index dd1f8ea..a4ee86d 100755
  	-a "debug" \
  	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
 diff --git a/test/TEST-12-RAID-DEG/test.sh b/test/TEST-12-RAID-DEG/test.sh
-index 5f9cfc5..aae5e8b 100755
+index 5f9cfc56..aae5e8b4 100755
 --- a/test/TEST-12-RAID-DEG/test.sh
 +++ b/test/TEST-12-RAID-DEG/test.sh
 @@ -81,7 +81,7 @@ test_setup() {
@@ -174,7 +174,7 @@ index 5f9cfc5..aae5e8b 100755
  	-a "debug" \
  	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
 diff --git a/test/TEST-13-ENC-RAID-LVM/test.sh b/test/TEST-13-ENC-RAID-LVM/test.sh
-index 94801e4..8194166 100755
+index 94801e47..8194166b 100755
 --- a/test/TEST-13-ENC-RAID-LVM/test.sh
 +++ b/test/TEST-13-ENC-RAID-LVM/test.sh
 @@ -77,7 +77,7 @@ test_setup() {
@@ -196,7 +196,7 @@ index 94801e4..8194166 100755
  	-a "debug" \
  	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
 diff --git a/test/TEST-14-IMSM/test.sh b/test/TEST-14-IMSM/test.sh
-index 8e99b1f..783ec4a 100755
+index 8e99b1f6..783ec4a5 100755
 --- a/test/TEST-14-IMSM/test.sh
 +++ b/test/TEST-14-IMSM/test.sh
 @@ -70,7 +70,7 @@ test_setup() {
@@ -218,7 +218,7 @@ index 8e99b1f..783ec4a 100755
  	-a "debug" \
  	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
 diff --git a/test/TEST-15-BTRFSRAID/test.sh b/test/TEST-15-BTRFSRAID/test.sh
-index c086677..1e3e18c 100755
+index c086677f..1e3e18c1 100755
 --- a/test/TEST-15-BTRFSRAID/test.sh
 +++ b/test/TEST-15-BTRFSRAID/test.sh
 @@ -41,7 +41,7 @@ test_setup() {
@@ -240,7 +240,7 @@ index c086677..1e3e18c 100755
  	-a "debug" \
  	-d "piix ide-gd_mod ata_piix btrfs sd_mod" \
 diff --git a/test/TEST-16-DMSQUASH/test.sh b/test/TEST-16-DMSQUASH/test.sh
-index e80ec5c..6daa35e 100755
+index e80ec5c2..6daa35e7 100755
 --- a/test/TEST-16-DMSQUASH/test.sh
 +++ b/test/TEST-16-DMSQUASH/test.sh
 @@ -38,7 +38,7 @@ test_setup() {
@@ -262,7 +262,7 @@ index e80ec5c..6daa35e 100755
      python create.py -d -c livecd-fedora-minimal.ks
      return 0
 diff --git a/test/TEST-17-LVM-THIN/test.sh b/test/TEST-17-LVM-THIN/test.sh
-index dc6e588..f15e1a3 100755
+index dc6e5885..f15e1a3d 100755
 --- a/test/TEST-17-LVM-THIN/test.sh
 +++ b/test/TEST-17-LVM-THIN/test.sh
 @@ -40,7 +40,7 @@ test_setup() {
@@ -284,7 +284,7 @@ index dc6e588..f15e1a3 100755
  	-a "debug" -I lvs \
  	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
 diff --git a/test/TEST-20-NFS/test.sh b/test/TEST-20-NFS/test.sh
-index 49dbc10..64fc550 100755
+index 49dbc10e..64fc5501 100755
 --- a/test/TEST-20-NFS/test.sh
 +++ b/test/TEST-20-NFS/test.sh
 @@ -26,7 +26,7 @@ run_server() {
@@ -359,7 +359,7 @@ index 49dbc10..64fc550 100755
      fi
  }
 diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
-index 5e59f0a..62bef9c 100755
+index 5e59f0a8..62bef9cc 100755
 --- a/test/TEST-30-ISCSI/test.sh
 +++ b/test/TEST-30-ISCSI/test.sh
 @@ -28,7 +28,7 @@ run_server() {
@@ -431,7 +431,7 @@ index 5e59f0a..62bef9c 100755
      fi
  }
 diff --git a/test/TEST-40-NBD/test.sh b/test/TEST-40-NBD/test.sh
-index 848a103..73123c2 100755
+index 848a103f..73123c22 100755
 --- a/test/TEST-40-NBD/test.sh
 +++ b/test/TEST-40-NBD/test.sh
 @@ -26,7 +26,7 @@ run_server() {
@@ -530,7 +530,7 @@ index 848a103..73123c2 100755
      fi
  }
 diff --git a/test/TEST-50-MULTINIC/test.sh b/test/TEST-50-MULTINIC/test.sh
-index 05273be..642a748 100755
+index 05273be7..642a7486 100755
 --- a/test/TEST-50-MULTINIC/test.sh
 +++ b/test/TEST-50-MULTINIC/test.sh
 @@ -26,7 +26,7 @@ run_server() {
@@ -583,7 +583,7 @@ index 05273be..642a748 100755
      fi
  }
 diff --git a/test/TEST-60-MTUMAC/test.sh b/test/TEST-60-MTUMAC/test.sh
-index 7633ac1..b70e316 100755
+index 7633ac13..b70e3161 100755
 --- a/test/TEST-60-MTUMAC/test.sh
 +++ b/test/TEST-60-MTUMAC/test.sh
 @@ -25,7 +25,7 @@ run_server() {
@@ -627,7 +627,7 @@ index 7633ac1..b70e316 100755
      fi
  }
 diff --git a/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh b/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh
-index 54ceb9e..dcf9d5c 100755
+index 54ceb9e1..dcf9d5cf 100755
 --- a/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh
 +++ b/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh
 @@ -32,7 +32,7 @@ run_server() {
@@ -671,7 +671,7 @@ index 54ceb9e..dcf9d5c 100755
      fi
  }
 diff --git a/test/run-qemu b/test/run-qemu
-index 00c2f6a..07ce4a5 100755
+index 00c2f6a8..07ce4a59 100755
 --- a/test/run-qemu
 +++ b/test/run-qemu
 @@ -25,4 +25,4 @@ else

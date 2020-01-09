@@ -11,7 +11,7 @@ regardless of the the prelink={yes|no} switch
  1 file changed, 12 insertions(+), 14 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 705f090..7997428 100755
+index 705f090a..79974286 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1314,20 +1314,18 @@ if [[ $kernel_only != yes ]]; then

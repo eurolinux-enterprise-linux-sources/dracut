@@ -1,0 +1,23 @@
+From de688a407c3dcc9f2a6ad6942e18d3d11f7862ca Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Tue, 26 Dec 2017 12:18:47 +0100
+Subject: [PATCH] 90lvm: always add dm-snapshot
+
+Resolves: #1546577
+---
+ modules.d/90lvm/module-setup.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules.d/90lvm/module-setup.sh b/modules.d/90lvm/module-setup.sh
+index 23d63a04..b8f74546 100755
+--- a/modules.d/90lvm/module-setup.sh
++++ b/modules.d/90lvm/module-setup.sh
+@@ -43,7 +43,7 @@ cmdline() {
+ }
+ 
+ installkernel() {
+-    instmods dm-snapshot
++    hostonly='' instmods dm-snapshot
+ }
+ 
+ # called by dracut

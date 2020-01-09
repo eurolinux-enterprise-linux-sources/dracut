@@ -8,7 +8,7 @@ Subject: [PATCH] test-rpms.txt: add dhcp
  1 file changed, 1 insertion(+)
 
 diff --git a/test/test-rpms.txt b/test/test-rpms.txt
-index 10596da..95376bd 100644
+index 10596da7..95376bd2 100644
 --- a/test/test-rpms.txt
 +++ b/test/test-rpms.txt
 @@ -8,6 +8,7 @@ cryptsetup

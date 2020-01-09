@@ -1,0 +1,46 @@
+From 0fe8ed5ccb19cf5fc4a55af1b44a6664c971b5af Mon Sep 17 00:00:00 2001
+From: "Bryn M. Reeves" <bmr@redhat.com>
+Date: Wed, 26 Apr 2017 14:15:15 +0100
+Subject: [PATCH] lvm_scan.sh: use -K when calling lvchange
+
+The --ignoreactivationskip/-K switch was added to LVM2 in 2.02.99
+(July 2013) and is used to control the activation of volumes with
+the activation skip flag set: without -K these volumes will be
+ignored when 'lvchange -ay $LV' is issued.
+
+This prevents an LVM2 thin-privisioned snapshot from being used
+as the root device when booting with rd.lvm.lv=vg/lv since the
+activation skip flag is set for these snapshots by default (the
+legacy non-thinp snapshots do not set this flag and can already
+be activated and used as a root device by specifying appropriate
+values for rd.lvm.lv).
+
+This is only used in the rd.lvm.lv case since in that situation
+we are activating one or more named LVs specified by the user:
+the flag is not given when calling 'vgchange' since this may
+cause many unwanted volumes to be activated during early user
+space. Users wishing to use a specific snapshot volume should
+specify it with 'rd.lvm.lv'.
+
+Cherry-picked from: cc4e507322952532e629b98fc4de8fc1afd3ba80
+Resolves: #1489841
+---
+ modules.d/90lvm/lvm_scan.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/modules.d/90lvm/lvm_scan.sh b/modules.d/90lvm/lvm_scan.sh
+index ae6f177b..0d5fff71 100755
+--- a/modules.d/90lvm/lvm_scan.sh
++++ b/modules.d/90lvm/lvm_scan.sh
+@@ -109,9 +109,9 @@ if [ -n "$LVS" ] ; then
+     lvm lvscan --ignorelockingfailure 2>&1 | vinfo
+     for LV in $LVS; do
+         if [ -z "$sysinit" ]; then
+-            lvm lvchange --yes -ay --ignorelockingfailure $nopoll --ignoremonitoring $LV 2>&1 | vinfo
++            lvm lvchange --yes -K -ay --ignorelockingfailure $nopoll --ignoremonitoring $LV 2>&1 | vinfo
+         else
+-            lvm lvchange --yes -ay $sysinit $LV 2>&1 | vinfo
++            lvm lvchange --yes -K -ay $sysinit $LV 2>&1 | vinfo
+         fi
+     done
+ fi

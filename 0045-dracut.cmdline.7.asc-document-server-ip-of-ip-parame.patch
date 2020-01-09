@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.cmdline.7.asc: document "server-ip" of "ip=" parameter
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index 19bfb93..6a5fc8f 100644
+index 19bfb939..6a5fc8f6 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -444,10 +444,12 @@ cannot be used in conjunction with the **ifname** argument for the

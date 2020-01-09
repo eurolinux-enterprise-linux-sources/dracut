@@ -10,7 +10,7 @@ and it can be repaired in the initramfs.
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 9a6521e..cf027e7 100755
+index 9a6521ec..cf027e7d 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -917,7 +917,9 @@ if [[ $hostonly ]]; then

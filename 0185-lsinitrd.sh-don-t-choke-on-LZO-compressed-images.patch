@@ -14,7 +14,7 @@ I guess no-one actually uses them.
  1 file changed, 3 insertions(+)
 
 diff --git a/lsinitrd.sh b/lsinitrd.sh
-index 7b12ab9..b36b34e 100755
+index 7b12ab96..b36b34e2 100755
 --- a/lsinitrd.sh
 +++ b/lsinitrd.sh
 @@ -181,6 +181,9 @@ CAT=$({

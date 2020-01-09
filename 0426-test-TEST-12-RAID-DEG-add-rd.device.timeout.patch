@@ -8,7 +8,7 @@ Subject: [PATCH] test/TEST-12-RAID-DEG: add rd.device.timeout
  1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/test/TEST-12-RAID-DEG/test.sh b/test/TEST-12-RAID-DEG/test.sh
-index e749ba0..5f9cfc5 100755
+index e749ba0c..5f9cfc56 100755
 --- a/test/TEST-12-RAID-DEG/test.sh
 +++ b/test/TEST-12-RAID-DEG/test.sh
 @@ -36,19 +36,19 @@ test_run() {

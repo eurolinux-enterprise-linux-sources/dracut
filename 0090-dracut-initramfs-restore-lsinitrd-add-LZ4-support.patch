@@ -16,7 +16,7 @@ Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
  2 files changed, 14 insertions(+), 10 deletions(-)
 
 diff --git a/dracut-initramfs-restore.sh b/dracut-initramfs-restore.sh
-index ec5fe18..f29c814 100644
+index ec5fe180..f29c8146 100644
 --- a/dracut-initramfs-restore.sh
 +++ b/dracut-initramfs-restore.sh
 @@ -20,6 +20,8 @@ if zcat "$IMG"  | cpio -id --quiet >/dev/null; then
@@ -29,7 +29,7 @@ index ec5fe18..f29c814 100644
      # something failed, so we clean up
      echo "Unpacking of $IMG to /run/initramfs failed" >&2
 diff --git a/lsinitrd.sh b/lsinitrd.sh
-index 584c29a..f9f243b 100755
+index 584c29a9..f9f243bb 100755
 --- a/lsinitrd.sh
 +++ b/lsinitrd.sh
 @@ -106,15 +106,17 @@ fi

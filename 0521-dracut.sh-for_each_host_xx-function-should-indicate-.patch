@@ -1,0 +1,50 @@
+From 43d6b9d0085c393c7cdb0fd1f1181654d0f87e61 Mon Sep 17 00:00:00 2001
+From: Pingfan Liu <piliu@redhat.com>
+Date: Mon, 4 Dec 2017 17:24:11 +0800
+Subject: [PATCH] dracut.sh: for_each_host_xx() function should indicate the
+ empty case
+
+The caller of "for_each_host_xx func" needs to tell three cases:
+func success/ fail / not be called.
+E.g, in kdump case, host_devs can be empty, and we want to know it.
+
+Signed-off-by: Pingfan Liu <piliu@redhat.com>
+
+Cherry-picked from: e6199960d9bbfe6d860a32716b7e9bac7e657a4f
+Resolves: #1520721
+---
+ dracut-functions.sh | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/dracut-functions.sh b/dracut-functions.sh
+index 23768bdc..4051596b 100755
+--- a/dracut-functions.sh
++++ b/dracut-functions.sh
+@@ -593,7 +593,8 @@ for_each_host_dev_fs()
+     local _dev
+     local _ret=1
+ 
+-    [[ "${#host_fs_types[@]}" ]] || return 0
++    [[ "${#host_fs_types[@]}" ]] || return 2
++
+ 
+     for _dev in "${!host_fs_types[@]}"; do
+         $_func "$_dev" "${host_fs_types[$_dev]}" && _ret=0
+@@ -652,7 +653,7 @@ for_each_host_dev_and_slaves_all()
+     local _dev
+     local _ret=1
+ 
+-    [[ "${host_devs[@]}" ]] || return 0
++    [[ "${host_devs[@]}" ]] || return 2
+ 
+     for _dev in "${host_devs[@]}"; do
+         [[ -b "$_dev" ]] || continue
+@@ -668,7 +669,7 @@ for_each_host_dev_and_slaves()
+     local _func="$1"
+     local _dev
+ 
+-    [[ "${host_devs[@]}" ]] || return 0
++    [[ "${host_devs[@]}" ]] || return 2
+ 
+     for _dev in "${host_devs[@]}"; do
+         [[ -b "$_dev" ]] || continue

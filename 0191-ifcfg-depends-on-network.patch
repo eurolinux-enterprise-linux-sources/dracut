@@ -9,7 +9,7 @@ Subject: [PATCH] ifcfg: depends on network
  1 file changed, 1 insertion(+)
 
 diff --git a/modules.d/45ifcfg/module-setup.sh b/modules.d/45ifcfg/module-setup.sh
-index ce53e5e..4299fea 100755
+index ce53e5ed..4299fea1 100755
 --- a/modules.d/45ifcfg/module-setup.sh
 +++ b/modules.d/45ifcfg/module-setup.sh
 @@ -8,6 +8,7 @@ check() {

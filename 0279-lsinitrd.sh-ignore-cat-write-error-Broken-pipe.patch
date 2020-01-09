@@ -8,7 +8,7 @@ Subject: [PATCH] lsinitrd.sh: ignore "cat: write error: Broken pipe"
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/lsinitrd.sh b/lsinitrd.sh
-index b086a63..88fe983 100755
+index b086a635..88fe9834 100755
 --- a/lsinitrd.sh
 +++ b/lsinitrd.sh
 @@ -116,7 +116,7 @@ extract_files()

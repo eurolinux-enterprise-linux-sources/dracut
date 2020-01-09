@@ -10,7 +10,7 @@ Subject: [PATCH] test/test-rpms.txt: add list of rpms to install
 
 diff --git a/test/test-rpms.txt b/test/test-rpms.txt
 new file mode 100644
-index 0000000..1723d8e
+index 00000000..1723d8e9
 --- /dev/null
 +++ b/test/test-rpms.txt
 @@ -0,0 +1,26 @@

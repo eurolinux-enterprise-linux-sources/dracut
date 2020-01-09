@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.sh: add early_cpio marker file to the early cpio
  1 file changed, 1 insertion(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index 0ac2b05..58acb64 100755
+index 0ac2b050..58acb647 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1378,6 +1378,7 @@ fi

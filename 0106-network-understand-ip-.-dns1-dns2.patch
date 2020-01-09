@@ -8,7 +8,7 @@ Subject: [PATCH] network: understand ip=.....:<dns1>:<dns2>
  1 file changed, 17 insertions(+), 6 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 7544401..36fad12 100755
+index 7544401f..36fad122 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -339,7 +339,7 @@ ip_to_var() {

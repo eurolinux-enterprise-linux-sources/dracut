@@ -8,7 +8,7 @@ Subject: [PATCH] TEST-50-MULTINIC: add multiple bond tests
  1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/test/TEST-50-MULTINIC/test.sh b/test/TEST-50-MULTINIC/test.sh
-index 1c46d7a..c0c3615 100755
+index 1c46d7a8..c0c3615f 100755
 --- a/test/TEST-50-MULTINIC/test.sh
 +++ b/test/TEST-50-MULTINIC/test.sh
 @@ -58,7 +58,7 @@ client_test() {

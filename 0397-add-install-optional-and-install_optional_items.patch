@@ -13,7 +13,7 @@ Subject: [PATCH] add "--install-optional" and install_optional_items
  5 files changed, 23 insertions(+), 3 deletions(-)
 
 diff --git a/dracut-bash-completion.sh b/dracut-bash-completion.sh
-index 9f359c6..feced60 100644
+index 9f359c6e..feced605 100644
 --- a/dracut-bash-completion.sh
 +++ b/dracut-bash-completion.sh
 @@ -40,7 +40,7 @@ _dracut() {
@@ -35,7 +35,7 @@ index 9f359c6..feced60 100644
                                  compopt -o filenames
                          ;;
 diff --git a/dracut.8.asc b/dracut.8.asc
-index 5f68d16..8fd863b 100644
+index 5f68d16a..8fd863b9 100644
 --- a/dracut.8.asc
 +++ b/dracut.8.asc
 @@ -355,6 +355,9 @@ example:
@@ -49,7 +49,7 @@ index 5f68d16..8fd863b 100644
      Compress the generated initramfs using gzip. This will be done by default,
      unless another compression option or --no-compress is passed. Equivalent to
 diff --git a/dracut.conf.5.asc b/dracut.conf.5.asc
-index 99f70ff..c20a341 100644
+index 99f70fff..c20a341d 100644
 --- a/dracut.conf.5.asc
 +++ b/dracut.conf.5.asc
 @@ -66,6 +66,10 @@ Configuration files must have the extension .conf; other extensions are ignored.
@@ -64,7 +64,7 @@ index 99f70ff..c20a341 100644
      Strip binaries in the initramfs (default=yes)
  
 diff --git a/dracut.conf.d/fedora.conf.example b/dracut.conf.d/fedora.conf.example
-index ff4e3b2..d69c943 100644
+index ff4e3b27..d69c943b 100644
 --- a/dracut.conf.d/fedora.conf.example
 +++ b/dracut.conf.d/fedora.conf.example
 @@ -6,7 +6,7 @@ i18n_default_font="latarcyrheb-sun16"
@@ -77,7 +77,7 @@ index ff4e3b2..d69c943 100644
  systemdutildir=/usr/lib/systemd
  systemdsystemunitdir=/usr/lib/systemd/system
 diff --git a/dracut.sh b/dracut.sh
-index 7897679..fefdefd 100755
+index 78976792..fefdefd5 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -158,6 +158,8 @@ Creates initial ramdisk images for preloading modules

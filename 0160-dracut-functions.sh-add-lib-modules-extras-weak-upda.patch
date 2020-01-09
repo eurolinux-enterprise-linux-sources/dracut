@@ -10,7 +10,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1086291
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index bddcdcf..cb43f7a 100755
+index bddcdcf2..cb43f7ad 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -1530,7 +1530,7 @@ find_kernel_modules_by_path () {

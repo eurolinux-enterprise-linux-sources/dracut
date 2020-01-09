@@ -11,7 +11,7 @@ Subject: [PATCH] fcoe/fcoe-edd.sh: cleanup the script
  1 file changed, 32 insertions(+), 14 deletions(-)
 
 diff --git a/modules.d/95fcoe/fcoe-edd.sh b/modules.d/95fcoe/fcoe-edd.sh
-index d0ea60d..8607b56 100755
+index d0ea60d5..8607b568 100755
 --- a/modules.d/95fcoe/fcoe-edd.sh
 +++ b/modules.d/95fcoe/fcoe-edd.sh
 @@ -2,37 +2,55 @@

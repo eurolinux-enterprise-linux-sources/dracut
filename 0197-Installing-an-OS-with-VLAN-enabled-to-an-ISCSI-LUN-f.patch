@@ -16,7 +16,7 @@ To get around this issue, in ibft_to_cmdline() function in net-lib.sh file, I ma
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index d53e1a6..90337f3 100755
+index d53e1a6e..90337f3c 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -233,15 +233,20 @@ ibft_to_cmdline() {

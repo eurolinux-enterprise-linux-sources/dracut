@@ -8,7 +8,7 @@ Subject: [PATCH] crypt: add drbg kernel module
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/90crypt/module-setup.sh b/modules.d/90crypt/module-setup.sh
-index 267d39d..272e527 100755
+index 267d39d5..272e527d 100755
 --- a/modules.d/90crypt/module-setup.sh
 +++ b/modules.d/90crypt/module-setup.sh
 @@ -23,7 +23,7 @@ depends() {

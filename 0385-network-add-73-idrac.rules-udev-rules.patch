@@ -9,7 +9,7 @@ idrac USB devices want a special network name
  1 file changed, 3 insertions(+)
 
 diff --git a/modules.d/40network/module-setup.sh b/modules.d/40network/module-setup.sh
-index 6cbbe8f..75ce622 100755
+index 6cbbe8f7..75ce6224 100755
 --- a/modules.d/40network/module-setup.sh
 +++ b/modules.d/40network/module-setup.sh
 @@ -91,6 +91,9 @@ install() {

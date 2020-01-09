@@ -16,7 +16,7 @@ Subject: [PATCH] test: remove dash module, as it is not available in RHEL
  9 files changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/test/TEST-01-BASIC/test.sh b/test/TEST-01-BASIC/test.sh
-index 642b250..aef0737 100755
+index 642b250e..aef07373 100755
 --- a/test/TEST-01-BASIC/test.sh
 +++ b/test/TEST-01-BASIC/test.sh
 @@ -62,7 +62,7 @@ test_setup() {
@@ -29,7 +29,7 @@ index 642b250..aef0737 100755
          --nomdadmconf \
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
 diff --git a/test/TEST-03-USR-MOUNT/test.sh b/test/TEST-03-USR-MOUNT/test.sh
-index e772352..363f8b0 100755
+index e772352a..363f8b04 100755
 --- a/test/TEST-03-USR-MOUNT/test.sh
 +++ b/test/TEST-03-USR-MOUNT/test.sh
 @@ -89,7 +89,7 @@ test_setup() {
@@ -42,7 +42,7 @@ index e772352..363f8b0 100755
          --nomdadmconf \
          --nohardlink \
 diff --git a/test/TEST-10-RAID/test.sh b/test/TEST-10-RAID/test.sh
-index cf474df..45edda2 100755
+index cf474dff..45edda2c 100755
 --- a/test/TEST-10-RAID/test.sh
 +++ b/test/TEST-10-RAID/test.sh
 @@ -60,7 +60,7 @@ test_setup() {
@@ -55,7 +55,7 @@ index cf474df..45edda2 100755
          --nomdadmconf \
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
 diff --git a/test/TEST-12-RAID-DEG/test.sh b/test/TEST-12-RAID-DEG/test.sh
-index 11f66b2..e749ba0 100755
+index 11f66b23..e749ba0c 100755
 --- a/test/TEST-12-RAID-DEG/test.sh
 +++ b/test/TEST-12-RAID-DEG/test.sh
 @@ -98,7 +98,7 @@ test_setup() {
@@ -68,7 +68,7 @@ index 11f66b2..e749ba0 100755
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
      rm -rf -- $TESTDIR/overlay
 diff --git a/test/TEST-14-IMSM/test.sh b/test/TEST-14-IMSM/test.sh
-index 9465965..a600e1c 100755
+index 9465965c..a600e1c0 100755
 --- a/test/TEST-14-IMSM/test.sh
 +++ b/test/TEST-14-IMSM/test.sh
 @@ -86,7 +86,7 @@ test_setup() {
@@ -81,7 +81,7 @@ index 9465965..a600e1c 100755
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
      rm -rf -- $TESTDIR/overlay
 diff --git a/test/TEST-17-LVM-THIN/test.sh b/test/TEST-17-LVM-THIN/test.sh
-index 79e224e..dc6e588 100755
+index 79e224e2..dc6e5885 100755
 --- a/test/TEST-17-LVM-THIN/test.sh
 +++ b/test/TEST-17-LVM-THIN/test.sh
 @@ -57,7 +57,7 @@ test_setup() {
@@ -94,7 +94,7 @@ index 79e224e..dc6e588 100755
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
      rm -rf -- $TESTDIR/overlay
 diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
-index fc4bdce..65457a5 100755
+index fc4bdce9..65457a5a 100755
 --- a/test/TEST-30-ISCSI/test.sh
 +++ b/test/TEST-30-ISCSI/test.sh
 @@ -186,7 +186,7 @@ test_setup() {
@@ -107,7 +107,7 @@ index fc4bdce..65457a5 100755
          --no-hostonly-cmdline -N \
          -f $TESTDIR/initramfs.makeroot $KVERSION || return 1
 diff --git a/test/TEST-40-NBD/test.sh b/test/TEST-40-NBD/test.sh
-index abf1a4f..1a6524d 100755
+index abf1a4f4..1a6524de 100755
 --- a/test/TEST-40-NBD/test.sh
 +++ b/test/TEST-40-NBD/test.sh
 @@ -226,7 +226,7 @@ make_encrypted_root() {
@@ -129,7 +129,7 @@ index abf1a4f..1a6524d 100755
          -f $TESTDIR/initramfs.server $KVERSION || return 1
  
 diff --git a/test/TEST-50-MULTINIC/test.sh b/test/TEST-50-MULTINIC/test.sh
-index 4f73203..1c46d7a 100755
+index 4f73203f..1c46d7a8 100755
 --- a/test/TEST-50-MULTINIC/test.sh
 +++ b/test/TEST-50-MULTINIC/test.sh
 @@ -264,7 +264,7 @@ test_setup() {

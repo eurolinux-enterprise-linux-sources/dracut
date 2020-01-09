@@ -11,7 +11,7 @@ dhcp server.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/95nfs/nfs-lib.sh b/modules.d/95nfs/nfs-lib.sh
-index f5fc56d..9ced2e6 100755
+index f5fc56d7..9ced2e69 100755
 --- a/modules.d/95nfs/nfs-lib.sh
 +++ b/modules.d/95nfs/nfs-lib.sh
 @@ -97,7 +97,7 @@ nfsroot_from_dhcp() {

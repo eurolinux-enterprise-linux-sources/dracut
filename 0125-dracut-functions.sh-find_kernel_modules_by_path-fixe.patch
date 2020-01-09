@@ -10,7 +10,7 @@ Subject: [PATCH] dracut-functions.sh:find_kernel_modules_by_path() fixed
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 96a20d5..bddcdcf 100755
+index 96a20d52..bddcdcf2 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -1530,7 +1530,7 @@ find_kernel_modules_by_path () {

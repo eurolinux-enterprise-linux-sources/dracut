@@ -15,7 +15,7 @@ successful.
  2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/90dmsquash-live/checkisomd5@.service b/modules.d/90dmsquash-live/checkisomd5@.service
-index 20e40bd..c4ca10f 100644
+index 20e40bd7..c4ca10f3 100644
 --- a/modules.d/90dmsquash-live/checkisomd5@.service
 +++ b/modules.d/90dmsquash-live/checkisomd5@.service
 @@ -11,3 +11,4 @@ StandardInput=tty-force
@@ -24,7 +24,7 @@ index 20e40bd..c4ca10f 100644
  TimeoutSec=0
 +SuccessExitStatus=2
 diff --git a/modules.d/90dmsquash-live/dmsquash-live-root.sh b/modules.d/90dmsquash-live/dmsquash-live-root.sh
-index 64abc0b..8d5476c 100755
+index 64abc0be..8d5476cd 100755
 --- a/modules.d/90dmsquash-live/dmsquash-live-root.sh
 +++ b/modules.d/90dmsquash-live/dmsquash-live-root.sh
 @@ -46,7 +46,7 @@ if [ -n "$check" ]; then

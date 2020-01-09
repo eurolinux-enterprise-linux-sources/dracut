@@ -12,7 +12,7 @@ Signed-off-by: Thomas Renninger <trenn@suse.de>
  1 file changed, 4 insertions(+)
 
 diff --git a/modules.d/90lvm/module-setup.sh b/modules.d/90lvm/module-setup.sh
-index 90bc39f..5e374fb 100755
+index 90bc39f7..5e374fbc 100755
 --- a/modules.d/90lvm/module-setup.sh
 +++ b/modules.d/90lvm/module-setup.sh
 @@ -42,6 +42,10 @@ cmdline() {

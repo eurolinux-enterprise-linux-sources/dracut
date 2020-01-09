@@ -15,7 +15,7 @@ Simplified logic.
  1 file changed, 1 insertion(+)
 
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
-index fd84e4c..79127f2 100755
+index fd84e4cd..79127f24 100755
 --- a/modules.d/40network/ifup.sh
 +++ b/modules.d/40network/ifup.sh
 @@ -106,6 +106,7 @@ do_dhcp() {

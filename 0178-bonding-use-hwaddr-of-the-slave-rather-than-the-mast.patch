@@ -20,7 +20,7 @@ configuration file.
  2 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
-index ede0188..fd84e4c 100755
+index ede01883..fd84e4cd 100755
 --- a/modules.d/40network/ifup.sh
 +++ b/modules.d/40network/ifup.sh
 @@ -188,6 +188,7 @@ if [ -e /tmp/bond.${netif}.info ]; then
@@ -32,7 +32,7 @@ index ede0188..fd84e4c 100755
              linkup $slave
          done
 diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
-index 7f997a2..fb388bc 100755
+index 7f997a2a..fb388bcb 100755
 --- a/modules.d/45ifcfg/write-ifcfg.sh
 +++ b/modules.d/45ifcfg/write-ifcfg.sh
 @@ -206,7 +206,11 @@ for netup in /tmp/net.*.did-setup ; do

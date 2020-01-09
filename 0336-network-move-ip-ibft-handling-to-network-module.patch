@@ -10,7 +10,7 @@ Subject: [PATCH] network: move "ip=ibft" handling to network module
  3 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/40network/module-setup.sh b/modules.d/40network/module-setup.sh
-index 3134b5f..6cbbe8f 100755
+index 3134b5ff..6cbbe8f7 100755
 --- a/modules.d/40network/module-setup.sh
 +++ b/modules.d/40network/module-setup.sh
 @@ -64,6 +64,7 @@ installkernel() {
@@ -22,7 +22,7 @@ index 3134b5f..6cbbe8f 100755
  
  install() {
 diff --git a/modules.d/40network/parse-ibft.sh b/modules.d/40network/parse-ibft.sh
-index 643313d..6f7f4e9 100755
+index 643313dc..6f7f4e95 100755
 --- a/modules.d/40network/parse-ibft.sh
 +++ b/modules.d/40network/parse-ibft.sh
 @@ -6,5 +6,7 @@ command -v getarg >/dev/null          || . /lib/dracut-lib.sh
@@ -34,7 +34,7 @@ index 643313d..6f7f4e9 100755
      ibft_to_cmdline
  fi
 diff --git a/modules.d/95iscsi/parse-iscsiroot.sh b/modules.d/95iscsi/parse-iscsiroot.sh
-index 6aa14f5..9546f12 100755
+index 6aa14f5b..9546f126 100755
 --- a/modules.d/95iscsi/parse-iscsiroot.sh
 +++ b/modules.d/95iscsi/parse-iscsiroot.sh
 @@ -71,7 +71,7 @@ if [ -n "$iscsiroot" ] ; then

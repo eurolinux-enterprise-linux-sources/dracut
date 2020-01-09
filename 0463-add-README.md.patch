@@ -10,7 +10,7 @@ Subject: [PATCH] add README.md
 
 diff --git a/README.md b/README.md
 new file mode 100644
-index 0000000..4c53f28
+index 00000000..4c53f28d
 --- /dev/null
 +++ b/README.md
 @@ -0,0 +1,5 @@

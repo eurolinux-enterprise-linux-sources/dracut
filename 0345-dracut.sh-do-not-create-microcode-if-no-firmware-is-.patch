@@ -9,7 +9,7 @@ Subject: [PATCH] dracut.sh: do not create microcode, if no firmware is
  1 file changed, 4 insertions(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index d5f864f..980c7ff 100755
+index d5f864f9..980c7ff9 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1493,6 +1493,10 @@ if [[ $early_microcode = yes ]]; then

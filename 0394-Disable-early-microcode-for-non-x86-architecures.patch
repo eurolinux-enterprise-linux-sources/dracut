@@ -8,7 +8,7 @@ Subject: [PATCH] Disable early microcode for non-x86 architecures
  1 file changed, 21 insertions(+), 7 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 6bbde70..b85d42d 100755
+index 6bbde70b..b85d42dd 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -819,13 +819,6 @@ readonly initdir="$(mktemp --tmpdir="$TMPDIR/" -d -t initramfs.XXXXXX)"

@@ -14,7 +14,7 @@ Subject: [PATCH] Do not reload systemd with wait_for_dev
  7 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/modules.d/90dmsquash-live/dmsquash-live-genrules.sh b/modules.d/90dmsquash-live/dmsquash-live-genrules.sh
-index b27fccc..0f51ed4 100755
+index b27fccc3..0f51ed46 100755
 --- a/modules.d/90dmsquash-live/dmsquash-live-genrules.sh
 +++ b/modules.d/90dmsquash-live/dmsquash-live-genrules.sh
 @@ -9,7 +9,7 @@ case "$root" in
@@ -27,7 +27,7 @@ index b27fccc..0f51ed4 100755
    live:*)
      if [ -f "${root#live:}" ]; then
 diff --git a/modules.d/90dmsquash-live/parse-dmsquash-live.sh b/modules.d/90dmsquash-live/parse-dmsquash-live.sh
-index a5564e2..6e54dfe 100755
+index a5564e20..6e54dfe7 100755
 --- a/modules.d/90dmsquash-live/parse-dmsquash-live.sh
 +++ b/modules.d/90dmsquash-live/parse-dmsquash-live.sh
 @@ -56,4 +56,4 @@ info "root was $liveroot, is now $root"
@@ -37,7 +37,7 @@ index a5564e2..6e54dfe 100755
 -wait_for_dev /dev/mapper/live-rw
 +wait_for_dev -n /dev/mapper/live-rw
 diff --git a/modules.d/90livenet/parse-livenet.sh b/modules.d/90livenet/parse-livenet.sh
-index 6c847ba..a6b2842 100755
+index 6c847baa..a6b28423 100755
 --- a/modules.d/90livenet/parse-livenet.sh
 +++ b/modules.d/90livenet/parse-livenet.sh
 @@ -27,7 +27,7 @@ if get_url_handler "$liveurl" >/dev/null; then
@@ -50,7 +50,7 @@ index 6c847ba..a6b2842 100755
      info "livenet: no url handler for $liveurl"
  fi
 diff --git a/modules.d/90lvm/parse-lvm.sh b/modules.d/90lvm/parse-lvm.sh
-index 74e1d43..d69cb45 100755
+index 74e1d43b..d69cb455 100755
 --- a/modules.d/90lvm/parse-lvm.sh
 +++ b/modules.d/90lvm/parse-lvm.sh
 @@ -13,7 +13,7 @@ if ! getargbool 1 rd.lvm -d -n rd_NO_LVM \
@@ -63,7 +63,7 @@ index 74e1d43..d69cb45 100755
  fi
  
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
-index 54f4990..1de6fb7 100755
+index 54f49903..1de6fb75 100755
 --- a/modules.d/95iscsi/iscsiroot.sh
 +++ b/modules.d/95iscsi/iscsiroot.sh
 @@ -156,7 +156,7 @@ handle_netroot()
@@ -76,7 +76,7 @@ index 54f4990..1de6fb7 100755
          # install mount script
          [ -z "$DRACUT_SYSTEMD" ] && \
 diff --git a/modules.d/95nbd/nbdroot.sh b/modules.d/95nbd/nbdroot.sh
-index ddb3819..8bfbebc 100755
+index ddb38192..8bfbebcb 100755
 --- a/modules.d/95nbd/nbdroot.sh
 +++ b/modules.d/95nbd/nbdroot.sh
 @@ -102,7 +102,7 @@ if [ "$root" = "block:/dev/root" -o "$root" = "dhcp" ]; then
@@ -89,7 +89,7 @@ index ddb3819..8bfbebc 100755
      if [ -z "$DRACUT_SYSTEMD" ]; then
          printf '/bin/mount %s\n' \
 diff --git a/modules.d/95nbd/parse-nbdroot.sh b/modules.d/95nbd/parse-nbdroot.sh
-index 49c44b6..fe5a7fa 100755
+index 49c44b6f..fe5a7fa4 100755
 --- a/modules.d/95nbd/parse-nbdroot.sh
 +++ b/modules.d/95nbd/parse-nbdroot.sh
 @@ -61,6 +61,6 @@ rootok=1

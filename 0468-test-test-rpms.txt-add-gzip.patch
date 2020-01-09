@@ -8,7 +8,7 @@ Subject: [PATCH] test/test-rpms.txt: add gzip
  1 file changed, 1 insertion(+)
 
 diff --git a/test/test-rpms.txt b/test/test-rpms.txt
-index 1723d8e..10596da 100644
+index 1723d8e9..10596da7 100644
 --- a/test/test-rpms.txt
 +++ b/test/test-rpms.txt
 @@ -19,6 +19,7 @@ btrfs-progs

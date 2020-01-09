@@ -9,7 +9,7 @@ Subject: [PATCH] fips/module-setup.sh: also blacklist the alias resolved
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/01fips/module-setup.sh b/modules.d/01fips/module-setup.sh
-index dc47634..3bf6c33 100755
+index dc476347..3bf6c332 100755
 --- a/modules.d/01fips/module-setup.sh
 +++ b/modules.d/01fips/module-setup.sh
 @@ -11,7 +11,7 @@ depends() {

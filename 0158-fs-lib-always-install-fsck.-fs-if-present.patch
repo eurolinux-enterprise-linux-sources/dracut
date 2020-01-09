@@ -8,7 +8,7 @@ Subject: [PATCH] fs-lib: always install fsck.$fs, if present
  1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/modules.d/99fs-lib/module-setup.sh b/modules.d/99fs-lib/module-setup.sh
-index c9c88b7..249aa84 100755
+index c9c88b7d..249aa84a 100755
 --- a/modules.d/99fs-lib/module-setup.sh
 +++ b/modules.d/99fs-lib/module-setup.sh
 @@ -15,10 +15,10 @@ echo_fs_helper() {

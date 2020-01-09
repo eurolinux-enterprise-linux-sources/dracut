@@ -20,7 +20,7 @@ Test the new iSCSI parameters rd.iscsi.waitnet and rd.iscsi.testroute.
  delete mode 100644 test/TEST-30-ISCSI/targets
 
 diff --git a/README.testsuite b/README.testsuite
-index f4955e0..247ed3a 100644
+index f4955e04..247ed3aa 100644
 --- a/README.testsuite
 +++ b/README.testsuite
 @@ -1,14 +1,16 @@
@@ -50,7 +50,7 @@ index f4955e0..247ed3a 100644
  
  How to run the testsuite:
 diff --git a/test/TEST-30-ISCSI/server-init.sh b/test/TEST-30-ISCSI/server-init.sh
-index 4bdd5e3..64a4755 100755
+index 4bdd5e3c..64a47556 100755
 --- a/test/TEST-30-ISCSI/server-init.sh
 +++ b/test/TEST-30-ISCSI/server-init.sh
 @@ -12,10 +12,30 @@ ip link set lo up
@@ -88,7 +88,7 @@ index 4bdd5e3..64a4755 100755
  poweroff -f
 diff --git a/test/TEST-30-ISCSI/targets b/test/TEST-30-ISCSI/targets
 deleted file mode 100644
-index 6a6872e..0000000
+index 6a6872e5..00000000
 --- a/test/TEST-30-ISCSI/targets
 +++ /dev/null
 @@ -1,25 +0,0 @@
@@ -118,7 +118,7 @@ index 6a6872e..0000000
 -target1		rw	extent1		192.168.50.0/24
 -target2		rw	extent2		192.168.50.0/24
 diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
-index a258c04..be3399a 100755
+index a258c042..be3399a3 100755
 --- a/test/TEST-30-ISCSI/test.sh
 +++ b/test/TEST-30-ISCSI/test.sh
 @@ -3,8 +3,10 @@ TEST_DESCRIPTION="root filesystem over iSCSI"

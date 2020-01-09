@@ -26,7 +26,7 @@ Signed-off-by: Gerd von Egidy <gerd.von.egidy@intra2net.com>
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/40network/dhclient-script.sh b/modules.d/40network/dhclient-script.sh
-index 7972af9..12e2869 100755
+index 7972af99..12e2869f 100755
 --- a/modules.d/40network/dhclient-script.sh
 +++ b/modules.d/40network/dhclient-script.sh
 @@ -49,7 +49,13 @@ setup_interface() {

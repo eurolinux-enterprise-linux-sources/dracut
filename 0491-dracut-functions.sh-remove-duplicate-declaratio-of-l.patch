@@ -9,7 +9,7 @@ Subject: [PATCH] dracut-functions.sh: remove duplicate declaratio of local
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 61726e4..3c4118a 100755
+index 61726e44..3c4118a9 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -426,7 +426,7 @@ shorten_persistent_dev() {

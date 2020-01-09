@@ -12,7 +12,7 @@ Subject: [PATCH] testsuite mods for kvm nested in kvm
  5 files changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/test/TEST-01-BASIC/test.sh b/test/TEST-01-BASIC/test.sh
-index f857fd4..5ee6d23 100755
+index f857fd4c..5ee6d234 100755
 --- a/test/TEST-01-BASIC/test.sh
 +++ b/test/TEST-01-BASIC/test.sh
 @@ -87,6 +87,7 @@ test_setup() {
@@ -24,7 +24,7 @@ index f857fd4..5ee6d23 100755
  	-f $TESTDIR/initramfs.testing $KVERSION || return 1
  
 diff --git a/test/TEST-02-SYSTEMD/test.sh b/test/TEST-02-SYSTEMD/test.sh
-index cc9da27..2ccf8e6 100755
+index cc9da27f..2ccf8e69 100755
 --- a/test/TEST-02-SYSTEMD/test.sh
 +++ b/test/TEST-02-SYSTEMD/test.sh
 @@ -83,7 +83,7 @@ test_setup() {
@@ -37,7 +37,7 @@ index cc9da27..2ccf8e6 100755
  	-f $TESTDIR/initramfs.testing $KVERSION || return 1
  
 diff --git a/test/TEST-03-USR-MOUNT/test.sh b/test/TEST-03-USR-MOUNT/test.sh
-index b3d709e..ef74d40 100755
+index b3d709eb..ef74d402 100755
 --- a/test/TEST-03-USR-MOUNT/test.sh
 +++ b/test/TEST-03-USR-MOUNT/test.sh
 @@ -5,7 +5,7 @@ TEST_DESCRIPTION="root filesystem on a btrfs filesystem with /usr subvolume"
@@ -71,7 +71,7 @@ index b3d709e..ef74d40 100755
  	-f $TESTDIR/initramfs.testing $KVERSION || return 1
  
 diff --git a/test/TEST-12-RAID-DEG/test.sh b/test/TEST-12-RAID-DEG/test.sh
-index dfcf3dc..2631621 100755
+index dfcf3dc1..26316210 100755
 --- a/test/TEST-12-RAID-DEG/test.sh
 +++ b/test/TEST-12-RAID-DEG/test.sh
 @@ -19,7 +19,7 @@ client_run() {
@@ -84,7 +84,7 @@ index dfcf3dc..2631621 100755
      if ! grep -F -m 1 -q dracut-root-block-success $TESTDIR/root.ext2; then
  	echo "CLIENT TEST END: $@ [FAIL]"
 diff --git a/test/TEST-14-IMSM/test.sh b/test/TEST-14-IMSM/test.sh
-index 9353a92..532c348 100755
+index 9353a924..532c3489 100755
 --- a/test/TEST-14-IMSM/test.sh
 +++ b/test/TEST-14-IMSM/test.sh
 @@ -15,7 +15,7 @@ client_run() {

@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.sh: also search uevent's for MODALIAS
  1 file changed, 8 insertions(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index fd27846..ce39151 100755
+index fd278466..ce39151c 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -923,6 +923,14 @@ if [[ $hostonly ]]; then

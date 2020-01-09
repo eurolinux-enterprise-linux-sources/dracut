@@ -12,7 +12,7 @@ setup
  1 file changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/modules.d/40network/parse-ip-opts.sh b/modules.d/40network/parse-ip-opts.sh
-index 7c403f7..3c96204 100755
+index 7c403f79..3c962044 100755
 --- a/modules.d/40network/parse-ip-opts.sh
 +++ b/modules.d/40network/parse-ip-opts.sh
 @@ -42,6 +42,8 @@ if [ -n "$NEEDBOOTDEV" ] && getargbool 1 rd.neednet; then

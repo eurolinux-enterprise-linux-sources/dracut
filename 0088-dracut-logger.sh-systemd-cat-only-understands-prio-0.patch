@@ -8,7 +8,7 @@ Subject: [PATCH] dracut-logger.sh: systemd-cat only understands prio 0-7
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/dracut-logger.sh b/dracut-logger.sh
-index f679dc9..70b0da4 100755
+index f679dc94..70b0da4c 100755
 --- a/dracut-logger.sh
 +++ b/dracut-logger.sh
 @@ -154,7 +154,7 @@ dlog_init() {

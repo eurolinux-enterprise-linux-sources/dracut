@@ -10,7 +10,7 @@ modalias files would not trigger any module load.
  1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index ce39151..196b3ad 100755
+index ce39151c..196b3ad4 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -919,15 +919,12 @@ if [[ $hostonly ]]; then

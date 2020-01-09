@@ -10,7 +10,7 @@ Subject: [PATCH] dracut.cmdline.7.asc: document rd.iscsi.waitnet and
  1 file changed, 6 insertions(+)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index 5f3dead..1cf962e 100644
+index 5f3dead1..1cf962e6 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -704,6 +704,12 @@ iscsistart -b --param node.session.timeo.replacement_timeout=30

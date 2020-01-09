@@ -23,7 +23,7 @@ Thanks to Sebastian Köln for the fix!
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index cb43f7a..915f70f 100755
+index cb43f7ad..915f70fa 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -176,7 +176,7 @@ print_vars() {

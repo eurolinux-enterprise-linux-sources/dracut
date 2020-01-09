@@ -11,7 +11,7 @@ otherwise it might collide with stdout redirection
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
-index b490e82..69f7079 100755
+index b490e824..69f70799 100755
 --- a/modules.d/99base/dracut-lib.sh
 +++ b/modules.d/99base/dracut-lib.sh
 @@ -51,7 +51,7 @@ if [ -z "$DRACUT_SYSTEMD" ]; then

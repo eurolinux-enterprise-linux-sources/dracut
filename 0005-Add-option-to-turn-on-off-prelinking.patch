@@ -13,7 +13,7 @@ do_prelink=[yes|no]
  3 files changed, 31 insertions(+), 12 deletions(-)
 
 diff --git a/dracut.8.asc b/dracut.8.asc
-index ee9d8de..76fc75c 100644
+index ee9d8de2..76fc75c4 100644
 --- a/dracut.8.asc
 +++ b/dracut.8.asc
 @@ -269,6 +269,12 @@ example:
@@ -30,7 +30,7 @@ index ee9d8de..76fc75c 100644
      hardlink files in the initramfs (default)
  
 diff --git a/dracut.conf.5.asc b/dracut.conf.5.asc
-index a32516c..63991d4 100644
+index a32516c4..63991d4f 100644
 --- a/dracut.conf.5.asc
 +++ b/dracut.conf.5.asc
 @@ -67,6 +67,9 @@ Configuration files must have the extension .conf; other extensions are ignored.
@@ -44,7 +44,7 @@ index a32516c..63991d4 100644
      Host-Only mode: Install only what is needed for booting the local host
      instead of a generic host and generate host-specific configuration.
 diff --git a/dracut.sh b/dracut.sh
-index 196b3ad..177e66d 100755
+index 196b3ad4..177e66d5 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -97,6 +97,8 @@ Creates initial ramdisk images for preloading modules

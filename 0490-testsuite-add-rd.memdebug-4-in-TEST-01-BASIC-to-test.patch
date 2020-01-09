@@ -13,7 +13,7 @@ Signed-off-by: Xunlei Pang <xlpang@redhat.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/test/TEST-01-BASIC/test.sh b/test/TEST-01-BASIC/test.sh
-index 6b79dee..0ef7e10 100755
+index 6b79dee9..0ef7e105 100755
 --- a/test/TEST-01-BASIC/test.sh
 +++ b/test/TEST-01-BASIC/test.sh
 @@ -15,7 +15,7 @@ test_run() {

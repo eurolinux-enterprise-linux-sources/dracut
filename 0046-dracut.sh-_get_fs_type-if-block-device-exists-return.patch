@@ -9,7 +9,7 @@ even, if no ID_FS_TYPE was found, return if the block device exists
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index c6a388a..5f14d50 100755
+index c6a388ab..5f14d503 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -985,12 +985,12 @@ unset rest

@@ -8,7 +8,7 @@ Subject: [PATCH] btrfs: use inst_hook to install the timeout hook
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/modules.d/90btrfs/module-setup.sh b/modules.d/90btrfs/module-setup.sh
-index 638a050..a280594 100755
+index 638a0505..a2805946 100755
 --- a/modules.d/90btrfs/module-setup.sh
 +++ b/modules.d/90btrfs/module-setup.sh
 @@ -39,8 +39,7 @@ install() {

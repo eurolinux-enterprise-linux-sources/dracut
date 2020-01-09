@@ -1,0 +1,47 @@
+From 744afe75315b975a7eb431d0a52f6056353bf8f1 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 29 Jun 2017 10:38:09 +0200
+Subject: [PATCH] Try BOOT_IMAGE and fallback to vmlinuz-${KERNEL}
+
+On s390 BOOT_IMAGE only denotes the number of the boot record that
+was selected in the bootloader and not the path to the kernel image.
+
+Also only bail out, if the kernel hmac checking relies on that path.
+
+Cherry-picked from: 3d875f77f3d1c5e4161794ca59025bc6bcd77eaa
+Resolves: #1415032
+---
+ modules.d/01fips/fips.sh | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/modules.d/01fips/fips.sh b/modules.d/01fips/fips.sh
+index e9ed00b5..ecd711c2 100755
+--- a/modules.d/01fips/fips.sh
++++ b/modules.d/01fips/fips.sh
+@@ -79,12 +79,6 @@ do_fips()
+     local _module
+ 
+     KERNEL=$(uname -r)
+-    BOOT_IMAGE="$(getarg BOOT_IMAGE)"
+-    BOOT_IMAGE="${BOOT_IMAGE:-/vmlinuz-${KERNEL}}"
+-    if ! [ -e "/boot/.${BOOT_IMAGE}.hmac" ] && ! [ -e "/boot/.vmlinuz-${KERNEL}.hmac" ]; then
+-        warn "/boot/.${BOOT_IMAGE}.hmac does not exist"
+-        return 1
+-    fi
+ 
+     FIPSMODULES=$(cat /etc/fipsmodules)
+ 
+@@ -117,6 +111,13 @@ do_fips()
+     elif [ -e "/run/initramfs/live/isolinux/vmlinuz0" ]; then
+         do_rhevh_check /run/initramfs/live/isolinux/vmlinuz0 || return 1
+     else
++        BOOT_IMAGE="$(getarg BOOT_IMAGE)"
++        [ -e "/boot/.${BOOT_IMAGE}.hmac" ] || BOOT_IMAGE="vmlinuz-${KERNEL}"
++
++        if ! [ -e "/boot/.${BOOT_IMAGE}.hmac" ]; then
++            warn "/boot/.${BOOT_IMAGE}.hmac does not exist"
++            return 1
++        fi
+         sha512hmac -c "/boot/.${BOOT_IMAGE}.hmac" || return 1
+     fi
+ 

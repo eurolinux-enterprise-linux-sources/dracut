@@ -11,7 +11,7 @@ eth* is _not_ a persistent ethernet name... tsk, tsk, tsk
  1 file changed, 2 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index e2901da..22f7754 100755
+index e2901dad..22f77546 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -555,8 +555,6 @@ find_iface_with_link() {

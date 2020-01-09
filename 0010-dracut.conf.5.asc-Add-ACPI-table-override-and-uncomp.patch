@@ -10,7 +10,7 @@ Signed-off-by: Thomas Renninger <trenn@suse.de>
  1 file changed, 15 insertions(+)
 
 diff --git a/dracut.conf.5.asc b/dracut.conf.5.asc
-index 63991d4..c9c854a 100644
+index 63991d4f..c9c854a9 100644
 --- a/dracut.conf.5.asc
 +++ b/dracut.conf.5.asc
 @@ -125,6 +125,21 @@ If chrooted to another root other than the real root device, use --fstab and pro

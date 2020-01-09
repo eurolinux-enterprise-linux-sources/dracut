@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.cmdline.7.asc: document rd.shell=0 for rd.emergency
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index 1fb4f74..b479fa8 100644
+index 1fb4f746..b479fa89 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -109,7 +109,8 @@ resume=UUID=3f5ad593-4546-4a94-a374-bcfb68aa11f7

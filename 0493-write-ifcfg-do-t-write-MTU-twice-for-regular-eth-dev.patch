@@ -11,7 +11,7 @@ devices.
  1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
-index a077da1..fa395b3 100755
+index a077da1c..fa395b3a 100755
 --- a/modules.d/45ifcfg/write-ifcfg.sh
 +++ b/modules.d/45ifcfg/write-ifcfg.sh
 @@ -210,10 +210,7 @@ for netup in /tmp/net.*.did-setup ; do

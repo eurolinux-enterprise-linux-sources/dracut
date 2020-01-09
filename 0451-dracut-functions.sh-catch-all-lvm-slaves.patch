@@ -11,7 +11,7 @@ otherwise only the first lvm VG member would be processed
  1 file changed, 24 insertions(+), 1 deletion(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 4a9729c..61726e4 100755
+index 4a9729c7..61726e44 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -632,7 +632,7 @@ check_block_and_slaves_all() {

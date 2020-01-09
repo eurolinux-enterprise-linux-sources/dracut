@@ -14,7 +14,7 @@ Signed-off-by: Thomas Renninger <trenn@suse.de>
  1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 177e66d..b3b8088 100755
+index 177e66d5..b3b80886 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -704,9 +704,9 @@ readonly initdir="$(mktemp --tmpdir="$TMPDIR/" -d -t initramfs.XXXXXX)"

@@ -8,7 +8,7 @@ Subject: [PATCH] default conf: set hostonly_cmdline == "no"
  1 file changed, 1 insertion(+)
 
 diff --git a/dracut.conf.d/fedora.conf.example b/dracut.conf.d/fedora.conf.example
-index 2364b04..ff4e3b2 100644
+index 2364b049..ff4e3b27 100644
 --- a/dracut.conf.d/fedora.conf.example
 +++ b/dracut.conf.d/fedora.conf.example
 @@ -13,4 +13,5 @@ systemdsystemunitdir=/usr/lib/systemd/system

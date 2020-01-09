@@ -8,7 +8,7 @@ Subject: [PATCH] systemd/module-setup.sh: make use of "ln_r"
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/modules.d/98systemd/module-setup.sh b/modules.d/98systemd/module-setup.sh
-index a99c699..511b883 100755
+index a99c699d..511b883f 100755
 --- a/modules.d/98systemd/module-setup.sh
 +++ b/modules.d/98systemd/module-setup.sh
 @@ -160,15 +160,15 @@ install() {

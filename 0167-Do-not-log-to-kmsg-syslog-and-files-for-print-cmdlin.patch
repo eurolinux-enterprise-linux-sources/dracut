@@ -9,7 +9,7 @@ Subject: [PATCH] Do not log to kmsg/syslog and files for "--print-cmdline"
  1 file changed, 8 insertions(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index a5fcf38..705f090 100755
+index a5fcf389..705f090a 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -758,6 +758,13 @@ trap 'exit 1;' SIGINT

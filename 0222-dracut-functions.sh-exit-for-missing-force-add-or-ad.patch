@@ -12,7 +12,7 @@ Better exit with fail early, so there is no surprise on reboot.
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 8a0cd30..6e0b44a 100755
+index 8a0cd301..6e0b44ae 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -1314,11 +1314,17 @@ for_each_module_dir() {

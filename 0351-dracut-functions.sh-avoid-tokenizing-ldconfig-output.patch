@@ -19,7 +19,7 @@ directories in the initramfs image.
  1 file changed, 1 insertion(+), 11 deletions(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 585b683..9218779 100755
+index 585b6836..9218779c 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -97,17 +97,7 @@ fi

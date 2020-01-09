@@ -8,7 +8,7 @@ Subject: [PATCH] man page: changed grub.conf to grub2.cfg
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/dracut.usage.asc b/dracut.usage.asc
-index bee9e2e..15dc244 100644
+index bee9e2e1..15dc2440 100644
 --- a/dracut.usage.asc
 +++ b/dracut.usage.asc
 @@ -99,7 +99,7 @@ raid with encryption and LVM on top), as long as you specify the correct

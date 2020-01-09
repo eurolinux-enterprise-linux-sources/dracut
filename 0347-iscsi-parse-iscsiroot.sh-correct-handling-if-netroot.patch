@@ -10,7 +10,7 @@ corrects bfe65f913a4bc6bc5fdb7aa75234c229a2ceef8f
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/95iscsi/parse-iscsiroot.sh b/modules.d/95iscsi/parse-iscsiroot.sh
-index f19147f..3d74ff2 100755
+index f19147f6..3d74ff2e 100755
 --- a/modules.d/95iscsi/parse-iscsiroot.sh
 +++ b/modules.d/95iscsi/parse-iscsiroot.sh
 @@ -84,7 +84,9 @@ if [ -n "$iscsi_firmware" ]; then

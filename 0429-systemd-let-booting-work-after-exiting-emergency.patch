@@ -18,7 +18,7 @@ If the user managed to mount /sysroot, let it work
  10 files changed, 3 insertions(+), 14 deletions(-)
 
 diff --git a/modules.d/98systemd/dracut-cmdline-ask.service b/modules.d/98systemd/dracut-cmdline-ask.service
-index 3d489a4..f9dd379 100644
+index 3d489a4e..f9dd3790 100644
 --- a/modules.d/98systemd/dracut-cmdline-ask.service
 +++ b/modules.d/98systemd/dracut-cmdline-ask.service
 @@ -16,7 +16,6 @@ Wants=systemd-journald.socket
@@ -30,7 +30,7 @@ index 3d489a4..f9dd379 100644
  [Service]
  Environment=DRACUT_SYSTEMD=1
 diff --git a/modules.d/98systemd/dracut-cmdline.service b/modules.d/98systemd/dracut-cmdline.service
-index 7f0835b..e4797ca 100644
+index 7f0835b4..e4797ca3 100644
 --- a/modules.d/98systemd/dracut-cmdline.service
 +++ b/modules.d/98systemd/dracut-cmdline.service
 @@ -21,7 +21,6 @@ ConditionKernelCommandLine=|rd.break=cmdline
@@ -42,7 +42,7 @@ index 7f0835b..e4797ca 100644
  [Service]
  Environment=DRACUT_SYSTEMD=1
 diff --git a/modules.d/98systemd/dracut-emergency.service b/modules.d/98systemd/dracut-emergency.service
-index 5c01411..183f3af 100644
+index 5c014110..183f3af5 100644
 --- a/modules.d/98systemd/dracut-emergency.service
 +++ b/modules.d/98systemd/dracut-emergency.service
 @@ -12,10 +12,8 @@ Description=Dracut Emergency Shell
@@ -57,7 +57,7 @@ index 5c01411..183f3af 100644
  [Service]
  Environment=HOME=/
 diff --git a/modules.d/98systemd/dracut-initqueue.service b/modules.d/98systemd/dracut-initqueue.service
-index 6340dd4..46d041e 100644
+index 6340dd4d..46d041e8 100644
 --- a/modules.d/98systemd/dracut-initqueue.service
 +++ b/modules.d/98systemd/dracut-initqueue.service
 @@ -24,7 +24,6 @@ ConditionPathExistsGlob=|/lib/dracut/hooks/initqueue/online/*.sh
@@ -69,7 +69,7 @@ index 6340dd4..46d041e 100644
  [Service]
  Environment=DRACUT_SYSTEMD=1
 diff --git a/modules.d/98systemd/dracut-mount.service b/modules.d/98systemd/dracut-mount.service
-index 2e1e47b..e8e33fb 100644
+index 2e1e47b9..e8e33fbb 100644
 --- a/modules.d/98systemd/dracut-mount.service
 +++ b/modules.d/98systemd/dracut-mount.service
 @@ -16,7 +16,6 @@ ConditionPathExists=/etc/initrd-release
@@ -81,7 +81,7 @@ index 2e1e47b..e8e33fb 100644
  [Service]
  Environment=DRACUT_SYSTEMD=1
 diff --git a/modules.d/98systemd/dracut-pre-mount.service b/modules.d/98systemd/dracut-pre-mount.service
-index ed67f9d..48c9b40 100644
+index ed67f9df..48c9b400 100644
 --- a/modules.d/98systemd/dracut-pre-mount.service
 +++ b/modules.d/98systemd/dracut-pre-mount.service
 @@ -18,7 +18,6 @@ ConditionPathExists=/etc/initrd-release
@@ -93,7 +93,7 @@ index ed67f9d..48c9b40 100644
  [Service]
  Environment=DRACUT_SYSTEMD=1
 diff --git a/modules.d/98systemd/dracut-pre-pivot.service b/modules.d/98systemd/dracut-pre-pivot.service
-index 1faeb78..ae1f155 100644
+index 1faeb78b..ae1f155d 100644
 --- a/modules.d/98systemd/dracut-pre-pivot.service
 +++ b/modules.d/98systemd/dracut-pre-pivot.service
 @@ -17,7 +17,6 @@ Wants=remote-fs.target
@@ -105,7 +105,7 @@ index 1faeb78..ae1f155 100644
  [Service]
  Environment=DRACUT_SYSTEMD=1
 diff --git a/modules.d/98systemd/dracut-pre-trigger.service b/modules.d/98systemd/dracut-pre-trigger.service
-index f198036..5657450 100644
+index f1980368..5657450e 100644
 --- a/modules.d/98systemd/dracut-pre-trigger.service
 +++ b/modules.d/98systemd/dracut-pre-trigger.service
 @@ -18,7 +18,6 @@ ConditionPathExists=/etc/initrd-release
@@ -117,7 +117,7 @@ index f198036..5657450 100644
  [Service]
  Environment=DRACUT_SYSTEMD=1
 diff --git a/modules.d/98systemd/dracut-pre-udev.service b/modules.d/98systemd/dracut-pre-udev.service
-index 7fb3304..a554eb7 100644
+index 7fb33044..a554eb79 100644
 --- a/modules.d/98systemd/dracut-pre-udev.service
 +++ b/modules.d/98systemd/dracut-pre-udev.service
 @@ -21,7 +21,6 @@ ConditionKernelCommandLine=|rd.driver.blacklist
@@ -129,7 +129,7 @@ index 7fb3304..a554eb7 100644
  [Service]
  Environment=DRACUT_SYSTEMD=1
 diff --git a/modules.d/98systemd/emergency.service b/modules.d/98systemd/emergency.service
-index 5c2c1c7..5da3aa3 100644
+index 5c2c1c70..5da3aa31 100644
 --- a/modules.d/98systemd/emergency.service
 +++ b/modules.d/98systemd/emergency.service
 @@ -14,21 +14,20 @@ After=systemd-vconsole-setup.service

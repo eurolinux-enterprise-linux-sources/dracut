@@ -13,7 +13,7 @@ Signed-off-by: Hannes Reinecke <hare@suse.de>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/dracut-bash-completion.sh b/dracut-bash-completion.sh
-index d796c35..9f359c6 100644
+index d796c358..9f359c6e 100644
 --- a/dracut-bash-completion.sh
 +++ b/dracut-bash-completion.sh
 @@ -1,4 +1,4 @@
@@ -23,7 +23,7 @@ index d796c35..9f359c6 100644
  # ex: ts=8 sw=4 sts=4 et filetype=sh
  #
 diff --git a/lsinitrd-bash-completion.sh b/lsinitrd-bash-completion.sh
-index 78ab165..3df2965 100644
+index 78ab1654..3df2965f 100644
 --- a/lsinitrd-bash-completion.sh
 +++ b/lsinitrd-bash-completion.sh
 @@ -1,4 +1,4 @@

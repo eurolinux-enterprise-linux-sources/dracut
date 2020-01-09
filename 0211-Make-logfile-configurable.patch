@@ -14,7 +14,7 @@ Signed-off-by: Hannes Reinecke <hare@suse.de>
  2 files changed, 10 insertions(+)
 
 diff --git a/dracut.8.asc b/dracut.8.asc
-index f97074a..14ce26b 100644
+index f97074a2..14ce26b6 100644
 --- a/dracut.8.asc
 +++ b/dracut.8.asc
 @@ -275,6 +275,12 @@ Default:
@@ -31,7 +31,7 @@ index f97074a..14ce26b 100644
      activates the local mode. dracut will use modules from the current working
      directory instead of the system-wide installed modules in
 diff --git a/dracut.sh b/dracut.sh
-index f560dd1..8e5e86f 100755
+index f560dd1e..8e5e86f7 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -187,6 +187,7 @@ Creates initial ramdisk images for preloading modules

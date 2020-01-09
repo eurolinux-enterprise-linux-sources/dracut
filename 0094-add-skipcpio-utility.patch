@@ -13,7 +13,7 @@ It is used for skipping an early cpio archive for lsinitrd.
  create mode 100644 skipcpio/skipcpio.c
 
 diff --git a/Makefile b/Makefile
-index e7da948..5441d8f 100644
+index e7da9484..5441d8f4 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -40,7 +40,7 @@ manpages = $(man1pages) $(man5pages) $(man7pages) $(man8pages)
@@ -61,7 +61,7 @@ index e7da948..5441d8f 100644
  
 diff --git a/skipcpio/skipcpio.c b/skipcpio/skipcpio.c
 new file mode 100644
-index 0000000..fbf391b
+index 00000000..fbf391bf
 --- /dev/null
 +++ b/skipcpio/skipcpio.c
 @@ -0,0 +1,123 @@

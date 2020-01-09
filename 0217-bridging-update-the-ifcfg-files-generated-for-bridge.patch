@@ -15,7 +15,7 @@ Bug #1123552 https://bugzilla.redhat.com/show_bug.cgi?id=1123552
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
-index c1cd23c..48e75a6 100755
+index c1cd23c3..48e75a63 100755
 --- a/modules.d/45ifcfg/write-ifcfg.sh
 +++ b/modules.d/45ifcfg/write-ifcfg.sh
 @@ -234,8 +234,7 @@ for netup in /tmp/net.*.did-setup ; do

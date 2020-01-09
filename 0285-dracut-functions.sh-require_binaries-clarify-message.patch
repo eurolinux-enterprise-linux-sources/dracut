@@ -15,7 +15,7 @@ dependency modules, please submit patches.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 65ccebe..585b683 100755
+index 65ccebe5..585b6836 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -44,7 +44,7 @@ require_binaries() {

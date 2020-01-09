@@ -11,7 +11,7 @@ event, if the loop module is not manually loaded somewhere.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/90dmsquash-live/dmsquash-liveiso-genrules.sh b/modules.d/90dmsquash-live/dmsquash-liveiso-genrules.sh
-index 30ea180..0f913d7 100755
+index 30ea1805..0f913d79 100755
 --- a/modules.d/90dmsquash-live/dmsquash-liveiso-genrules.sh
 +++ b/modules.d/90dmsquash-live/dmsquash-liveiso-genrules.sh
 @@ -3,7 +3,7 @@

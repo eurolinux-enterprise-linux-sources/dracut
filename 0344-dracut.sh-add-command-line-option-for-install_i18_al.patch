@@ -10,7 +10,7 @@ Subject: [PATCH] dracut.sh: add command line option for install_i18_all
  1 file changed, 7 insertions(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index 65824ec..d5f864f 100755
+index 65824ec7..d5f864f9 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -369,6 +369,8 @@ rearrange_params()

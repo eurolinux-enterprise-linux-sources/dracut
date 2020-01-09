@@ -9,7 +9,7 @@ dd is part of coreutils
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut.spec b/dracut.spec
-index 5c4b047..780ed70 100644
+index 5c4b0471..780ed703 100644
 --- a/dracut.spec
 +++ b/dracut.spec
 @@ -91,7 +91,7 @@ Requires: gzip xz

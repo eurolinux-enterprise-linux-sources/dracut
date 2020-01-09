@@ -19,7 +19,7 @@ Signed-off-by: Fabian Deutsch <fabiand@fedoraproject.org>
  2 files changed, 42 insertions(+), 31 deletions(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index 0c3bc29..1e89bd5 100644
+index 0c3bc295..1e89bd50 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -802,6 +802,10 @@ Enables debug output from the live boot process.
@@ -46,7 +46,7 @@ index 0c3bc29..1e89bd5 100644
  
  Plymouth Boot Splash
 diff --git a/modules.d/90dmsquash-live/dmsquash-live-root.sh b/modules.d/90dmsquash-live/dmsquash-live-root.sh
-index 12354f4..64abc0b 100755
+index 12354f42..64abc0be 100755
 --- a/modules.d/90dmsquash-live/dmsquash-live-root.sh
 +++ b/modules.d/90dmsquash-live/dmsquash-live-root.sh
 @@ -148,6 +148,7 @@ do_live_overlay() {

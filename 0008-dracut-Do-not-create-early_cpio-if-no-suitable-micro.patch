@@ -22,7 +22,7 @@ Signed-off-by: Thomas Renninger <trenn@suse.de>
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index b3b8088..e43227e 100755
+index b3b80886..e43227e8 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1326,12 +1326,15 @@ if [[ $early_microcode = yes ]]; then

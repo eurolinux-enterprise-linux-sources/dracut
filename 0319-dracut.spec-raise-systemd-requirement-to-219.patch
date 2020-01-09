@@ -9,7 +9,7 @@ needs systemd-escape
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut.spec b/dracut.spec
-index d22f586..ad737c2 100644
+index d22f5861..ad737c25 100644
 --- a/dracut.spec
 +++ b/dracut.spec
 @@ -94,7 +94,7 @@ Requires: kpartx

@@ -12,7 +12,7 @@ Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
  1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 8d572a3..ad57218 100755
+index 8d572a33..ad57218d 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -695,14 +695,12 @@ stdloglvl=$((stdloglvl + verbosity_mod_l))

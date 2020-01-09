@@ -11,7 +11,7 @@ makes systemd switch-root happy
  1 file changed, 1 insertion(+)
 
 diff --git a/test/TEST-15-BTRFSRAID/test.sh b/test/TEST-15-BTRFSRAID/test.sh
-index e6ff351..3fc1d45 100755
+index e6ff3517..3fc1d459 100755
 --- a/test/TEST-15-BTRFSRAID/test.sh
 +++ b/test/TEST-15-BTRFSRAID/test.sh
 @@ -37,6 +37,7 @@ test_setup() {

@@ -8,7 +8,7 @@ Subject: [PATCH] dracut-logger.sh: log also rest of line without return
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut-logger.sh b/dracut-logger.sh
-index 70b0da4..ffa5616 100755
+index 70b0da4c..ffa56167 100755
 --- a/dracut-logger.sh
 +++ b/dracut-logger.sh
 @@ -367,7 +367,7 @@ dlog() {

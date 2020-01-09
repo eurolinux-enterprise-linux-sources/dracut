@@ -12,7 +12,7 @@ https://bugs.gentoo.org/show_bug.cgi?id=502102
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 95f18db..a5fcf38 100755
+index 95f18dbf..a5fcf389 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -720,7 +720,7 @@ case $compress in
@@ -25,7 +25,7 @@ index 95f18db..a5fcf38 100755
  if [[ $_no_compress_l = "cat" ]]; then
      compress="cat"
 diff --git a/lsinitrd.sh b/lsinitrd.sh
-index 2fbebd8..7b12ab9 100755
+index 2fbebd8e..7b12ab96 100755
 --- a/lsinitrd.sh
 +++ b/lsinitrd.sh
 @@ -178,7 +178,7 @@ CAT=$({

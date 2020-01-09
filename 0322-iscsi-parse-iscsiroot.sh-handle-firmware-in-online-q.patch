@@ -8,7 +8,7 @@ Subject: [PATCH] iscsi/parse-iscsiroot.sh: handle firmware in online queue
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/modules.d/95iscsi/parse-iscsiroot.sh b/modules.d/95iscsi/parse-iscsiroot.sh
-index e9444a5..13a9502 100755
+index e9444a5f..13a95023 100755
 --- a/modules.d/95iscsi/parse-iscsiroot.sh
 +++ b/modules.d/95iscsi/parse-iscsiroot.sh
 @@ -79,11 +79,11 @@ if [ -n "$iscsi_firmware" ] || getargbool 0 rd.iscsi.ibft -d "ip=ibft"; then

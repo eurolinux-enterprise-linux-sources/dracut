@@ -8,7 +8,7 @@ Subject: [PATCH] README.md: correct CentOS build job link
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/README.md b/README.md
-index 9cfccae..2f88ff7 100644
+index 9cfccae7..2f88ff74 100644
 --- a/README.md
 +++ b/README.md
 @@ -2,4 +2,4 @@

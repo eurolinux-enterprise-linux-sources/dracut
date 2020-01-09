@@ -9,7 +9,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1369342
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
-index af2798d..4bab0c7 100755
+index af2798dc..4bab0c7d 100755
 --- a/modules.d/95fcoe/module-setup.sh
 +++ b/modules.d/95fcoe/module-setup.sh
 @@ -69,7 +69,7 @@ cmdline() {

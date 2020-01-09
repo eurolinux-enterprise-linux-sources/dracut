@@ -18,7 +18,7 @@ Resolves: #1360131
  1 file changed, 11 insertions(+), 4 deletions(-)
 
 diff --git a/modules.d/95ssh-client/module-setup.sh b/modules.d/95ssh-client/module-setup.sh
-index 6b44107..743de98 100755
+index 6b441075..743de988 100755
 --- a/modules.d/95ssh-client/module-setup.sh
 +++ b/modules.d/95ssh-client/module-setup.sh
 @@ -44,10 +44,17 @@ inst_sshenv()

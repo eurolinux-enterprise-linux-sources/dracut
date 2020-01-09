@@ -13,7 +13,7 @@ Thanks Jan Stodola!
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/95ssh-client/module-setup.sh b/modules.d/95ssh-client/module-setup.sh
-index f60e963..c7d8ee2 100755
+index f60e9631..c7d8ee24 100755
 --- a/modules.d/95ssh-client/module-setup.sh
 +++ b/modules.d/95ssh-client/module-setup.sh
 @@ -45,7 +45,7 @@ inst_sshenv()

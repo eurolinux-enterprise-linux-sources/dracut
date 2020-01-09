@@ -11,7 +11,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1266448
  1 file changed, 3 insertions(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index 0a69973..90ea9c3 100755
+index 0a699737..90ea9c32 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -141,6 +141,9 @@ Creates initial ramdisk images for preloading modules

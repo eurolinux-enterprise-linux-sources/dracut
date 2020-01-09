@@ -12,7 +12,7 @@ Resolves: #1476039
  1 file changed, 2 insertions(+), 7 deletions(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index ef52274..98a4b88 100755
+index ef52274f..98a4b88b 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -1738,13 +1738,8 @@ get_ucode_file ()

@@ -10,7 +10,7 @@ Subject: [PATCH] test/TEST-02-systemd: use marker disk for successfull boot
  2 files changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/test/TEST-02-SYSTEMD/test-init.sh b/test/TEST-02-SYSTEMD/test-init.sh
-index ff17b6b..1c65e84 100755
+index ff17b6b4..1c65e844 100755
 --- a/test/TEST-02-SYSTEMD/test-init.sh
 +++ b/test/TEST-02-SYSTEMD/test-init.sh
 @@ -4,7 +4,7 @@ strstr() { [ "${1#*$2*}" != "$1" ]; }
@@ -23,7 +23,7 @@ index ff17b6b..1c65e84 100755
  export PS1='initramfs-test:\w\$ '
  [ -f /etc/mtab ] || ln -sfn /proc/mounts /etc/mtab
 diff --git a/test/TEST-02-SYSTEMD/test.sh b/test/TEST-02-SYSTEMD/test.sh
-index 47268b0..6f33181 100755
+index 47268b0e..6f33181c 100755
 --- a/test/TEST-02-SYSTEMD/test.sh
 +++ b/test/TEST-02-SYSTEMD/test.sh
 @@ -4,19 +4,23 @@ TEST_DESCRIPTION="root filesystem on a ext3 filesystem"

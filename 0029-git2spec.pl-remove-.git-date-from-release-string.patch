@@ -8,7 +8,7 @@ Subject: [PATCH] git2spec.pl: remove ".git$(date)" from release string
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/git2spec.pl b/git2spec.pl
-index 0d8adb4..b844295 100755
+index 0d8adb4a..b8442951 100755
 --- a/git2spec.pl
 +++ b/git2spec.pl
 @@ -20,8 +20,7 @@ chomp($tag);

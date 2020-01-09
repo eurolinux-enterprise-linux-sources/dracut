@@ -8,7 +8,7 @@ Subject: [PATCH] TEST-13-ENC-RAID-LVM: add rd.device.timeout=40
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/test/TEST-13-ENC-RAID-LVM/test.sh b/test/TEST-13-ENC-RAID-LVM/test.sh
-index 7f75b32..94801e4 100755
+index 7f75b32d..94801e47 100755
 --- a/test/TEST-13-ENC-RAID-LVM/test.sh
 +++ b/test/TEST-13-ENC-RAID-LVM/test.sh
 @@ -19,7 +19,7 @@ test_run() {

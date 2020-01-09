@@ -8,7 +8,7 @@ Subject: [PATCH] network:fix dns parsing in ip= parameter
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 1b51c85..8948a47 100755
+index 1b51c856..8948a476 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -353,7 +353,7 @@ ip_to_var() {

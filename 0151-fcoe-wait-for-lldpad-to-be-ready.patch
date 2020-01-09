@@ -10,7 +10,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1080353
  2 files changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/modules.d/95fcoe/fcoe-up.sh b/modules.d/95fcoe/fcoe-up.sh
-index ecb1593..60642cf 100755
+index ecb1593d..60642cfd 100755
 --- a/modules.d/95fcoe/fcoe-up.sh
 +++ b/modules.d/95fcoe/fcoe-up.sh
 @@ -31,8 +31,14 @@ if [ "$dcb" = "dcb" ]; then
@@ -31,7 +31,7 @@ index ecb1593..60642cf 100755
      sleep 1
      dcbtool sc "$netif" app:fcoe e:1 a:1 w:1
 diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
-index fe8e40a..3ffaf5a 100755
+index fe8e40aa..3ffaf5a5 100755
 --- a/modules.d/95fcoe/module-setup.sh
 +++ b/modules.d/95fcoe/module-setup.sh
 @@ -20,7 +20,7 @@ installkernel() {

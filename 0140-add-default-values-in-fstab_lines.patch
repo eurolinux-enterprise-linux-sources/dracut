@@ -22,7 +22,7 @@ Signed-off-by: Dave Young <dyoung@redhat.com>
  2 files changed, 12 insertions(+), 4 deletions(-)
 
 diff --git a/dracut.8.asc b/dracut.8.asc
-index ba125c0..f97074a 100644
+index ba125c0d..f97074a2 100644
 --- a/dracut.8.asc
 +++ b/dracut.8.asc
 @@ -311,9 +311,13 @@ provide a valid _/etc/fstab_.
@@ -43,7 +43,7 @@ index ba125c0..f97074a 100644
  **--add-device** _<device>_ ::
      Bring up _<device>_ in initramfs, _<device>_ should be the device name.
 diff --git a/dracut.sh b/dracut.sh
-index 1c5e688..2d5b7dc 100755
+index 1c5e6889..2d5b7dc7 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1234,7 +1234,11 @@ if [[ $kernel_only != yes ]]; then

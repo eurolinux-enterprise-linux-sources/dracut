@@ -31,7 +31,7 @@ https://bugs.mageia.org/show_bug.cgi?id=12305
  2 files changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index a214f81..90ac1fe 100755
+index a214f810..90ac1fe9 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1056,7 +1056,9 @@ if [[ $hostonly ]]; then
@@ -55,7 +55,7 @@ index a214f81..90ac1fe 100755
      systemdutildir systemdsystemunitdir systemdsystemconfdir \
      host_modalias host_modules hostonly_cmdline loginstall \
 diff --git a/modules.d/99base/module-setup.sh b/modules.d/99base/module-setup.sh
-index fddf4b0..d5e7861 100755
+index fddf4b06..d5e78613 100755
 --- a/modules.d/99base/module-setup.sh
 +++ b/modules.d/99base/module-setup.sh
 @@ -104,6 +104,14 @@ install() {

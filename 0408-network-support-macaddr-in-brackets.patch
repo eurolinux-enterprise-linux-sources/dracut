@@ -25,7 +25,7 @@ ip=::::test:ens3:dhcp:1000:[54:52:00:ab:cd:ef]
  1 file changed, 75 insertions(+), 44 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 5a07b4e..0c00f92 100755
+index 5a07b4ee..0c00f925 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -406,53 +406,84 @@ ip_to_var() {

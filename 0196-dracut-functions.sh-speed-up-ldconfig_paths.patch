@@ -9,7 +9,7 @@ Subject: [PATCH] dracut-functions.sh: speed up ldconfig_paths()
  1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 915f70f..0002556 100755
+index 915f70fa..00025567 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -60,12 +60,11 @@ ldconfig_paths()

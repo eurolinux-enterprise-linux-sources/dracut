@@ -13,7 +13,7 @@ Subject: [PATCH] fcoe: move uefi parsing to fcoe-uefi module
 
 diff --git a/modules.d/95fcoe-uefi/module-setup.sh b/modules.d/95fcoe-uefi/module-setup.sh
 new file mode 100755
-index 0000000..007aa59
+index 00000000..007aa59a
 --- /dev/null
 +++ b/modules.d/95fcoe-uefi/module-setup.sh
 @@ -0,0 +1,22 @@
@@ -44,7 +44,7 @@ similarity index 100%
 rename from modules.d/95fcoe/parse-uefifcoe.sh
 rename to modules.d/95fcoe-uefi/parse-uefifcoe.sh
 diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
-index 08ba4ea..d3c58cc 100755
+index 08ba4eac..d3c58cc6 100755
 --- a/modules.d/95fcoe/module-setup.sh
 +++ b/modules.d/95fcoe/module-setup.sh
 @@ -32,7 +32,6 @@ install() {

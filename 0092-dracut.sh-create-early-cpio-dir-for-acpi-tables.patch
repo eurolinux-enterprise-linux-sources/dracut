@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.sh: create early cpio dir for acpi tables
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index ad57218..5586275 100755
+index ad57218d..55862751 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -719,7 +719,7 @@ readonly initdir="$(mktemp --tmpdir="$TMPDIR/" -d -t initramfs.XXXXXX)"

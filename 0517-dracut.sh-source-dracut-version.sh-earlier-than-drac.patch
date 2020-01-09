@@ -1,0 +1,43 @@
+From 75bf5df4209bec34799fb412d4c5bdd2b03e244d Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 20 Aug 2014 10:21:43 +0200
+Subject: [PATCH] dracut.sh: source dracut-version.sh earlier than
+ dracut-functions.sh
+
+Otherwise dracut-logger.sh outputs an empty version on journal testing.
+
+Aug 20 10:15:49 lenovo dracut[11144]: dracut-
+Aug 20 10:15:49 lenovo dracut[11148]: Executing: /sbin/dracut
+
+Cherry-picked from: e27ecc9ae8352c98c206ea5165ab6b85d3d6cd3a
+Resolves: #1490777
+---
+ dracut.sh | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/dracut.sh b/dracut.sh
+index 1dd3eabd..b34edea2 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -864,6 +864,10 @@ if [[ $print_cmdline ]]; then
+     kmsgloglvl=0
+ fi
+ 
++if [[ -f $dracutbasedir/dracut-version.sh ]]; then
++    . $dracutbasedir/dracut-version.sh
++fi
++
+ if [[ -f $dracutbasedir/dracut-init.sh ]]; then
+     . $dracutbasedir/dracut-init.sh
+ else
+@@ -882,10 +886,6 @@ if ! [[ $print_cmdline ]]; then
+     rm -fr -- ${initdir}/*
+ fi
+ 
+-if [[ -f $dracutbasedir/dracut-version.sh ]]; then
+-    . $dracutbasedir/dracut-version.sh
+-fi
+-
+ # Verify bash version, current minimum is 3.1
+ if (( BASH_VERSINFO[0] < 4 )); then
+     dfatal 'You need at least Bash 4 to use dracut, sorry.'

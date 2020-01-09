@@ -8,7 +8,7 @@ Subject: [PATCH] TEST-ISCSI: fix command check
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
-index 62bef9c..da86b83 100755
+index 62bef9cc..da86b837 100755
 --- a/test/TEST-30-ISCSI/test.sh
 +++ b/test/TEST-30-ISCSI/test.sh
 @@ -136,8 +136,8 @@ test_run() {

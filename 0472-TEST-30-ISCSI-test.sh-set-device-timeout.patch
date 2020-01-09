@@ -8,7 +8,7 @@ Subject: [PATCH] TEST-30-ISCSI/test.sh: set device timeout
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
-index da86b83..a610b0e 100755
+index da86b837..a610b0e4 100755
 --- a/test/TEST-30-ISCSI/test.sh
 +++ b/test/TEST-30-ISCSI/test.sh
 @@ -49,7 +49,7 @@ run_client() {

@@ -12,7 +12,7 @@ use a systemd generator, instead of a dracut hook to mount
  create mode 100755 modules.d/95virtfs/virtfs-generator.sh
 
 diff --git a/modules.d/95virtfs/module-setup.sh b/modules.d/95virtfs/module-setup.sh
-index 12bd354..3d80b75 100755
+index 12bd354b..3d80b75f 100755
 --- a/modules.d/95virtfs/module-setup.sh
 +++ b/modules.d/95virtfs/module-setup.sh
 @@ -37,5 +37,10 @@ installkernel() {
@@ -28,7 +28,7 @@ index 12bd354..3d80b75 100755
 +    fi
  }
 diff --git a/modules.d/95virtfs/parse-virtfs.sh b/modules.d/95virtfs/parse-virtfs.sh
-index ce6de6d..a9ad48a 100755
+index ce6de6d4..a9ad48a9 100755
 --- a/modules.d/95virtfs/parse-virtfs.sh
 +++ b/modules.d/95virtfs/parse-virtfs.sh
 @@ -3,7 +3,7 @@
@@ -42,7 +42,7 @@ index ce6de6d..a9ad48a 100755
  fi
 diff --git a/modules.d/95virtfs/virtfs-generator.sh b/modules.d/95virtfs/virtfs-generator.sh
 new file mode 100755
-index 0000000..3bdddf1
+index 00000000..3bdddf11
 --- /dev/null
 +++ b/modules.d/95virtfs/virtfs-generator.sh
 @@ -0,0 +1,39 @@

@@ -9,7 +9,7 @@ Subject: [PATCH] iscsi/parse-iscsiroot.sh: use iBFT initiator name
  1 file changed, 13 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/95iscsi/parse-iscsiroot.sh b/modules.d/95iscsi/parse-iscsiroot.sh
-index 6a21b50..2939e58 100755
+index 6a21b503..2939e58a 100755
 --- a/modules.d/95iscsi/parse-iscsiroot.sh
 +++ b/modules.d/95iscsi/parse-iscsiroot.sh
 @@ -60,7 +60,7 @@ if [ -n "$iscsiroot" ] ; then

@@ -17,7 +17,7 @@ Subject: [PATCH] Doc: cleanup, extend and split and reuse
  create mode 100644 dracut.usage.asc
 
 diff --git a/Makefile b/Makefile
-index 124a41b..e7da948 100644
+index 124a41b1..e7da9484 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -21,7 +21,8 @@ man1pages = lsinitrd.1
@@ -50,7 +50,7 @@ index 124a41b..e7da948 100644
  	xsltproc -o dracut.html --xinclude -nonet \
  		--stringparam custom.css.source dracut.css \
 diff --git a/dracut.8.asc b/dracut.8.asc
-index 76fc75c..584514c 100644
+index 76fc75c4..584514c0 100644
 --- a/dracut.8.asc
 +++ b/dracut.8.asc
 @@ -10,7 +10,7 @@ dracut - low-level tool for generating an initramfs image
@@ -163,7 +163,7 @@ index 76fc75c..584514c 100644
  
  AVAILABILITY
 diff --git a/dracut.asc b/dracut.asc
-index c011658..031b201 100644
+index c0116581..031b2014 100644
 --- a/dracut.asc
 +++ b/dracut.asc
 @@ -1,7 +1,7 @@
@@ -1079,7 +1079,7 @@ index c011658..031b201 100644
  [appendix]
  License
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index 4b2ab03..19bfb93 100644
+index 4b2ab035..19bfb939 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -31,16 +31,16 @@ line is the value, which is honored.
@@ -1859,7 +1859,7 @@ index 4b2ab03..19bfb93 100644
  Deprecated, renamed Options
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 diff --git a/dracut.css b/dracut.css
-index e419a06..357ede1 100644
+index e419a067..357ede1b 100644
 --- a/dracut.css
 +++ b/dracut.css
 @@ -14,45 +14,6 @@ body {
@@ -2369,7 +2369,7 @@ index e419a06..357ede1 100644
  }
 diff --git a/dracut.modules.7.asc b/dracut.modules.7.asc
 new file mode 100644
-index 0000000..4cb2aa1
+index 00000000..4cb2aa15
 --- /dev/null
 +++ b/dracut.modules.7.asc
 @@ -0,0 +1,293 @@
@@ -2667,7 +2667,7 @@ index 0000000..4cb2aa1
 +--------
 +*dracut*(8)
 diff --git a/dracut.spec b/dracut.spec
-index b1cf9fe..8dfc753 100644
+index b1cf9fef..8dfc7535 100644
 --- a/dracut.spec
 +++ b/dracut.spec
 @@ -316,6 +316,7 @@ rm -rf -- $RPM_BUILD_ROOT
@@ -2680,7 +2680,7 @@ index b1cf9fe..8dfc753 100644
  %if %{defined _unitdir}
 diff --git a/dracut.usage.asc b/dracut.usage.asc
 new file mode 100644
-index 0000000..6d37920
+index 00000000..6d37920f
 --- /dev/null
 +++ b/dracut.usage.asc
 @@ -0,0 +1,526 @@

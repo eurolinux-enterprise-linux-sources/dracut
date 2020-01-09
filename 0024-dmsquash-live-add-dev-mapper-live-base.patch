@@ -22,7 +22,7 @@ use whether or not there is an osmin present.
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/modules.d/90dmsquash-live/dmsquash-live-root.sh b/modules.d/90dmsquash-live/dmsquash-live-root.sh
-index 8951f80..5705e8d 100755
+index 8951f80c..5705e8df 100755
 --- a/modules.d/90dmsquash-live/dmsquash-live-root.sh
 +++ b/modules.d/90dmsquash-live/dmsquash-live-root.sh
 @@ -144,6 +144,9 @@ do_live_overlay() {

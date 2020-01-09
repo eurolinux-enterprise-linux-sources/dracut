@@ -11,7 +11,7 @@ new_prefix is apparently new_subnet_mask
  1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/modules.d/40network/dhclient-script.sh b/modules.d/40network/dhclient-script.sh
-index 761b0cd..6d4b9dd 100755
+index 761b0cd2..6d4b9dd1 100755
 --- a/modules.d/40network/dhclient-script.sh
 +++ b/modules.d/40network/dhclient-script.sh
 @@ -10,9 +10,6 @@ type ip_to_var >/dev/null 2>&1 || . /lib/net-lib.sh

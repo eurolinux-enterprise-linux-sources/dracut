@@ -10,7 +10,7 @@ Signed-off-by: Fabian Deutsch <fabiand@fedoraproject.org>
  1 file changed, 12 insertions(+)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index 1e89bd5..c7e3bd4 100644
+index 1e89bd50..c7e3bd40 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -806,6 +806,18 @@ can be found.  By default, this is __LiveOS__.

@@ -10,7 +10,7 @@ also remove any partial written initramfs images
  2 files changed, 47 insertions(+), 22 deletions(-)
 
 diff --git a/dracut-logger.sh b/dracut-logger.sh
-index ffa5616..53f7462 100755
+index ffa56167..53f74625 100755
 --- a/dracut-logger.sh
 +++ b/dracut-logger.sh
 @@ -150,8 +150,7 @@ dlog_init() {
@@ -24,7 +24,7 @@ index ffa5616..53f7462 100755
              readonly _dlogfd=15
              systemd-cat -t 'dracut' --level-prefix=true <"$_systemdcatfile" &
 diff --git a/dracut.sh b/dracut.sh
-index b85d42d..7897679 100755
+index b85d42dd..78976792 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -813,24 +813,25 @@ fi

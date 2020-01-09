@@ -9,7 +9,7 @@ Subject: [PATCH] test: don't call ldconfig with -- path separator
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/test/TEST-16-DMSQUASH/test.sh b/test/TEST-16-DMSQUASH/test.sh
-index c08a2a4..9d584e3 100755
+index c08a2a41..9d584e39 100755
 --- a/test/TEST-16-DMSQUASH/test.sh
 +++ b/test/TEST-16-DMSQUASH/test.sh
 @@ -69,7 +69,7 @@ test_setup() {
@@ -22,7 +22,7 @@ index c08a2a4..9d584e3 100755
      python create.py -d -c livecd-fedora-minimal.ks
      return 0
 diff --git a/test/TEST-50-MULTINIC/test.sh b/test/TEST-50-MULTINIC/test.sh
-index c0c3615..05273be 100755
+index c0c3615f..05273be7 100755
 --- a/test/TEST-50-MULTINIC/test.sh
 +++ b/test/TEST-50-MULTINIC/test.sh
 @@ -222,7 +222,7 @@ test_setup() {

@@ -10,7 +10,7 @@ Subject: [PATCH] ifcfg: do not bind persistent interface names to HWADDR
  2 files changed, 32 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 7430e4c..5d4ae32 100755
+index 7430e4ce..5d4ae32c 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -516,3 +516,30 @@ find_iface_with_link() {
@@ -45,7 +45,7 @@ index 7430e4c..5d4ae32 100755
 +    return 0
 +}
 diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
-index 486c69a..2631fbe 100755
+index 486c69a3..2631fbe2 100755
 --- a/modules.d/45ifcfg/write-ifcfg.sh
 +++ b/modules.d/45ifcfg/write-ifcfg.sh
 @@ -164,7 +164,11 @@ for netup in /tmp/net.*.did-setup ; do

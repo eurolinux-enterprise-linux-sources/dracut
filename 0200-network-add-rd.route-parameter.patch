@@ -11,7 +11,7 @@ Subject: [PATCH] network: add rd.route parameter
  3 files changed, 59 insertions(+), 1 deletion(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index 24bf449..bce8608 100644
+index 24bf4491..bce86084 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -489,6 +489,19 @@ WARNING: Do **not** use the default kernel naming scheme for the interface name,
@@ -44,7 +44,7 @@ index 24bf449..bce8608 100644
      ":" or "," and are seperated by ",".
  
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 90337f3..c8f9204 100755
+index 90337f3c..c8f92048 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -89,6 +89,7 @@ ifdown() {
@@ -111,7 +111,7 @@ index 90337f3..c8f9204 100755
      local IFS=:
      set $1
 diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
-index fb388bc..5e333e4 100755
+index fb388bcb..5e333e45 100755
 --- a/modules.d/45ifcfg/write-ifcfg.sh
 +++ b/modules.d/45ifcfg/write-ifcfg.sh
 @@ -268,6 +268,9 @@ for netup in /tmp/net.*.did-setup ; do

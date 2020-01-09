@@ -10,7 +10,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1044623
  2 files changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index 8ac5341..963ba07 100644
+index 8ac53414..963ba074 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -484,6 +484,12 @@ interface name. Better name it "bootnet" or "bluesocket".
@@ -27,7 +27,7 @@ index 8ac5341..963ba07 100644
      specify nameserver(s) to use
  
 diff --git a/modules.d/40network/parse-ip-opts.sh b/modules.d/40network/parse-ip-opts.sh
-index 4bf286d..7e73574 100755
+index 4bf286d8..7e735741 100755
 --- a/modules.d/40network/parse-ip-opts.sh
 +++ b/modules.d/40network/parse-ip-opts.sh
 @@ -108,7 +108,7 @@ for p in $(getargs ip=); do

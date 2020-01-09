@@ -8,7 +8,7 @@ Subject: [PATCH] iscsi/iscsiroot.sh: do not trust iscsistart return value
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
-index ef090f7..abdea5c 100755
+index ef090f7f..abdea5cf 100755
 --- a/modules.d/95iscsi/iscsiroot.sh
 +++ b/modules.d/95iscsi/iscsiroot.sh
 @@ -44,7 +44,8 @@ if getargbool 0 rd.iscsi.firmware -d -y iscsi_firmware ; then

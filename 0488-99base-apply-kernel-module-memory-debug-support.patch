@@ -18,7 +18,7 @@ Signed-off-by: Xunlei Pang <xlpang@redhat.com>
  7 files changed, 23 insertions(+), 9 deletions(-)
 
 diff --git a/modules.d/98systemd/dracut-cmdline.sh b/modules.d/98systemd/dracut-cmdline.sh
-index 630f3f9..b6b899f 100755
+index 630f3f92..b6b899f0 100755
 --- a/modules.d/98systemd/dracut-cmdline.sh
 +++ b/modules.d/98systemd/dracut-cmdline.sh
 @@ -43,7 +43,7 @@ export root
@@ -31,7 +31,7 @@ index 630f3f9..b6b899f 100755
  getarg 'rd.break=cmdline' -d 'rdbreak=cmdline' && emergency_shell -n cmdline "Break before cmdline"
  source_hook cmdline
 diff --git a/modules.d/98systemd/dracut-pre-mount.sh b/modules.d/98systemd/dracut-pre-mount.sh
-index 55b051a..199cf96 100755
+index 55b051ab..199cf965 100755
 --- a/modules.d/98systemd/dracut-pre-mount.sh
 +++ b/modules.d/98systemd/dracut-pre-mount.sh
 @@ -9,7 +9,7 @@ type getarg >/dev/null 2>&1 || . /lib/dracut-lib.sh
@@ -44,7 +44,7 @@ index 55b051a..199cf96 100755
  # to the new root.
  getarg 'rd.break=pre-mount' 'rdbreak=pre-mount' && emergency_shell -n pre-mount "Break pre-mount"
 diff --git a/modules.d/98systemd/dracut-pre-pivot.sh b/modules.d/98systemd/dracut-pre-pivot.sh
-index 4c3eefc..c079972 100755
+index 4c3eefcd..c079972e 100755
 --- a/modules.d/98systemd/dracut-pre-pivot.sh
 +++ b/modules.d/98systemd/dracut-pre-pivot.sh
 @@ -10,12 +10,13 @@ type getarg >/dev/null 2>&1 || . /lib/dracut-lib.sh
@@ -63,7 +63,7 @@ index 4c3eefc..c079972 100755
  getarg 'rd.break=cleanup' 'rdbreak=cleanup' && emergency_shell -n cleanup "Break cleanup"
  source_hook cleanup
 diff --git a/modules.d/98systemd/dracut-pre-trigger.sh b/modules.d/98systemd/dracut-pre-trigger.sh
-index 0dbf32a..241cd1e 100755
+index 0dbf32a5..241cd1e5 100755
 --- a/modules.d/98systemd/dracut-pre-trigger.sh
 +++ b/modules.d/98systemd/dracut-pre-trigger.sh
 @@ -10,7 +10,7 @@ type getarg >/dev/null 2>&1 || . /lib/dracut-lib.sh
@@ -76,7 +76,7 @@ index 0dbf32a..241cd1e 100755
  source_hook pre-trigger
  
 diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
-index 10d9cbc..78e01a7 100755
+index 10d9cbc5..78e01a78 100755
 --- a/modules.d/99base/dracut-lib.sh
 +++ b/modules.d/99base/dracut-lib.sh
 @@ -1177,12 +1177,20 @@ are_lists_eq() {
@@ -111,7 +111,7 @@ index 10d9cbc..78e01a7 100755
      esac
  }
 diff --git a/modules.d/99base/init.sh b/modules.d/99base/init.sh
-index 7bbe670..473bf42 100755
+index 7bbe6703..473bf42e 100755
 --- a/modules.d/99base/init.sh
 +++ b/modules.d/99base/init.sh
 @@ -124,7 +124,7 @@ if getarg "rd.cmdline=ask"; then
@@ -156,7 +156,7 @@ index 7bbe670..473bf42 100755
  getarg 'rd.break=cleanup' -d 'rdbreak=cleanup' && emergency_shell -n cleanup "Break cleanup"
  source_hook cleanup
 diff --git a/modules.d/99base/module-setup.sh b/modules.d/99base/module-setup.sh
-index d5e7861..8fd4e80 100755
+index d5e78613..8fd4e80d 100755
 --- a/modules.d/99base/module-setup.sh
 +++ b/modules.d/99base/module-setup.sh
 @@ -34,6 +34,7 @@ install() {

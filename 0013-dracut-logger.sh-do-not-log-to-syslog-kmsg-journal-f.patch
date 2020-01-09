@@ -12,7 +12,7 @@ Also check, if systemd-cat works, before using it.
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/dracut-logger.sh b/dracut-logger.sh
-index b052581..f679dc9 100755
+index b052581e..f679dc94 100755
 --- a/dracut-logger.sh
 +++ b/dracut-logger.sh
 @@ -140,11 +140,16 @@ dlog_init() {

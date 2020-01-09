@@ -12,7 +12,7 @@ cherry-picked from 29763cb72d17fe8d22766170ec06b32419829243
  1 file changed, 50 insertions(+), 62 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index c8f9204..e2901da 100755
+index c8f92048..e2901dad 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -271,66 +271,46 @@ parse_iscsi_root()

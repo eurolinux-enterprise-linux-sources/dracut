@@ -9,7 +9,7 @@ Subject: [PATCH] dracut.sh: bail out early, if destination dir is not
  1 file changed, 19 insertions(+), 17 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index b4b3e13..e135dfc 100755
+index b4b3e13d..e135dfc8 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -824,9 +824,25 @@ if [[ -d $srcmods ]]; then

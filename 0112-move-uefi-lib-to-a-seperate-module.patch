@@ -14,7 +14,7 @@ Subject: [PATCH] move uefi-lib to a seperate module
  rename modules.d/{99base => 99uefi-lib}/uefi-lib.sh (100%)
 
 diff --git a/modules.d/95fcoe-uefi/module-setup.sh b/modules.d/95fcoe-uefi/module-setup.sh
-index 007aa59..653d88e 100755
+index 007aa59a..653d88eb 100755
 --- a/modules.d/95fcoe-uefi/module-setup.sh
 +++ b/modules.d/95fcoe-uefi/module-setup.sh
 @@ -4,14 +4,12 @@
@@ -34,7 +34,7 @@ index 007aa59..653d88e 100755
  }
  
 diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
-index d3c58cc..fe8e40a 100755
+index d3c58cc6..fe8e40aa 100755
 --- a/modules.d/95fcoe/module-setup.sh
 +++ b/modules.d/95fcoe/module-setup.sh
 @@ -3,11 +3,6 @@
@@ -50,7 +50,7 @@ index d3c58cc..fe8e40a 100755
          type -P $i >/dev/null || return 1
      done
 diff --git a/modules.d/99base/module-setup.sh b/modules.d/99base/module-setup.sh
-index d33a0fb..52ce400 100755
+index d33a0fb4..52ce4004 100755
 --- a/modules.d/99base/module-setup.sh
 +++ b/modules.d/99base/module-setup.sh
 @@ -42,7 +42,6 @@ install() {
@@ -63,7 +63,7 @@ index d33a0fb..52ce400 100755
          inst_multiple switch_root || dfatal "Failed to install switch_root"
 diff --git a/modules.d/99uefi-lib/module-setup.sh b/modules.d/99uefi-lib/module-setup.sh
 new file mode 100755
-index 0000000..4a856ea
+index 00000000..4a856eaa
 --- /dev/null
 +++ b/modules.d/99uefi-lib/module-setup.sh
 @@ -0,0 +1,19 @@

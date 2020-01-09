@@ -17,7 +17,7 @@ Signed-off-by: Thomas Renninger <trenn@suse.de>
  1 file changed, 45 insertions(+)
 
 diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
-index c000b3b..af2798d 100755
+index c000b3be..af2798dc 100755
 --- a/modules.d/95fcoe/module-setup.sh
 +++ b/modules.d/95fcoe/module-setup.sh
 @@ -13,6 +13,7 @@ check() {

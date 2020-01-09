@@ -8,7 +8,7 @@ Subject: [PATCH] dracut-functions.sh:inst_rules() do not install rules in CWD
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index cf33af5..45e0911 100755
+index cf33af56..45e09118 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -882,7 +882,10 @@ inst_rules() {

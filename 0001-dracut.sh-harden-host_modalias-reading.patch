@@ -12,7 +12,7 @@ cat: /sys/devices/vio/4000/modalias: No such device
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index bd905e3..fd27846 100755
+index bd905e32..fd278466 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -921,7 +921,7 @@ if [[ $hostonly ]]; then

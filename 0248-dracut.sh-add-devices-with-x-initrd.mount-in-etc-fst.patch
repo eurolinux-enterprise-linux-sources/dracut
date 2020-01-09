@@ -12,7 +12,7 @@ otherwise dracut might not even be able to mount those.
  1 file changed, 14 insertions(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index 6e56af5..0e60022 100755
+index 6e56af50..0e600220 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1061,6 +1061,20 @@ if [[ $hostonly ]]; then

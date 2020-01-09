@@ -9,7 +9,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1405025
  1 file changed, 1 insertion(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index 90ea9c3..e45dc7b 100755
+index 90ea9c32..e45dc7bb 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1132,6 +1132,7 @@ if [[ $hostonly ]]; then

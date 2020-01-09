@@ -10,7 +10,7 @@ Subject: [PATCH] fcoe: start with fcoemon instead of fipvlan
  3 files changed, 35 insertions(+), 6 deletions(-)
 
 diff --git a/modules.d/95fcoe/fcoe-up.sh b/modules.d/95fcoe/fcoe-up.sh
-index edbfcc8..823d7ac 100755
+index edbfcc84..823d7acc 100755
 --- a/modules.d/95fcoe/fcoe-up.sh
 +++ b/modules.d/95fcoe/fcoe-up.sh
 @@ -20,12 +20,28 @@ type ip_to_var >/dev/null 2>&1 || . /lib/net-lib.sh
@@ -42,20 +42,20 @@ index edbfcc8..823d7ac 100755
  if [ "$dcb" = "dcb" ]; then
      # Note lldpad will stay running after switchroot, the system initscripts
      # are to kill it and start a new lldpad to take over. Data is transfered
-@@ -52,6 +68,13 @@ if [ "$dcb" = "dcb" ]; then
+@@ -51,6 +67,13 @@ if [ "$dcb" = "dcb" ]; then
+         i=$(($i+1))
      done
  
-     while [ $i -lt 60 ]; do
++    while [ $i -lt 60 ]; do
 +        dcbtool sc "$netif" pfc e:1 a:1 w:1 && break
 +        info "Retrying to turn dcb on"
 +        sleep 1
 +        i=$(($i+1))
 +    done
 +
-+    while [ $i -lt 60 ]; do
+     while [ $i -lt 60 ]; do
          dcbtool sc "$netif" app:fcoe e:1 a:1 w:1 && break
          info "Retrying to turn fcoe on"
-         sleep 1
 @@ -60,7 +83,8 @@ if [ "$dcb" = "dcb" ]; then
  
      sleep 1
@@ -78,7 +78,7 @@ index edbfcc8..823d7ac 100755
  
  need_shutdown
 diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
-index 8c6290d..ec573ea 100755
+index 8c6290d4..ec573ea0 100755
 --- a/modules.d/95fcoe/module-setup.sh
 +++ b/modules.d/95fcoe/module-setup.sh
 @@ -3,7 +3,7 @@
@@ -105,7 +105,7 @@ index 8c6290d..ec573ea 100755
      inst "$moddir/fcoe-up.sh" "/sbin/fcoe-up"
      inst "$moddir/fcoe-edd.sh" "/sbin/fcoe-edd"
 diff --git a/modules.d/95fcoe/parse-fcoe.sh b/modules.d/95fcoe/parse-fcoe.sh
-index dc40c82..7eca0b6 100755
+index dc40c825..7eca0b6c 100755
 --- a/modules.d/95fcoe/parse-fcoe.sh
 +++ b/modules.d/95fcoe/parse-fcoe.sh
 @@ -22,13 +22,13 @@

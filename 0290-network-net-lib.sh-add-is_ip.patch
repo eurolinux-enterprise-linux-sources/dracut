@@ -11,7 +11,7 @@ add function to test if string is a valid IP
  1 file changed, 12 insertions(+)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index cfc06fe..44c1bf0 100755
+index cfc06feb..44c1bf04 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -2,6 +2,18 @@

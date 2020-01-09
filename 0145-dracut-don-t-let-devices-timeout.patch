@@ -10,7 +10,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=949697
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/modules.d/98systemd/rootfs-generator.sh b/modules.d/98systemd/rootfs-generator.sh
-index a11ce59..2c09895 100755
+index a11ce595..2c098951 100755
 --- a/modules.d/98systemd/rootfs-generator.sh
 +++ b/modules.d/98systemd/rootfs-generator.sh
 @@ -29,7 +29,7 @@ generator_wait_for_dev()
@@ -23,7 +23,7 @@ index a11ce59..2c09895 100755
      fi
  }
 diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
-index d892c26..62facda 100755
+index d892c26d..62facda1 100755
 --- a/modules.d/99base/dracut-lib.sh
 +++ b/modules.d/99base/dracut-lib.sh
 @@ -884,7 +884,7 @@ wait_for_dev()

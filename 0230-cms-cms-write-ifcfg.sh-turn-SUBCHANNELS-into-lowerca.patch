@@ -9,7 +9,7 @@ Subject: [PATCH] cms/cms-write-ifcfg.sh: turn SUBCHANNELS into lowercase
  1 file changed, 1 insertion(+)
 
 diff --git a/modules.d/80cms/cms-write-ifcfg.sh b/modules.d/80cms/cms-write-ifcfg.sh
-index c0623a4..7846996 100755
+index c0623a41..78469960 100755
 --- a/modules.d/80cms/cms-write-ifcfg.sh
 +++ b/modules.d/80cms/cms-write-ifcfg.sh
 @@ -9,6 +9,7 @@ mkdir -m 0755 -p /run/initramfs/state/etc/sysconfig/network-scripts

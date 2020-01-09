@@ -24,7 +24,7 @@ Signed-off-by: Chao Fan <cfan@redhat.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index 0e60022..cc22a14 100755
+index 0e600220..cc22a14d 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1348,6 +1348,7 @@ if [[ $kernel_only != yes ]]; then

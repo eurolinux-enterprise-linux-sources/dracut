@@ -13,7 +13,7 @@ dependencies cannot be included.
  2 files changed, 29 insertions(+), 12 deletions(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 6e0b44a..89438b2 100755
+index 6e0b44ae..89438b29 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -1215,13 +1215,17 @@ check_mount() {
@@ -96,7 +96,7 @@ index 6e0b44a..89438b2 100755
      done
  }
 diff --git a/dracut.sh b/dracut.sh
-index eff096e..74c59a0 100755
+index eff096e5..74c59a0c 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1152,7 +1152,9 @@ fi

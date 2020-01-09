@@ -20,7 +20,7 @@ Subject: [PATCH] Add flag to toggle hostonly cmdline storing in the initramfs
  8 files changed, 66 insertions(+), 25 deletions(-)
 
 diff --git a/dracut.8.asc b/dracut.8.asc
-index b294675..ba125c0 100644
+index b2946753..ba125c0d 100644
 --- a/dracut.8.asc
 +++ b/dracut.8.asc
 @@ -294,6 +294,12 @@ provide a valid _/etc/fstab_.
@@ -37,7 +37,7 @@ index b294675..ba125c0 100644
      Use _<policy>_ to address disks and partitions.
      _<policy>_ can be any directory name found in /dev/disk.
 diff --git a/dracut.conf.5.asc b/dracut.conf.5.asc
-index 5c94118..be62da9 100644
+index 5c941188..be62da98 100644
 --- a/dracut.conf.5.asc
 +++ b/dracut.conf.5.asc
 @@ -76,6 +76,9 @@ Configuration files must have the extension .conf; other extensions are ignored.
@@ -51,7 +51,7 @@ index 5c94118..be62da9 100644
      Use _<policy>_ to address disks and partitions.
      _<policy>_ can be any directory name found in /dev/disk.
 diff --git a/dracut.sh b/dracut.sh
-index c4bf4eb..1c5e688 100755
+index c4bf4ebc..1c5e6889 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -136,6 +136,10 @@ Creates initial ramdisk images for preloading modules
@@ -128,7 +128,7 @@ index c4bf4eb..1c5e688 100755
  [[ $use_fstab_l ]] && use_fstab=$use_fstab_l
  [[ $mdadmconf_l ]] && mdadmconf=$mdadmconf_l
 diff --git a/modules.d/90crypt/module-setup.sh b/modules.d/90crypt/module-setup.sh
-index 1858391..267d39d 100755
+index 18583915..267d39d5 100755
 --- a/modules.d/90crypt/module-setup.sh
 +++ b/modules.d/90crypt/module-setup.sh
 @@ -46,8 +46,10 @@ cmdline() {
@@ -145,7 +145,7 @@ index 1858391..267d39d 100755
      inst_multiple cryptsetup rmdir readlink umount
      inst_script "$moddir"/cryptroot-ask.sh /sbin/cryptroot-ask
 diff --git a/modules.d/90dmraid/module-setup.sh b/modules.d/90dmraid/module-setup.sh
-index 11181cf..b230cb0 100755
+index 11181cf5..b230cb0e 100755
 --- a/modules.d/90dmraid/module-setup.sh
 +++ b/modules.d/90dmraid/module-setup.sh
 @@ -61,8 +61,10 @@ cmdline() {
@@ -162,7 +162,7 @@ index 11181cf..b230cb0 100755
      inst_multiple dmraid
      inst_multiple -o kpartx
 diff --git a/modules.d/90lvm/module-setup.sh b/modules.d/90lvm/module-setup.sh
-index f0c9b96..1c962d5 100755
+index f0c9b964..1c962d54 100755
 --- a/modules.d/90lvm/module-setup.sh
 +++ b/modules.d/90lvm/module-setup.sh
 @@ -48,8 +48,10 @@ install() {
@@ -179,7 +179,7 @@ index f0c9b96..1c962d5 100755
      inst_rules "$moddir/64-lvm.rules"
  
 diff --git a/modules.d/90mdraid/module-setup.sh b/modules.d/90mdraid/module-setup.sh
-index 34aae1e..1e03847 100755
+index 34aae1e3..1e03847f 100755
 --- a/modules.d/90mdraid/module-setup.sh
 +++ b/modules.d/90mdraid/module-setup.sh
 @@ -65,8 +65,10 @@ install() {
@@ -196,7 +196,7 @@ index 34aae1e..1e03847 100755
      # <mdadm-3.3 udev rule
      inst_rules 64-md-raid.rules
 diff --git a/modules.d/95rootfs-block/module-setup.sh b/modules.d/95rootfs-block/module-setup.sh
-index 7e714eb..5bb704a 100755
+index 7e714eb0..5bb704a4 100755
 --- a/modules.d/95rootfs-block/module-setup.sh
 +++ b/modules.d/95rootfs-block/module-setup.sh
 @@ -10,17 +10,8 @@ depends() {

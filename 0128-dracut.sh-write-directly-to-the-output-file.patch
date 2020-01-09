@@ -10,7 +10,7 @@ have to play games and write to a temporary file first.
  1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 89df9cd..c4bf4eb 100755
+index 89df9cd8..c4bf4ebc 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -729,7 +729,6 @@ fi

@@ -1,0 +1,40 @@
+From 17092b128ce6900e0600dbdaf4ac9c777af0db2e Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Mon, 30 Jan 2017 09:20:55 +0100
+Subject: [PATCH] fips: honor $BOOT_IMAGE variable for HMAC check of the kernel
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1415032
+
+Cherry-picked from: 4693daa5fa7dddc6b35825831f35657cb66bd531
+Resolves: #1415032
+---
+ modules.d/01fips/fips.sh | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/modules.d/01fips/fips.sh b/modules.d/01fips/fips.sh
+index 0b69a823..e9ed00b5 100755
+--- a/modules.d/01fips/fips.sh
++++ b/modules.d/01fips/fips.sh
+@@ -79,9 +79,10 @@ do_fips()
+     local _module
+ 
+     KERNEL=$(uname -r)
+-
+-    if ! [ -e "/boot/.vmlinuz-${KERNEL}.hmac" ]; then
+-        warn "/boot/.vmlinuz-${KERNEL}.hmac does not exist"
++    BOOT_IMAGE="$(getarg BOOT_IMAGE)"
++    BOOT_IMAGE="${BOOT_IMAGE:-/vmlinuz-${KERNEL}}"
++    if ! [ -e "/boot/.${BOOT_IMAGE}.hmac" ] && ! [ -e "/boot/.vmlinuz-${KERNEL}.hmac" ]; then
++        warn "/boot/.${BOOT_IMAGE}.hmac does not exist"
+         return 1
+     fi
+ 
+@@ -116,7 +117,7 @@ do_fips()
+     elif [ -e "/run/initramfs/live/isolinux/vmlinuz0" ]; then
+         do_rhevh_check /run/initramfs/live/isolinux/vmlinuz0 || return 1
+     else
+-        sha512hmac -c "/boot/.vmlinuz-${KERNEL}.hmac" || return 1
++        sha512hmac -c "/boot/.${BOOT_IMAGE}.hmac" || return 1
+     fi
+ 
+     info "All initrd crypto checks done"

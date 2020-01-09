@@ -15,7 +15,7 @@ Signed-off-by: Hannes Reinecke <hare@suse.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/98systemd/module-setup.sh b/modules.d/98systemd/module-setup.sh
-index 52edd80..36a0505 100755
+index 52edd80e..36a0505b 100755
 --- a/modules.d/98systemd/module-setup.sh
 +++ b/modules.d/98systemd/module-setup.sh
 @@ -188,7 +188,7 @@ install() {

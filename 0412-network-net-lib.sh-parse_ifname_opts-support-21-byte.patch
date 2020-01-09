@@ -12,7 +12,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1319270
  1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 0c00f92..9f76714 100755
+index 0c00f925..9f767144 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -523,8 +523,13 @@ parse_ifname_opts() {

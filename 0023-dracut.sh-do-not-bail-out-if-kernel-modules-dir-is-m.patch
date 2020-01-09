@@ -9,7 +9,7 @@ and only print a warning message
  1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index e135dfc..d9533dd 100755
+index e135dfc8..d9533dd0 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -496,17 +496,18 @@ if [[ $regenerate_all == "yes" ]]; then

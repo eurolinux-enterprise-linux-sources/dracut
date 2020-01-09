@@ -12,7 +12,7 @@ See: https://bugzilla.redhat.com/show_bug.cgi?id=1167082
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 31586ca..973e231 100755
+index 31586ca4..973e2312 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -169,7 +169,13 @@ srcmods="/lib/modules/$kernel/"

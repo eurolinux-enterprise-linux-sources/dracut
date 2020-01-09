@@ -8,7 +8,7 @@ Subject: [PATCH] TEST-99-RPM: ignore openldap leftovers
  1 file changed, 1 insertion(+)
 
 diff --git a/test/TEST-99-RPM/test.sh b/test/TEST-99-RPM/test.sh
-index 5afc313..fc68273 100755
+index 5afc313e..fc682734 100755
 --- a/test/TEST-99-RPM/test.sh
 +++ b/test/TEST-99-RPM/test.sh
 @@ -54,6 +54,7 @@ find / -xdev -type f -not -path '/var/*' \

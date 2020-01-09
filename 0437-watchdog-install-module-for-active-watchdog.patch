@@ -57,7 +57,7 @@ Cc: Harald Hoyer <harald@redhat.com>
  1 file changed, 28 insertions(+)
 
 diff --git a/modules.d/04watchdog/module-setup.sh b/modules.d/04watchdog/module-setup.sh
-index 7e32210..4680936 100755
+index 7e32210e..4680936f 100755
 --- a/modules.d/04watchdog/module-setup.sh
 +++ b/modules.d/04watchdog/module-setup.sh
 @@ -31,3 +31,31 @@ install() {

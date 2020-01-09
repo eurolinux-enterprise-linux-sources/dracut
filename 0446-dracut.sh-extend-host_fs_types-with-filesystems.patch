@@ -12,7 +12,7 @@ filesystems.
  1 file changed, 6 insertions(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index fefdefd..0a69973 100755
+index fefdefd5..0a699737 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1174,6 +1174,12 @@ for dev in "${!host_fs_types[@]}"; do

@@ -9,7 +9,7 @@ Subject: [PATCH] dracut.sh: also mkdir /run/lock, which is copied to
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 7997428..bcdc2d8 100755
+index 79974286..bcdc2d8a 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1129,7 +1129,7 @@ if [[ $kernel_only != yes ]]; then

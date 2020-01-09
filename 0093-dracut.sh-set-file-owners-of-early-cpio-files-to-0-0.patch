@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.sh: set file owners of early cpio files to 0:0
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 5586275..0ac2b05 100755
+index 55862751..0ac2b050 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1379,10 +1379,10 @@ rm -f -- "$outfile"

@@ -1,0 +1,29 @@
+From e2afcc958be19287bc23d9c0a052b5ac57bb3df3 Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Thu, 26 Oct 2017 13:50:17 +0200
+Subject: [PATCH] rootfs-block/module-setup.sh: check root_dev in
+ cmdline_rootfs()
+
+In case of "--no-hostonly-default-device", we do not need
+the root device, thus add this check.
+
+Reimplementation of upstream commit 5634a31156070487210a8e362e8f088c5c4dc615
+
+Resolves: #1483838
+---
+ modules.d/95rootfs-block/module-setup.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules.d/95rootfs-block/module-setup.sh b/modules.d/95rootfs-block/module-setup.sh
+index 5bb704a4..284cb550 100755
+--- a/modules.d/95rootfs-block/module-setup.sh
++++ b/modules.d/95rootfs-block/module-setup.sh
+@@ -32,7 +32,7 @@ cmdline_journal() {
+ 
+ cmdline() {
+     local dev=/dev/block/$(find_root_block_device)
+-    if [ -e $dev ]; then
++    if [ -e $dev ] && [ -n "$root_dev" ] ; then
+         printf " root=%s" "$(shorten_persistent_dev "$(get_persistent_dev "$dev")")"
+         printf " rootflags=%s" "$(find_mp_fsopts /)"
+         printf " rootfstype=%s" "$(find_mp_fstype /)"

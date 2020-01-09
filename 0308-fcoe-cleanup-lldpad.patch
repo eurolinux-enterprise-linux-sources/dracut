@@ -12,7 +12,7 @@ Resolves: rhbz#1246217
 
 diff --git a/modules.d/95fcoe/cleanup-fcoe.sh b/modules.d/95fcoe/cleanup-fcoe.sh
 new file mode 100644
-index 0000000..5ff4d05
+index 00000000..5ff4d054
 --- /dev/null
 +++ b/modules.d/95fcoe/cleanup-fcoe.sh
 @@ -0,0 +1,10 @@
@@ -27,7 +27,7 @@ index 0000000..5ff4d05
 +    echo "files /dev/shm/lldpad.state" >> /run/initramfs/rwtab
 +fi
 diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
-index ec573ea..646cfa8 100755
+index ec573ea0..646cfa84 100755
 --- a/modules.d/95fcoe/module-setup.sh
 +++ b/modules.d/95fcoe/module-setup.sh
 @@ -28,6 +28,7 @@ install() {

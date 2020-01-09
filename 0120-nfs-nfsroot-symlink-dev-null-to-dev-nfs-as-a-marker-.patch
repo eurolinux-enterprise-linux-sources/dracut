@@ -9,7 +9,7 @@ Subject: [PATCH] nfs/nfsroot: symlink /dev/null to /dev/nfs, as a marker for
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/95nfs/nfsroot.sh b/modules.d/95nfs/nfsroot.sh
-index f04159e..d0719ef 100755
+index f04159e3..d0719efe 100755
 --- a/modules.d/95nfs/nfsroot.sh
 +++ b/modules.d/95nfs/nfsroot.sh
 @@ -16,7 +16,7 @@ NEWROOT="$3"

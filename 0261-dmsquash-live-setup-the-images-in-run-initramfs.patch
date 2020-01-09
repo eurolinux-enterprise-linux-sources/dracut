@@ -12,7 +12,7 @@ works, but it is more sane to put them in /run/initramfs
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/modules.d/90dmsquash-live/dmsquash-live-root.sh b/modules.d/90dmsquash-live/dmsquash-live-root.sh
-index 0645a0b..12354f4 100755
+index 0645a0bd..12354f42 100755
 --- a/modules.d/90dmsquash-live/dmsquash-live-root.sh
 +++ b/modules.d/90dmsquash-live/dmsquash-live-root.sh
 @@ -189,9 +189,9 @@ fi

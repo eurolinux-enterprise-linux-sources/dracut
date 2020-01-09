@@ -9,7 +9,7 @@ return 0, otherwise if _alldrivers is empty, the return code is fail
  1 file changed, 2 insertions(+)
 
 diff --git a/modules.d/04watchdog/module-setup.sh b/modules.d/04watchdog/module-setup.sh
-index 31102f4..fbf6d6d 100755
+index 31102f4e..fbf6d6dd 100755
 --- a/modules.d/04watchdog/module-setup.sh
 +++ b/modules.d/04watchdog/module-setup.sh
 @@ -73,4 +73,6 @@ installkernel() {

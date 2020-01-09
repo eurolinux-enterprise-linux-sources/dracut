@@ -10,7 +10,7 @@ Subject: [PATCH] nfs/parse-nfsroot.sh: silence useless warning if netroot is
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/95nfs/parse-nfsroot.sh b/modules.d/95nfs/parse-nfsroot.sh
-index a84cd43..865e62b 100755
+index a84cd436..865e62b8 100755
 --- a/modules.d/95nfs/parse-nfsroot.sh
 +++ b/modules.d/95nfs/parse-nfsroot.sh
 @@ -40,7 +40,7 @@ if [ -n "$netroot" ] ; then

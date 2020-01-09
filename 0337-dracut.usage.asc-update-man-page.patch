@@ -10,7 +10,7 @@ Subject: [PATCH] dracut.usage.asc: update man page
  1 file changed, 23 insertions(+), 51 deletions(-)
 
 diff --git a/dracut.usage.asc b/dracut.usage.asc
-index 15dc244..45cbf12 100644
+index 15dc2440..45cbf120 100644
 --- a/dracut.usage.asc
 +++ b/dracut.usage.asc
 @@ -37,10 +37,14 @@ the --hostonly or -H option. Using this option, the resulting image will

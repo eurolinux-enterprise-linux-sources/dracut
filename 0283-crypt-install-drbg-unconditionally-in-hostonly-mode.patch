@@ -9,7 +9,7 @@ older kernels had the drbg kernel module and didn't need it
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/90crypt/module-setup.sh b/modules.d/90crypt/module-setup.sh
-index dbc87a4..bd37d9a 100755
+index dbc87a43..bd37d9a5 100755
 --- a/modules.d/90crypt/module-setup.sh
 +++ b/modules.d/90crypt/module-setup.sh
 @@ -23,7 +23,8 @@ depends() {

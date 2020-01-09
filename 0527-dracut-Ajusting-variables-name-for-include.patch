@@ -1,0 +1,90 @@
+From 7812b7a7b02cc5b4e66c6544f8f8c8748ada00bf Mon Sep 17 00:00:00 2001
+From: Erwan Velu <erwan.velu@enovance.com>
+Date: Fri, 19 Dec 2014 14:49:00 +0100
+Subject: [PATCH] dracut: Ajusting variables name for --include
+
+When reading the --include part of the script, we had the following
+issues to make the code easy to read:
+- src & tgt were extract for the original options
+- i variable was a file or a directory from src
+- s variable was the directory name in case $i was a directory
+
+"s" sounds very close to "src" while "s" is on the "tgt" side. Very
+confusing.
+
+"s" was defined before the "if it's a directory" statement while it's
+only used inside the "if".
+
+"i" was commit from the "src" but wasn't really explicit.
+
+Having some lines mixing "i" and "s" takes a little time to get read
+properly.
+
+This patch offer the following changes:
+- "i" is renamed to "objectname" as we don't know if its a file or a
+  directory
+
+- "s" is renamed to "object_destdir" as the object name becomes a
+  directory on the destdir
+
+- "object_destdir" (former "s") is moved inside the "if" statement as it's
+  only used here
+
+- tgt is finally renamed to "target" to be more explicit. We are not all
+  native english ;o)
+
+My 2 (semantic) cents,
+
+Cherry-picked from: c9364f6ea296a03073bc4096756e3a61ca095c0e
+Resolves: #1489882
+---
+ dracut.sh | 29 ++++++++++++++++-------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
+
+diff --git a/dracut.sh b/dracut.sh
+index 3b91b5e8..873274c0 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -1433,26 +1433,29 @@ if [[ $kernel_only != yes ]]; then
+     fi
+ fi
+ 
+-while pop include_src src && pop include_target tgt; do
+-    if [[ $src && $tgt ]]; then
++while pop include_src src && pop include_target target; do
++    if [[ $src && $target ]]; then
+         if [[ -f $src ]]; then
+-            inst $src $tgt
++            inst $src $target
+         else
+             ddebug "Including directory: $src"
+-            mkdir -p "${initdir}/${tgt}"
++            destdir="${initdir}/${target}"
++            mkdir -p "$destdir"
+             # check for preexisting symlinks, so we can cope with the
+             # symlinks to $prefix
+-            for i in "$src"/*; do
+-                [[ -e "$i" || -h "$i" ]] || continue
+-                s=${initdir}/${tgt}/${i#$src/}
+-                if [[ -d "$i" ]]; then
+-                    if ! [[ -e "$s" ]]; then
+-                        mkdir -m 0755 -p "$s"
+-                        chmod --reference="$i" "$s"
++            # Objectname is a file or a directory
++            for objectname in "$src"/*; do
++                [[ -e "$objectname" || -h "$objectname" ]] || continue
++                if [[ -d "$objectname" ]]; then
++                    # objectname is a directory, let's compute the final directory name
++                    object_destdir=${destdir}/${objectname#$src/}
++                    if ! [[ -e "$object_destdir" ]]; then
++                        mkdir -m 0755 -p "$object_destdir"
++                        chmod --reference="$objectname" "$object_destdir"
+                     fi
+-                    cp --reflink=auto --sparse=auto -fa -t "$s" "$i"/*
++                    cp --reflink=auto --sparse=auto -fa -t "$object_destdir" "$objectname"/*
+                 else
+-                    cp --reflink=auto --sparse=auto -fa -t "$s" "$i"
++                    cp --reflink=auto --sparse=auto -fa -t "$destdir" "$objectname"
+                 fi
+             done
+         fi

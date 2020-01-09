@@ -8,7 +8,7 @@ Subject: [PATCH] dracut-functions.sh: add str_starts() and str_ends()
  1 file changed, 4 insertions(+)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index d71ff67..4a9729c 100755
+index d71ff676..4a9729c7 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -29,6 +29,10 @@ fi

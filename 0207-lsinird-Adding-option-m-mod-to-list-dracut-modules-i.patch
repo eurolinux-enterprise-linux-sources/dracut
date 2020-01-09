@@ -51,7 +51,7 @@ Signed-off-by: Hari Bathini <hbathini@linux.vnet.ibm.com>
  1 file changed, 24 insertions(+), 5 deletions(-)
 
 diff --git a/lsinitrd.sh b/lsinitrd.sh
-index b36b34e..b086a63 100755
+index b36b34e2..b086a635 100755
 --- a/lsinitrd.sh
 +++ b/lsinitrd.sh
 @@ -27,6 +27,7 @@ usage()

@@ -11,7 +11,7 @@ unconditionally.
  1 file changed, 19 insertions(+), 24 deletions(-)
 
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
-index 424d216..ea1bead 100755
+index 424d2166..ea1bead7 100755
 --- a/modules.d/95iscsi/iscsiroot.sh
 +++ b/modules.d/95iscsi/iscsiroot.sh
 @@ -45,29 +45,23 @@ fi

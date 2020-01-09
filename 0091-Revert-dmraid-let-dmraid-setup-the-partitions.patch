@@ -13,7 +13,7 @@ Reverting to kpartx, until this is fixed.
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/modules.d/90dmraid/dmraid.sh b/modules.d/90dmraid/dmraid.sh
-index dfd0f1c..3753ddd 100755
+index dfd0f1cb..3753ddd7 100755
 --- a/modules.d/90dmraid/dmraid.sh
 +++ b/modules.d/90dmraid/dmraid.sh
 @@ -27,7 +27,8 @@ if [ -n "$DM_RAIDS" ] || getargbool 0 rd.auto; then

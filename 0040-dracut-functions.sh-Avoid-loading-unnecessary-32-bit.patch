@@ -21,7 +21,7 @@ were unusable.
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 38095ba..2872516 100755
+index 38095ba4..2872516a 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -65,6 +65,7 @@ ldconfig_paths()

@@ -19,7 +19,7 @@ even for MD devices.
  2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/90lvm/module-setup.sh b/modules.d/90lvm/module-setup.sh
-index 2ef9a51..f98ffff 100755
+index 2ef9a514..f98ffffd 100755
 --- a/modules.d/90lvm/module-setup.sh
 +++ b/modules.d/90lvm/module-setup.sh
 @@ -82,7 +82,7 @@ install() {
@@ -32,7 +32,7 @@ index 2ef9a51..f98ffff 100755
      # files, but provides the one below:
      inst_rules 64-device-mapper.rules
 diff --git a/modules.d/90mdraid/59-persistent-storage-md.rules b/modules.d/90mdraid/59-persistent-storage-md.rules
-index bea9325..6ef858a 100644
+index bea93257..6ef858aa 100644
 --- a/modules.d/90mdraid/59-persistent-storage-md.rules
 +++ b/modules.d/90mdraid/59-persistent-storage-md.rules
 @@ -20,4 +20,5 @@ IMPORT{program}="/sbin/mdadm --detail --export $tempnode"

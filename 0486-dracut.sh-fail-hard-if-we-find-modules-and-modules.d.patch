@@ -11,7 +11,7 @@ is empty, depmod was not run most likely.
  1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index e45dc7b..f4e8509 100755
+index e45dc7bb..f4e85095 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -969,9 +969,14 @@ esac

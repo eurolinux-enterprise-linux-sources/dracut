@@ -28,7 +28,7 @@ everything in the initqueue/timeout.
  4 files changed, 134 insertions(+), 42 deletions(-)
 
 diff --git a/modules.d/95iscsi/cleanup-iscsi.sh b/modules.d/95iscsi/cleanup-iscsi.sh
-index a2d5951..88a63e0 100755
+index a2d5951f..88a63e00 100755
 --- a/modules.d/95iscsi/cleanup-iscsi.sh
 +++ b/modules.d/95iscsi/cleanup-iscsi.sh
 @@ -2,5 +2,5 @@
@@ -39,7 +39,7 @@ index a2d5951..88a63e0 100755
 +[ -z "${DRACUT_SYSTEMD}" ] && [ -e /sys/module/bnx2i ] && killproc iscsiuio
  
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
-index 1de6fb7..68da9dd 100755
+index 1de6fb75..68da9dd0 100755
 --- a/modules.d/95iscsi/iscsiroot.sh
 +++ b/modules.d/95iscsi/iscsiroot.sh
 @@ -38,7 +38,7 @@ iroot=${iroot#:}
@@ -222,7 +222,7 @@ index 1de6fb7..68da9dd 100755
  # let the normal block handler handle root=
  exit $ret
 diff --git a/modules.d/95iscsi/module-setup.sh b/modules.d/95iscsi/module-setup.sh
-index 49f9a0e..d12eb7d 100755
+index 49f9a0ed..d12eb7d8 100755
 --- a/modules.d/95iscsi/module-setup.sh
 +++ b/modules.d/95iscsi/module-setup.sh
 @@ -83,6 +83,37 @@ install() {
@@ -264,7 +264,7 @@ index 49f9a0e..d12eb7d 100755
      dracut_need_initqueue
  }
 diff --git a/modules.d/95iscsi/parse-iscsiroot.sh b/modules.d/95iscsi/parse-iscsiroot.sh
-index b48be38..6a21b50 100755
+index b48be387..6a21b503 100755
 --- a/modules.d/95iscsi/parse-iscsiroot.sh
 +++ b/modules.d/95iscsi/parse-iscsiroot.sh
 @@ -61,12 +61,13 @@ fi

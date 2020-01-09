@@ -10,7 +10,7 @@ caused by commit 9aa224cc
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/modules.d/98systemd/dracut-cmdline.sh b/modules.d/98systemd/dracut-cmdline.sh
-index d22e4d6..17b30a3 100755
+index d22e4d6e..17b30a34 100755
 --- a/modules.d/98systemd/dracut-cmdline.sh
 +++ b/modules.d/98systemd/dracut-cmdline.sh
 @@ -26,7 +26,7 @@ source_conf /etc/conf.d

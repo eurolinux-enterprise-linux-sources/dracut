@@ -9,7 +9,7 @@ taken from initscripts
  1 file changed, 1 insertion(+), 5 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 9f76714..92154cc 100755
+index 9f767144..92154cc6 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -624,16 +624,12 @@ wait_for_ipv6_dad() {

@@ -18,7 +18,7 @@ checking for static configurations.
  2 files changed, 52 insertions(+), 37 deletions(-)
 
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
-index 7c06cd8..3055198 100755
+index 7c06cd86..30551987 100755
 --- a/modules.d/40network/ifup.sh
 +++ b/modules.d/40network/ifup.sh
 @@ -105,7 +105,7 @@ do_dhcp() {
@@ -89,7 +89,7 @@ index 7c06cd8..3055198 100755
  
  # netif isn't the top stack? Then we should exit here.
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 995d32f..07ea570 100755
+index 995d32f6..07ea5709 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -531,22 +531,20 @@ wait_for_if_up() {

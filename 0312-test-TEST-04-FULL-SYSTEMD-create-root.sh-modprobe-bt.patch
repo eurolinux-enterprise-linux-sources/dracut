@@ -9,7 +9,7 @@ why so ever... it used to load automatically
  1 file changed, 1 insertion(+)
 
 diff --git a/test/TEST-04-FULL-SYSTEMD/create-root.sh b/test/TEST-04-FULL-SYSTEMD/create-root.sh
-index 86ad449..bfec5bf 100755
+index 86ad4491..bfec5bf1 100755
 --- a/test/TEST-04-FULL-SYSTEMD/create-root.sh
 +++ b/test/TEST-04-FULL-SYSTEMD/create-root.sh
 @@ -4,6 +4,7 @@ for x in 64-lvm.rules 70-mdadm.rules 99-mount-rules; do

@@ -11,7 +11,7 @@ If it is an LVM device, touch only devices which have /dev/VG/LV symlink.
  1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 45e0911..2e6e845 100755
+index 45e09118..2e6e8456 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -579,7 +579,7 @@ host_fs_all()

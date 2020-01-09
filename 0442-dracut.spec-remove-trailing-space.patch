@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.spec: remove trailing space
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut.spec b/dracut.spec
-index 780ed70..efb50b7 100644
+index 780ed703..efb50b77 100644
 --- a/dracut.spec
 +++ b/dracut.spec
 @@ -91,7 +91,7 @@ Requires: gzip xz

@@ -12,7 +12,7 @@ Stig Telfer
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
-index cd62851..61e5a81 100755
+index cd628519..61e5a81a 100755
 --- a/modules.d/99base/dracut-lib.sh
 +++ b/modules.d/99base/dracut-lib.sh
 @@ -969,7 +969,7 @@ if ! command -v pidof >/dev/null 2>/dev/null; then

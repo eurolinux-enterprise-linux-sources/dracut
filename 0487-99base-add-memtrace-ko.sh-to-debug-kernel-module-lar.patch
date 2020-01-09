@@ -78,7 +78,7 @@ Signed-off-by: Xunlei Pang <xlpang@redhat.com>
 
 diff --git a/modules.d/99base/memtrace-ko.sh b/modules.d/99base/memtrace-ko.sh
 new file mode 100755
-index 0000000..ee035e1
+index 00000000..ee035e15
 --- /dev/null
 +++ b/modules.d/99base/memtrace-ko.sh
 @@ -0,0 +1,191 @@

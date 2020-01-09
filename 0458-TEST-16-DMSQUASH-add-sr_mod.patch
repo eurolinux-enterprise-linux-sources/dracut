@@ -9,7 +9,7 @@ otherwise no cdrom can be accessed on RHEL-7
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/test/TEST-16-DMSQUASH/test.sh b/test/TEST-16-DMSQUASH/test.sh
-index 9d584e3..e80ec5c 100755
+index 9d584e39..e80ec5c2 100755
 --- a/test/TEST-16-DMSQUASH/test.sh
 +++ b/test/TEST-16-DMSQUASH/test.sh
 @@ -40,7 +40,7 @@ test_setup() {

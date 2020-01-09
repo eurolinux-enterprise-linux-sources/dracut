@@ -10,7 +10,7 @@ Subject: [PATCH] test: add missing Makefile.testdir
 
 diff --git a/test/Makefile.testdir b/test/Makefile.testdir
 new file mode 100644
-index 0000000..33c2a9a
+index 00000000..33c2a9a4
 --- /dev/null
 +++ b/test/Makefile.testdir
 @@ -0,0 +1,12 @@

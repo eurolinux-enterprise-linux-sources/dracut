@@ -12,7 +12,7 @@ all the time, just include all HID drivers.
  1 file changed, 18 insertions(+), 7 deletions(-)
 
 diff --git a/modules.d/90kernel-modules/module-setup.sh b/modules.d/90kernel-modules/module-setup.sh
-index fba2bc1..34d85b1 100755
+index fba2bc1a..34d85b1c 100755
 --- a/modules.d/90kernel-modules/module-setup.sh
 +++ b/modules.d/90kernel-modules/module-setup.sh
 @@ -40,20 +40,31 @@ installkernel() {

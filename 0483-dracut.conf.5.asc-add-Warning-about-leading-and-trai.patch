@@ -9,7 +9,7 @@ Subject: [PATCH] dracut.conf.5.asc: add Warning about leading and trailing
  1 file changed, 5 insertions(+)
 
 diff --git a/dracut.conf.5.asc b/dracut.conf.5.asc
-index c20a341..f4ad49d 100644
+index c20a341d..f4ad49d2 100644
 --- a/dracut.conf.5.asc
 +++ b/dracut.conf.5.asc
 @@ -30,6 +30,11 @@ dracut command line options will overwrite any values set here.

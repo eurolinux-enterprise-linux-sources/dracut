@@ -10,7 +10,7 @@ handle iscsiroot with firmware more gracefully
  2 files changed, 50 insertions(+), 24 deletions(-)
 
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
-index 156003c..6868710 100755
+index 156003c0..68687102 100755
 --- a/modules.d/95iscsi/iscsiroot.sh
 +++ b/modules.d/95iscsi/iscsiroot.sh
 @@ -31,36 +31,45 @@ iroot="$2"
@@ -120,7 +120,7 @@ index 156003c..6868710 100755
 -exit 0
 +exit $ret
 diff --git a/modules.d/95iscsi/parse-iscsiroot.sh b/modules.d/95iscsi/parse-iscsiroot.sh
-index e463add..4be9d56 100755
+index e463addb..4be9d561 100755
 --- a/modules.d/95iscsi/parse-iscsiroot.sh
 +++ b/modules.d/95iscsi/parse-iscsiroot.sh
 @@ -61,10 +61,10 @@ fi

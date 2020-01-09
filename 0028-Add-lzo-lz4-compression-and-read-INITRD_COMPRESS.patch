@@ -25,7 +25,7 @@ Signed-off-by: P J P <ppandit@redhat.com>
  2 files changed, 29 insertions(+)
 
 diff --git a/dracut.8.asc b/dracut.8.asc
-index 584514c..2ea6744 100644
+index 584514c0..2ea67447 100644
 --- a/dracut.8.asc
 +++ b/dracut.8.asc
 @@ -365,6 +365,22 @@ Make sure your kernel has xz decompression support compiled in, otherwise you
@@ -52,7 +52,7 @@ index 584514c..2ea6744 100644
      Compress the generated initramfs using the passed compression program. If
      you pass it just the name of a compression program, it will call that
 diff --git a/dracut.sh b/dracut.sh
-index d9533dd..173a259 100755
+index d9533dd0..173a259a 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -165,6 +165,12 @@ Creates initial ramdisk images for preloading modules

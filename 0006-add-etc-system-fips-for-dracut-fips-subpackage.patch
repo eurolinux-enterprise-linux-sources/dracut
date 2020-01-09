@@ -8,7 +8,7 @@ Subject: [PATCH] add /etc/system-fips for dracut-fips subpackage
  1 file changed, 5 insertions(+)
 
 diff --git a/dracut.spec b/dracut.spec
-index 87340d7..b1cf9fe 100644
+index 87340d7a..b1cf9fef 100644
 --- a/dracut.spec
 +++ b/dracut.spec
 @@ -271,6 +271,10 @@ echo 'hostonly="no"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/02-generic-i

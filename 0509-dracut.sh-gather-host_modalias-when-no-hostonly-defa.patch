@@ -1,0 +1,27 @@
+From 0489607bf69ce521e1409e902380f3e168eeb302 Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Fri, 27 Oct 2017 14:36:26 +0200
+Subject: [PATCH] dracut.sh: gather host_modalias when
+ "--no-hostonly-default-device" is set
+
+rhel-only
+Related: #1483838
+---
+ dracut.sh | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/dracut.sh b/dracut.sh
+index 0b23a838..1dd3eabd 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -1121,8 +1121,10 @@ if [[ $hostonly ]] && [[ "$hostonly_default_device" != "no" ]]; then
+             [[ -b $_dev ]] && push host_devs "$_dev"
+         done < /etc/fstab
+     fi
++fi
+ 
+ 
++if [[ $hostonly ]]; then
+     # record all host modaliases
+     declare -A host_modalias
+     find  /sys/devices/ -name uevent -print > "$initdir/.modalias"

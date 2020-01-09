@@ -8,7 +8,7 @@ Subject: [PATCH] systemd: add 70-uaccess.rules
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/98systemd/module-setup.sh b/modules.d/98systemd/module-setup.sh
-index 5081a5a..429781b 100755
+index 5081a5ab..429781b2 100755
 --- a/modules.d/98systemd/module-setup.sh
 +++ b/modules.d/98systemd/module-setup.sh
 @@ -191,7 +191,7 @@ install() {

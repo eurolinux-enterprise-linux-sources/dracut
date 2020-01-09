@@ -13,7 +13,7 @@ also unset LD_PRELOAD, so we get a clean environment
  2 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index cf027e7..8d572a3 100755
+index cf027e7d..8d572a33 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -545,6 +545,7 @@ export LC_ALL=C
@@ -25,7 +25,7 @@ index cf027e7..8d572a3 100755
  
  export DRACUT_LOG_LEVEL=warning
 diff --git a/install/dracut-install.c b/install/dracut-install.c
-index 6b9c613..c5e4b05 100644
+index 6b9c613b..c5e4b05f 100644
 --- a/install/dracut-install.c
 +++ b/install/dracut-install.c
 @@ -391,7 +391,11 @@ static int resolve_deps(const char *src)

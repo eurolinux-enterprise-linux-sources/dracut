@@ -24,7 +24,7 @@ Signed-off-by: WANG Chao <chaowang@redhat.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/modules.d/98systemd/dracut-initqueue.service b/modules.d/98systemd/dracut-initqueue.service
-index 03dcc4e..1b9e701 100644
+index 03dcc4eb..1b9e701b 100644
 --- a/modules.d/98systemd/dracut-initqueue.service
 +++ b/modules.d/98systemd/dracut-initqueue.service
 @@ -11,6 +11,8 @@

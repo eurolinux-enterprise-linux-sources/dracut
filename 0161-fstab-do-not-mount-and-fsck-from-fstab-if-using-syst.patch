@@ -19,7 +19,7 @@ Signed-off-by: WANG Chao <chaowang@redhat.com>
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/95fstab-sys/mount-sys.sh b/modules.d/95fstab-sys/mount-sys.sh
-index 12711a0..a237810 100755
+index 12711a07..a2378101 100755
 --- a/modules.d/95fstab-sys/mount-sys.sh
 +++ b/modules.d/95fstab-sys/mount-sys.sh
 @@ -27,7 +27,11 @@ fstab_mount() {

@@ -1,0 +1,28 @@
+From e8ffd4b3d4d50b65704f865829e76cac7ff060cc Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 21 Aug 2014 16:45:12 +0200
+Subject: [PATCH] dracut-lib.sh:dev_unit_name(): use systemd-escape, if
+ available
+
+Cherry-picked from: 85752f0f
+Resolves: #1306640
+---
+ modules.d/99base/dracut-lib.sh | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
+index 78e01a78..e04a9b3d 100755
+--- a/modules.d/99base/dracut-lib.sh
++++ b/modules.d/99base/dracut-lib.sh
+@@ -870,6 +870,11 @@ wait_for_mount()
+ 
+ dev_unit_name()
+ {
++    if command -v systemd-escape >/dev/null; then
++        systemd-escape -p  "$1"
++        return
++    fi
++
+     _name="${1%%/}"
+     _name="${_name##/}"
+     _name="$(str_replace "$_name" '-' '\x2d')"

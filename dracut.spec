@@ -10,7 +10,7 @@
 
 Name: dracut
 Version: 033
-Release: 502%{?dist}.1
+Release: 535%{?dist}
 
 Summary: Initramfs generator using udev
 %if 0%{?fedora} || 0%{?rhel}
@@ -531,8 +531,38 @@ Patch499: 0499-Add-check-for-aarch64-to-the-arm-kernel-module-list.patch
 Patch500: 0500-fips-add-cmac-kernel-module.patch
 Patch501: 0501-95iscsi-run-iscsistart-with-DefaultDependencies-no.patch
 Patch502: 0502-01fips-add-authenec-module.patch
-Patch503: 0523-Support-Microcode-Updates-for-AMD-CPU-Family-0x17.patch
-Patch504: 0524-Simplify-microcode-lookup-for-for-AMD-CPUs.patch
+Patch503: 0503-fips-honor-BOOT_IMAGE-variable-for-HMAC-check-of-the.patch
+Patch504: 0504-Try-BOOT_IMAGE-and-fallback-to-vmlinuz-KERNEL.patch
+Patch505: 0505-dracut.cmdline-remove-extra-from-ip-doc.patch
+Patch506: 0506-10i18n-parse-i18n.sh-parse-rd.vconsole-and-rd.locale.patch
+Patch507: 0507-dracut.sh-introduce-no-hostonly-default-device-argum.patch
+Patch508: 0508-rootfs-block-module-setup.sh-check-root_dev-in-cmdli.patch
+Patch509: 0509-dracut.sh-gather-host_modalias-when-no-hostonly-defa.patch
+Patch510: 0510-Add-NTFS-support-to-90dmsquash-live-module.patch
+Patch511: 0511-add-90multipath-hostonly-module.patch
+Patch512: 0512-spec-add-missing-modules.patch
+Patch513: 0513-lvm_scan.sh-use-K-when-calling-lvchange.patch
+Patch514: 0514-fcoe-Allow-more-time-for-the-bnx2x-link-negotiation-.patch
+Patch515: 0515-add-mtu-parameter-for-bond-options.patch
+Patch516: 0516-Fix-MTU-on-bond-interface.patch
+Patch517: 0517-dracut.sh-source-dracut-version.sh-earlier-than-drac.patch
+Patch518: 0518-network-Only-bring-up-wired-network-interfaces.patch
+Patch519: 0519-network-ifup-don-t-arping-for-point-to-point-connect.patch
+Patch520: 0520-guard-arrays-with.patch
+Patch521: 0521-dracut.sh-for_each_host_xx-function-should-indicate-.patch
+Patch522: 0522-dracut.sh-remove-quotes-from-install_items-and-insta.patch
+Patch523: 0523-Support-Microcode-Updates-for-AMD-CPU-Family-0x17.patch
+Patch524: 0524-Simplify-microcode-lookup-for-for-AMD-CPUs.patch
+Patch525: 0525-01fips-Fix-creating-path-to-.hmac-of-kernel-based-on.patch
+Patch526: 0526-01fips-Properly-fix-creating-path-to-.hmac-of-kernel.patch
+Patch527: 0527-dracut-Ajusting-variables-name-for-include.patch
+Patch528: 0528-90dmsquash-live-we-don-t-have-find_binary-inside-ini.patch
+Patch529: 0529-90dmsquash-live-ntfs-fix-depends.patch
+Patch530: 0530-dracut-lib.sh-dev_unit_name-use-systemd-escape-if-av.patch
+Patch531: 0531-Align-dev_unit_name-with-systemd-s-function.patch
+Patch532: 0532-base-dracut-lib.sh-remove-bashism.patch
+Patch533: 0533-base-dracut-lib.sh-dev_unit_name-guard-against-dev-b.patch
+Patch534: 0534-90lvm-always-add-dm-snapshot.patch
 
 
 BuildRequires: bash git
@@ -851,10 +881,12 @@ rm -rf -- $RPM_BUILD_ROOT
 %{dracutlibdir}/modules.d/90dm
 %{dracutlibdir}/modules.d/90dmraid
 %{dracutlibdir}/modules.d/90dmsquash-live
+%{dracutlibdir}/modules.d/90dmsquash-live-ntfs
 %{dracutlibdir}/modules.d/90kernel-modules
 %{dracutlibdir}/modules.d/90lvm
 %{dracutlibdir}/modules.d/90mdraid
 %{dracutlibdir}/modules.d/90multipath
+%{dracutlibdir}/modules.d/90multipath-hostonly
 %{dracutlibdir}/modules.d/90qemu
 %{dracutlibdir}/modules.d/91crypt-gpg
 %{dracutlibdir}/modules.d/91crypt-loop
@@ -963,9 +995,73 @@ rm -rf -- $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Mon Dec 18 2017 Lukáš Nykrýn <lnykryn@redhat.com> - 033-502.1
+* Mon Feb 19 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-535
+- 90lvm: always add dm-snapshot
+Resolves: #1546577
+
+* Thu Feb 01 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-534
+- base/dracut-lib.sh:dev_unit_name() guard against $dev beginning with "-"
+- base/dracut-lib.sh: remove bashism
+- Align dev_unit_name() with systemd's function.
+- dracut-lib.sh:dev_unit_name(): use systemd-escape, if available
+Resolves: #1306640
+- 90dmsquash-live-ntfs: fix depends()
+- 90dmsquash-live: we don't have find_binary inside initramdisk
+- dracut: Ajusting variables name for --include
+Resolves: #1489882
+
+* Wed Jan 03 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-527
+- 01fips: Properly fix creating path to .hmac of kernel based on BOOT_IMAGE
+Resolves: #1415032
+
+* Mon Dec 18 2017 Lukáš Nykrýn <lnykryn@redhat.com> - 033-526
+- 01fips: Fix creating path to .hmac of kernel based on BOOT_IMAGE
+Resolves: #1415032
+
+* Mon Dec 18 2017 Lukáš Nykrýn <lnykryn@redhat.com> - 033-525
 - Support Microcode Updates for AMD CPU Family 0x17
 Resolves: #1476039
+
+* Wed Dec 13 2017 Lukáš Nykrýn <lnykryn@redhat.com> - 033-523
+- dracut.sh: remove quotes from install_items and install_optional_items
+Related: #1520721
+
+* Fri Dec 08 2017 Lukáš Nykrýn <lnykryn@redhat.com> - 033-522
+- for_each_host_xx() function should indicate the empty case
+Resolves: #1520721
+
+* Fri Nov 03 2017 Lukáš Nykrýn <lnykryn@redhat.com> - 033-520
+- network/ifup: don't arping for point-to-point connections
+Resolves: #1477339
+- network: Only bring up wired network interfaces
+Resolves: #1480246
+- dracut.sh: source dracut-version.sh earlier than dracut-functions.sh
+Resolves: #1490777
+- Fix MTU on bond interface.
+- add 'mtu' parameter for bond options
+Resolves: #1494265
+- fcoe: Allow more time for the bnx2x link negotiation before brining up fcoe interfaces.
+Resolves: #1378910
+- lvm_scan.sh: use -K when calling lvchange
+Resolves: #1489841
+
+* Thu Nov 02 2017 Lukáš Nykrýn <lnykryn@redhat.com> - 033-513
+- spec: add missing modules
+- add 90multipath-hostonly module
+Resolves: #1457311
+- Add NTFS support to 90dmsquash-live module
+Resolves: #1449410
+- dracut.sh: gather host_modalias when "--no-hostonly-default-device" is set
+- rootfs-block/module-setup.sh: check root_dev in cmdline_rootfs()
+- dracut.sh: introduce "--no-hostonly-default-device" argument
+Resolves: #1483838
+- 10i18n/parse-i18n.sh: parse rd.vconsole and rd.locale
+Resolves: #1479325
+- dracut.cmdline: remove extra ":" from ip= doc
+Resolves: #1469997
+- Try BOOT_IMAGE and fallback to vmlinuz-${KERNEL}
+- fips: honor $BOOT_IMAGE variable for HMAC check of the kernel
+Resolves: #1415032
 
 * Wed Jun 28 2017 Lukáš Nykrýn <lnykryn@redhat.com> - 033-502
 - 01fips: add authenec module

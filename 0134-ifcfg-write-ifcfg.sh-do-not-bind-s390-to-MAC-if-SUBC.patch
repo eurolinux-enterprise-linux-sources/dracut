@@ -13,7 +13,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1056438
  1 file changed, 6 insertions(+), 7 deletions(-)
 
 diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
-index dcb2aef..d9e9f3a 100755
+index dcb2aefa..d9e9f3af 100755
 --- a/modules.d/45ifcfg/write-ifcfg.sh
 +++ b/modules.d/45ifcfg/write-ifcfg.sh
 @@ -55,9 +55,9 @@ print_s390() {

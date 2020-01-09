@@ -9,7 +9,7 @@ Resolves: rhbz#1024455
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/01fips/module-setup.sh b/modules.d/01fips/module-setup.sh
-index d08e3f7..1ab4999 100755
+index d08e3f74..1ab4999a 100755
 --- a/modules.d/01fips/module-setup.sh
 +++ b/modules.d/01fips/module-setup.sh
 @@ -13,7 +13,7 @@ depends() {

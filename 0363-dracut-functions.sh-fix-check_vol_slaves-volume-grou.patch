@@ -13,7 +13,7 @@ stripping from lvm volume group names.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 9218779..d71ff67 100755
+index 9218779c..d71ff676 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -687,7 +687,7 @@ check_vol_slaves() {

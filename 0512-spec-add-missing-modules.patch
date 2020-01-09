@@ -1,0 +1,28 @@
+From fe89c8f9df77f49e13732debdc99f88753b145e6 Mon Sep 17 00:00:00 2001
+From: Yu Watanabe <watanabe.yu+github@gmail.com>
+Date: Tue, 25 Jul 2017 10:31:55 +0900
+Subject: [PATCH] spec: add missing modules
+
+Cherry-picked from: ad3b209d409cee337b33cbede4101aa06727ce06
+Resolves: #1457311
+---
+ dracut.spec | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/dracut.spec b/dracut.spec
+index bf10d08b..ee12013b 100644
+--- a/dracut.spec
++++ b/dracut.spec
+@@ -346,10 +346,12 @@ rm -rf -- $RPM_BUILD_ROOT
+ %{dracutlibdir}/modules.d/90dm
+ %{dracutlibdir}/modules.d/90dmraid
+ %{dracutlibdir}/modules.d/90dmsquash-live
++%{dracutlibdir}/modules.d/90dmsquash-live-ntfs
+ %{dracutlibdir}/modules.d/90kernel-modules
+ %{dracutlibdir}/modules.d/90lvm
+ %{dracutlibdir}/modules.d/90mdraid
+ %{dracutlibdir}/modules.d/90multipath
++%{dracutlibdir}/modules.d/90multipath-hostonly
+ %{dracutlibdir}/modules.d/90qemu
+ %{dracutlibdir}/modules.d/91crypt-gpg
+ %{dracutlibdir}/modules.d/91crypt-loop

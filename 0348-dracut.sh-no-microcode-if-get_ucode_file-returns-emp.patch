@@ -9,7 +9,7 @@ check, if get_ucode_file() returned an empty string.
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 980c7ff..4e4f222 100755
+index 980c7ff9..4e4f222b 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1489,12 +1489,12 @@ if [[ $early_microcode = yes ]]; then

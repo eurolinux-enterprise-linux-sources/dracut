@@ -10,7 +10,7 @@ Subject: [PATCH] dracut-functions.sh: do not force require modules.builtin*
  2 files changed, 1 insertion(+), 8 deletions(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh
-index 0002556..8a0cd30 100755
+index 00025567..8a0cd301 100755
 --- a/dracut-functions.sh
 +++ b/dracut-functions.sh
 @@ -1455,13 +1455,6 @@ dracut_kernel_post() {
@@ -28,7 +28,7 @@ index 0002556..8a0cd30 100755
          [[ $srcmods/$_f ]] && inst_simple "$srcmods/$_f" "/lib/modules/$kernel/$_f"
      done
 diff --git a/dracut.sh b/dracut.sh
-index 7d5c9e0..f560dd1 100755
+index 7d5c9e07..f560dd1e 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -518,7 +518,7 @@ if [[ $regenerate_all == "yes" ]]; then

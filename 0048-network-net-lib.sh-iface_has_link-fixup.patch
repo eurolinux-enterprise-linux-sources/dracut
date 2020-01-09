@@ -10,7 +10,7 @@ carrier state immediately. So wait for it to really show up.
  1 file changed, 23 insertions(+), 24 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 0aa312a..7544401 100644
+index 0aa312a0..7544401f 100644
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -28,30 +28,6 @@ iface_for_mac() {

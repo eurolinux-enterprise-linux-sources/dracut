@@ -8,7 +8,7 @@ Subject: [PATCH] dracut-lib.sh: fixed shebang
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
-index e74b93f..cd62851 100755
+index e74b93fa..cd628519 100755
 --- a/modules.d/99base/dracut-lib.sh
 +++ b/modules.d/99base/dracut-lib.sh
 @@ -1,4 +1,4 @@

@@ -22,7 +22,7 @@ Subject: [PATCH] test: add "fs-lib" to dracut module list
  14 files changed, 16 insertions(+), 16 deletions(-)
 
 diff --git a/test/TEST-01-BASIC/test.sh b/test/TEST-01-BASIC/test.sh
-index 5ee6d23..02ebc23 100755
+index 5ee6d234..02ebc231 100755
 --- a/test/TEST-01-BASIC/test.sh
 +++ b/test/TEST-01-BASIC/test.sh
 @@ -62,7 +62,7 @@ test_setup() {
@@ -35,7 +35,7 @@ index 5ee6d23..02ebc23 100755
          --nomdadmconf \
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
 diff --git a/test/TEST-02-SYSTEMD/test.sh b/test/TEST-02-SYSTEMD/test.sh
-index 2ccf8e6..2a8ed6b 100755
+index 2ccf8e69..2a8ed6b5 100755
 --- a/test/TEST-02-SYSTEMD/test.sh
 +++ b/test/TEST-02-SYSTEMD/test.sh
 @@ -58,7 +58,7 @@ test_setup() {
@@ -48,7 +48,7 @@ index 2ccf8e6..2a8ed6b 100755
          --nomdadmconf \
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
 diff --git a/test/TEST-03-USR-MOUNT/test.sh b/test/TEST-03-USR-MOUNT/test.sh
-index ef74d40..b8231fe 100755
+index ef74d402..b8231fed 100755
 --- a/test/TEST-03-USR-MOUNT/test.sh
 +++ b/test/TEST-03-USR-MOUNT/test.sh
 @@ -89,7 +89,7 @@ test_setup() {
@@ -61,7 +61,7 @@ index ef74d40..b8231fe 100755
          --nomdadmconf \
          --nohardlink \
 diff --git a/test/TEST-04-FULL-SYSTEMD/test.sh b/test/TEST-04-FULL-SYSTEMD/test.sh
-index 3eeb840..aa83122 100755
+index 3eeb8406..aa83122c 100755
 --- a/test/TEST-04-FULL-SYSTEMD/test.sh
 +++ b/test/TEST-04-FULL-SYSTEMD/test.sh
 @@ -232,7 +232,7 @@ EOF
@@ -74,7 +74,7 @@ index 3eeb840..aa83122 100755
          --nomdadmconf \
          --nohardlink \
 diff --git a/test/TEST-10-RAID/test.sh b/test/TEST-10-RAID/test.sh
-index b17e912..d79d5cd 100755
+index b17e912c..d79d5cd4 100755
 --- a/test/TEST-10-RAID/test.sh
 +++ b/test/TEST-10-RAID/test.sh
 @@ -5,7 +5,7 @@ KVERSION=${KVERSION-$(uname -r)}
@@ -96,7 +96,7 @@ index b17e912..d79d5cd 100755
          --nomdadmconf \
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
 diff --git a/test/TEST-11-LVM/test.sh b/test/TEST-11-LVM/test.sh
-index 6f2461c..732d0c8 100755
+index 6f2461c9..732d0c8f 100755
 --- a/test/TEST-11-LVM/test.sh
 +++ b/test/TEST-11-LVM/test.sh
 @@ -57,7 +57,7 @@ test_setup() {
@@ -109,7 +109,7 @@ index 6f2461c..732d0c8 100755
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
      rm -rf -- $TESTDIR/overlay
 diff --git a/test/TEST-12-RAID-DEG/test.sh b/test/TEST-12-RAID-DEG/test.sh
-index 2631621..87fe542 100755
+index 26316210..87fe542f 100755
 --- a/test/TEST-12-RAID-DEG/test.sh
 +++ b/test/TEST-12-RAID-DEG/test.sh
 @@ -98,7 +98,7 @@ test_setup() {
@@ -122,7 +122,7 @@ index 2631621..87fe542 100755
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
      rm -rf -- $TESTDIR/overlay
 diff --git a/test/TEST-13-ENC-RAID-LVM/test.sh b/test/TEST-13-ENC-RAID-LVM/test.sh
-index 5102142..129620b 100755
+index 51021420..129620b1 100755
 --- a/test/TEST-13-ENC-RAID-LVM/test.sh
 +++ b/test/TEST-13-ENC-RAID-LVM/test.sh
 @@ -94,7 +94,7 @@ test_setup() {
@@ -135,7 +135,7 @@ index 5102142..129620b 100755
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
      rm -rf -- $TESTDIR/overlay
 diff --git a/test/TEST-14-IMSM/test.sh b/test/TEST-14-IMSM/test.sh
-index 532c348..ad0cf7b 100755
+index 532c3489..ad0cf7b0 100755
 --- a/test/TEST-14-IMSM/test.sh
 +++ b/test/TEST-14-IMSM/test.sh
 @@ -86,7 +86,7 @@ test_setup() {
@@ -148,7 +148,7 @@ index 532c348..ad0cf7b 100755
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
      rm -rf -- $TESTDIR/overlay
 diff --git a/test/TEST-15-BTRFSRAID/test.sh b/test/TEST-15-BTRFSRAID/test.sh
-index 3fc1d45..71f5703 100755
+index 3fc1d459..71f5703a 100755
 --- a/test/TEST-15-BTRFSRAID/test.sh
 +++ b/test/TEST-15-BTRFSRAID/test.sh
 @@ -58,7 +58,7 @@ test_setup() {
@@ -161,7 +161,7 @@ index 3fc1d45..71f5703 100755
          --nomdadmconf \
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
 diff --git a/test/TEST-17-LVM-THIN/test.sh b/test/TEST-17-LVM-THIN/test.sh
-index 0cfce19..4c904b0 100755
+index 0cfce199..4c904b0a 100755
 --- a/test/TEST-17-LVM-THIN/test.sh
 +++ b/test/TEST-17-LVM-THIN/test.sh
 @@ -57,7 +57,7 @@ test_setup() {
@@ -174,7 +174,7 @@ index 0cfce19..4c904b0 100755
  	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
      rm -rf -- $TESTDIR/overlay
 diff --git a/test/TEST-20-NFS/test.sh b/test/TEST-20-NFS/test.sh
-index 4f21d45..7b5e3c5 100755
+index 4f21d451..7b5e3c5d 100755
 --- a/test/TEST-20-NFS/test.sh
 +++ b/test/TEST-20-NFS/test.sh
 @@ -340,7 +340,7 @@ test_setup() {
@@ -187,7 +187,7 @@ index 4f21d45..7b5e3c5 100755
          -f $TESTDIR/initramfs.server $KVERSION || return 1
  
 diff --git a/test/TEST-40-NBD/test.sh b/test/TEST-40-NBD/test.sh
-index 7cf64b1..59494ed 100755
+index 7cf64b15..59494ed8 100755
 --- a/test/TEST-40-NBD/test.sh
 +++ b/test/TEST-40-NBD/test.sh
 @@ -226,7 +226,7 @@ make_encrypted_root() {
@@ -209,7 +209,7 @@ index 7cf64b1..59494ed 100755
          -f $TESTDIR/initramfs.server $KVERSION || return 1
  
 diff --git a/test/TEST-50-MULTINIC/test.sh b/test/TEST-50-MULTINIC/test.sh
-index add849c..3c6003b 100755
+index add849c1..3c6003b4 100755
 --- a/test/TEST-50-MULTINIC/test.sh
 +++ b/test/TEST-50-MULTINIC/test.sh
 @@ -264,7 +264,7 @@ test_setup() {

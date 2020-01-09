@@ -16,7 +16,7 @@ Signed-off-by: Thomas Renninger <trenn@suse.com>
  1 file changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index e6942a5..98dbbb6 100755
+index e6942a55..98dbbb63 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -235,22 +235,52 @@ ibft_to_cmdline() {

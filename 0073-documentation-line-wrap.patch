@@ -15,7 +15,7 @@ Subject: [PATCH] documentation: line wrap
  8 files changed, 165 insertions(+), 103 deletions(-)
 
 diff --git a/dracut.8.asc b/dracut.8.asc
-index 2ea6744..b294675 100644
+index 2ea67447..b2946753 100644
 --- a/dracut.8.asc
 +++ b/dracut.8.asc
 @@ -33,9 +33,9 @@ For a complete list of kernel command line options see *dracut.cmdline*(7).
@@ -63,7 +63,7 @@ index 2ea6744..b294675 100644
  _/etc/cmdline.d/*.conf_::
      Can contain additional command line options.
 diff --git a/dracut.asc b/dracut.asc
-index 031b201..b047a33 100644
+index 031b2014..b047a337 100644
 --- a/dracut.asc
 +++ b/dracut.asc
 @@ -125,12 +125,14 @@ started looks like <<dracutbootup7>>.
@@ -97,7 +97,7 @@ index 031b201..b047a33 100644
  This ensures, that all devices are disassembled and unmounted cleanly.
  
 diff --git a/dracut.bootup.7.asc b/dracut.bootup.7.asc
-index c35af19..d7edc1e 100644
+index c35af195..d7edc1e7 100644
 --- a/dracut.bootup.7.asc
 +++ b/dracut.bootup.7.asc
 @@ -11,7 +11,8 @@ dracut.bootup - boot ordering in the initramfs
@@ -111,7 +111,7 @@ index c35af19..d7edc1e 100644
  
                                      systemd-journal.socket
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index 6a5fc8f..8ac5341 100644
+index 6a5fc8f6..8ac53414 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -72,14 +72,14 @@ rootfstype=ext3
@@ -386,7 +386,7 @@ index 6a5fc8f..8ac5341 100644
  _/etc/cmdline.d/*.conf_::
      Can contain additional command line options.
 diff --git a/dracut.conf.5.asc b/dracut.conf.5.asc
-index 30b7e03..5c94118 100644
+index 30b7e030..5c941188 100644
 --- a/dracut.conf.5.asc
 +++ b/dracut.conf.5.asc
 @@ -10,17 +10,19 @@ dracut.conf - configuration file(s) for dracut
@@ -435,7 +435,7 @@ index 30b7e03..5c94118 100644
  *i18n_install_all=*"__{yes|no}__"::
      Install everything regardless of generic or hostonly mode.
 diff --git a/dracut.modules.7.asc b/dracut.modules.7.asc
-index 17acdb4..e94670f 100644
+index 17acdb4d..e94670f3 100644
 --- a/dracut.modules.7.asc
 +++ b/dracut.modules.7.asc
 @@ -96,8 +96,8 @@ This hooks (initqueue/settled) gets executed every time udev has settled.
@@ -533,7 +533,7 @@ index 17acdb4..e94670f 100644
  ----
  hostonly='' instmods <kernelmodule>
 diff --git a/dracut.usage.asc b/dracut.usage.asc
-index 6d37920..0b874e6 100644
+index 6d37920f..0b874e60 100644
 --- a/dracut.usage.asc
 +++ b/dracut.usage.asc
 @@ -43,7 +43,8 @@ pieces. At least keep a copy of a general purpose image (and corresponding
@@ -656,7 +656,7 @@ index 6d37920..0b874e6 100644
 +initramfs.
  
 diff --git a/mkinitrd.8.asc b/mkinitrd.8.asc
-index 25661c8..146a6d0 100644
+index 25661c8d..146a6d0f 100644
 --- a/mkinitrd.8.asc
 +++ b/mkinitrd.8.asc
 @@ -41,8 +41,8 @@ OPTIONS

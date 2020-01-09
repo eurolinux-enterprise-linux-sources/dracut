@@ -19,7 +19,7 @@ the marker to do some actions. Here journald tries to flush
  create mode 100644 modules.d/98systemd/dracut-tmpfiles.conf
 
 diff --git a/dracut.sh b/dracut.sh
-index 74c59a0..27c2bf4 100755
+index 74c59a0c..27c2bf45 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1217,7 +1217,6 @@ if [[ $kernel_only != yes ]]; then
@@ -32,7 +32,7 @@ index 74c59a0..27c2bf4 100755
          [[ -e "${initdir}${prefix}/$d" ]] && continue
 diff --git a/modules.d/98systemd/dracut-tmpfiles.conf b/modules.d/98systemd/dracut-tmpfiles.conf
 new file mode 100644
-index 0000000..3c21ce8
+index 00000000..3c21ce81
 --- /dev/null
 +++ b/modules.d/98systemd/dracut-tmpfiles.conf
 @@ -0,0 +1,3 @@
@@ -40,7 +40,7 @@ index 0000000..3c21ce8
 +d /run/initramfs/log 0755 root root -
 +L /var/log           -    -    -    - ../run/initramfs/log
 diff --git a/modules.d/98systemd/module-setup.sh b/modules.d/98systemd/module-setup.sh
-index f62f551..aae0319 100755
+index f62f5511..aae0319a 100755
 --- a/modules.d/98systemd/module-setup.sh
 +++ b/modules.d/98systemd/module-setup.sh
 @@ -121,6 +121,8 @@ install() {
@@ -63,7 +63,7 @@ index f62f551..aae0319 100755
      # turn off RateLimit for journal
      {
 diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
-index b0ac08a..b490e82 100755
+index b0ac08a0..b490e824 100755
 --- a/modules.d/99base/dracut-lib.sh
 +++ b/modules.d/99base/dracut-lib.sh
 @@ -4,6 +4,17 @@

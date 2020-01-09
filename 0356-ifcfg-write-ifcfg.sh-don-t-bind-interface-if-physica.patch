@@ -11,7 +11,7 @@ the MAC address or something else.
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
-index ed66370..1e7f694 100755
+index ed66370f..1e7f694a 100755
 --- a/modules.d/45ifcfg/write-ifcfg.sh
 +++ b/modules.d/45ifcfg/write-ifcfg.sh
 @@ -141,6 +141,7 @@ for netup in /tmp/net.*.did-setup ; do

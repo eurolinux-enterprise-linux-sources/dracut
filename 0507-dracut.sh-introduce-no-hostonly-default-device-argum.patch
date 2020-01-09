@@ -1,0 +1,80 @@
+From 0e842c4b8b2796b9ae606da81ec92839af1cc27e Mon Sep 17 00:00:00 2001
+From: Xunlei Pang <xlpang@redhat.com>
+Date: Wed, 16 Aug 2017 13:55:17 +0800
+Subject: [PATCH] dracut.sh: introduce "--no-hostonly-default-device" argument
+
+Kdump doesn't need default host devices like root, swap, fstab, etc,
+we only care about the dump target which can be added via "--mount"
+or "--add-device". We met several issues that kdump kernel failed
+due to one of those host devices added by dracut, additionally, the
+needless devices(e.g. LVM) consume some appreciable amount of memory
+which is more likely to cause OOM under memory-limited kdump.
+
+So this patch introduced "--no-hostonly-default-device" to avoid
+adding those default devices as host_devs.
+
+Signed-off-by: Xunlei Pang <xlpang@redhat.com>
+
+Cherry-picked from: 37f2fe55d
+Resolves: #1483838
+---
+ dracut.8.asc | 4 ++++
+ dracut.sh    | 9 ++++++++-
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/dracut.8.asc b/dracut.8.asc
+index 8fd863b9..e097e769 100644
+--- a/dracut.8.asc
++++ b/dracut.8.asc
+@@ -306,6 +306,10 @@ provide a valid _/etc/fstab_.
+ **--no-hostonly-cmdline**:
+     Do not store kernel command line arguments needed in the initramfs
+ 
++**--no-hostonly-default-device**:
++    Do not generate implicit host devices like root, swap, fstab, etc.
++    Use "--mount" or "--add-device" to explicitly add devices as needed.
++
+ **--hostonly-i18n**:
+     Install only needed keyboard and font files according to the host configuration (default).
+ 
+diff --git a/dracut.sh b/dracut.sh
+index f4e85095..0b23a838 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -141,6 +141,10 @@ Creates initial ramdisk images for preloading modules
+                         in the initramfs
+   --no-hostonly-cmdline Do not store kernel command line arguments needed
+                         in the initramfs
++  --no-hostonly-default-device
++                        Do not generate implicit host devices like root,
++                        swap, fstab, etc. Use "--mount" or "--add-device"
++                        to explicitly add devices as needed.
+   --hostonly-i18n       Install only needed keyboard and font files according
+                         to the host configuration (default).
+   --no-hostonly-i18n    Install all keyboard and font files available.
+@@ -357,6 +361,7 @@ rearrange_params()
+         --long no-host-only \
+         --long hostonly-cmdline \
+         --long no-hostonly-cmdline \
++        --long no-hostonly-default-device \
+         --long persistent-policy: \
+         --long fstab \
+         --long help \
+@@ -545,6 +550,8 @@ while :; do
+                        i18n_install_all_l="yes" ;;
+         --no-hostonly-cmdline)
+                        hostonly_cmdline_l="no" ;;
++        --no-hostonly-default-device)
++                       hostonly_default_device="no" ;;
+         --persistent-policy)
+                        persistent_policy_l="$2";       PARMS_TO_STORE+=" '$2'"; shift;;
+         --fstab)       use_fstab_l="yes" ;;
+@@ -1039,7 +1046,7 @@ if (( ${#add_device_l[@]} )); then
+     done
+ fi
+ 
+-if [[ $hostonly ]]; then
++if [[ $hostonly ]] && [[ "$hostonly_default_device" != "no" ]]; then
+     # in hostonly mode, determine all devices, which have to be accessed
+     # and examine them for filesystem types
+ 

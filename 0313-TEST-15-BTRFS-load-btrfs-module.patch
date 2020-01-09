@@ -8,7 +8,7 @@ Subject: [PATCH] TEST-15-BTRFS: load btrfs module
  1 file changed, 1 insertion(+)
 
 diff --git a/test/TEST-15-BTRFSRAID/create-root.sh b/test/TEST-15-BTRFSRAID/create-root.sh
-index b92f9c0..ba3b54e 100755
+index b92f9c00..ba3b54ec 100755
 --- a/test/TEST-15-BTRFSRAID/create-root.sh
 +++ b/test/TEST-15-BTRFSRAID/create-root.sh
 @@ -3,6 +3,7 @@

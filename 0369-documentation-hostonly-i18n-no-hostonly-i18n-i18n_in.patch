@@ -11,7 +11,7 @@ Subject: [PATCH] documentation: "--hostonly-i18n" "--no-hostonly-i18n"
  2 files changed, 9 insertions(+)
 
 diff --git a/dracut.8.asc b/dracut.8.asc
-index 14ce26b..5f68d16 100644
+index 14ce26b6..5f68d16a 100644
 --- a/dracut.8.asc
 +++ b/dracut.8.asc
 @@ -306,6 +306,12 @@ provide a valid _/etc/fstab_.
@@ -28,7 +28,7 @@ index 14ce26b..5f68d16 100644
      Use _<policy>_ to address disks and partitions.
      _<policy>_ can be any directory name found in /dev/disk.
 diff --git a/dracut.conf.5.asc b/dracut.conf.5.asc
-index be62da9..99f70ff 100644
+index be62da98..99f70fff 100644
 --- a/dracut.conf.5.asc
 +++ b/dracut.conf.5.asc
 @@ -79,6 +79,9 @@ Configuration files must have the extension .conf; other extensions are ignored.

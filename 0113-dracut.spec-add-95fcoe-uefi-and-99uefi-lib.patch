@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.spec: add 95fcoe-uefi and 99uefi-lib
  1 file changed, 2 insertions(+)
 
 diff --git a/dracut.spec b/dracut.spec
-index d6f1a88..302cfc5 100644
+index d6f1a884..302cfc5d 100644
 --- a/dracut.spec
 +++ b/dracut.spec
 @@ -413,6 +413,8 @@ rm -rf -- $RPM_BUILD_ROOT

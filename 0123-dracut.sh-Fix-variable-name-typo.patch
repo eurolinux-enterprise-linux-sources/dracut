@@ -16,7 +16,7 @@ swap partition on the host device is still added however.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 4e23993..89df9cd 100755
+index 4e239936..89df9cd8 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -926,7 +926,7 @@ if [[ $hostonly ]]; then

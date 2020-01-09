@@ -8,7 +8,7 @@ Subject: [PATCH] 95fcoe: update fcoe interface check
  1 file changed, 3 deletions(-)
 
 diff --git a/modules.d/95fcoe/parse-fcoe.sh b/modules.d/95fcoe/parse-fcoe.sh
-index e8a77e0..3d82912 100755
+index e8a77e08..3d829122 100755
 --- a/modules.d/95fcoe/parse-fcoe.sh
 +++ b/modules.d/95fcoe/parse-fcoe.sh
 @@ -26,9 +26,6 @@

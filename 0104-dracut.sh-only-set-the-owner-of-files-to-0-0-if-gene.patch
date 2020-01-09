@@ -12,7 +12,7 @@ generating an initramfs image.
  1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 58acb64..4e23993 100755
+index 58acb647..4e239936 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1377,13 +1377,16 @@ fi

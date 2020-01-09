@@ -10,7 +10,7 @@ Subject: [PATCH] TEST-30-ISCSI: fix test to run with new iscsi
  3 files changed, 13 insertions(+), 7 deletions(-)
 
 diff --git a/test/TEST-30-ISCSI/client-init.sh b/test/TEST-30-ISCSI/client-init.sh
-index e78db27..2e422cd 100755
+index e78db274..2e422cd5 100755
 --- a/test/TEST-30-ISCSI/client-init.sh
 +++ b/test/TEST-30-ISCSI/client-init.sh
 @@ -1,14 +1,20 @@
@@ -36,7 +36,7 @@ index e78db27..2e422cd 100755
 +fi
  poweroff -f
 diff --git a/test/TEST-30-ISCSI/create-root.sh b/test/TEST-30-ISCSI/create-root.sh
-index 2a4b920..5f4b32a 100755
+index 2a4b920e..5f4b32a2 100755
 --- a/test/TEST-30-ISCSI/create-root.sh
 +++ b/test/TEST-30-ISCSI/create-root.sh
 @@ -5,7 +5,7 @@ for x in 64-lvm.rules 70-mdadm.rules 99-mount-rules; do
@@ -49,7 +49,7 @@ index 2a4b920..5f4b32a 100755
  mount /dev/sda /sysroot && \
  cp -a -t /sysroot /source/* && \
 diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
-index be3399a..92ddc86 100755
+index be3399a3..92ddc860 100755
 --- a/test/TEST-30-ISCSI/test.sh
 +++ b/test/TEST-30-ISCSI/test.sh
 @@ -3,7 +3,7 @@ TEST_DESCRIPTION="root filesystem over iSCSI"

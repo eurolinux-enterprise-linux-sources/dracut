@@ -17,7 +17,7 @@ executed.
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
-index bd7db02..3cff725 100755
+index bd7db02c..3cff725c 100755
 --- a/modules.d/40network/ifup.sh
 +++ b/modules.d/40network/ifup.sh
 @@ -82,9 +82,10 @@ fi
@@ -33,7 +33,7 @@ index bd7db02..3cff725 100755
      [ -e /tmp/net.${netif}.did-setup ] && exit 0
      [ -e /sys/class/net/$netif/address ] && \
 diff --git a/modules.d/40network/net-genrules.sh b/modules.d/40network/net-genrules.sh
-index 3664984..750a4d7 100755
+index 3664984f..750a4d7f 100755
 --- a/modules.d/40network/net-genrules.sh
 +++ b/modules.d/40network/net-genrules.sh
 @@ -55,7 +55,6 @@ command -v fix_bootif >/dev/null || . /lib/net-lib.sh

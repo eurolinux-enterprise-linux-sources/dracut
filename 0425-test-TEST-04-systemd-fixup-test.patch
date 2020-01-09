@@ -12,7 +12,7 @@ Subject: [PATCH] test/TEST-04-systemd: fixup test
  2 files changed, 10 insertions(+), 8 deletions(-)
 
 diff --git a/test/TEST-04-FULL-SYSTEMD/test-init.sh b/test/TEST-04-FULL-SYSTEMD/test-init.sh
-index dcda926..288ae48 100755
+index dcda926a..288ae487 100755
 --- a/test/TEST-04-FULL-SYSTEMD/test-init.sh
 +++ b/test/TEST-04-FULL-SYSTEMD/test-init.sh
 @@ -19,7 +19,7 @@ if ismounted /usr && [ ! -s /failed ]; then
@@ -25,7 +25,7 @@ index dcda926..288ae48 100755
  if [ -s /failed ]; then
      echo "**************************FAILED**************************"
 diff --git a/test/TEST-04-FULL-SYSTEMD/test.sh b/test/TEST-04-FULL-SYSTEMD/test.sh
-index 01b406d..93c3389 100755
+index 01b406d0..93c33890 100755
 --- a/test/TEST-04-FULL-SYSTEMD/test.sh
 +++ b/test/TEST-04-FULL-SYSTEMD/test.sh
 @@ -22,7 +22,7 @@ client_run() {

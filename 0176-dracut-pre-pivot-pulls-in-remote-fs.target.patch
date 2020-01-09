@@ -15,7 +15,7 @@ Signed-off-by: WANG Chao <chaowang@redhat.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/modules.d/98systemd/dracut-pre-pivot.service b/modules.d/98systemd/dracut-pre-pivot.service
-index 6db1f2c..d7c7b1d 100644
+index 6db1f2c0..d7c7b1d7 100644
 --- a/modules.d/98systemd/dracut-pre-pivot.service
 +++ b/modules.d/98systemd/dracut-pre-pivot.service
 @@ -13,6 +13,8 @@ Documentation=man:dracut-pre-pivot.service(8)

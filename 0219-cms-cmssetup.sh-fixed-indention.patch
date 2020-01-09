@@ -9,7 +9,7 @@ Subject: [PATCH] cms/cmssetup.sh: fixed indention
  1 file changed, 130 insertions(+), 130 deletions(-)
 
 diff --git a/modules.d/80cms/cmssetup.sh b/modules.d/80cms/cmssetup.sh
-index c9e1331..7dd481b 100755
+index c9e13314..7dd481b5 100755
 --- a/modules.d/80cms/cmssetup.sh
 +++ b/modules.d/80cms/cmssetup.sh
 @@ -44,147 +44,147 @@ function dasd_settle() {

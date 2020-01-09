@@ -22,7 +22,7 @@ Signed-off-by: Thomas Renninger <trenn@suse.de>
  1 file changed, 25 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/95iscsi/module-setup.sh b/modules.d/95iscsi/module-setup.sh
-index 422bea7..181da3c 100755
+index 422bea72..181da3c7 100755
 --- a/modules.d/95iscsi/module-setup.sh
 +++ b/modules.d/95iscsi/module-setup.sh
 @@ -29,14 +29,38 @@ check() {

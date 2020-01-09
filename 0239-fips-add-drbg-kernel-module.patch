@@ -9,7 +9,7 @@ Subject: [PATCH] fips: add drbg kernel module
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/01fips/module-setup.sh b/modules.d/01fips/module-setup.sh
-index 906b49f..48156e7 100755
+index 906b49f4..48156e7e 100755
 --- a/modules.d/01fips/module-setup.sh
 +++ b/modules.d/01fips/module-setup.sh
 @@ -13,7 +13,7 @@ depends() {

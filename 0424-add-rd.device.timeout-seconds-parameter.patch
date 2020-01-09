@@ -9,7 +9,7 @@ Subject: [PATCH] add rd.device.timeout=<seconds> parameter
  2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/modules.d/98systemd/rootfs-generator.sh b/modules.d/98systemd/rootfs-generator.sh
-index 2c09895..a7bffdf 100755
+index 2c098951..a7bffdfd 100755
 --- a/modules.d/98systemd/rootfs-generator.sh
 +++ b/modules.d/98systemd/rootfs-generator.sh
 @@ -7,6 +7,7 @@ type getarg >/dev/null 2>&1 || . /lib/dracut-lib.sh
@@ -34,7 +34,7 @@ index 2c09895..a7bffdf 100755
      fi
  }
 diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
-index c2b6108..16bc74d 100755
+index c2b6108a..16bc74d4 100755
 --- a/modules.d/99base/dracut-lib.sh
 +++ b/modules.d/99base/dracut-lib.sh
 @@ -887,6 +887,7 @@ wait_for_dev()

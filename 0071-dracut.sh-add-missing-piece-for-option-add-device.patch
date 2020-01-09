@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.sh: add missing piece for option --add-device
  1 file changed, 1 insertion(+)
 
 diff --git a/dracut.sh b/dracut.sh
-index bb7e91e..9a6521e 100755
+index bb7e91e6..9a6521ec 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -307,6 +307,7 @@ TEMP=$(unset POSIXLY_CORRECT; getopt \

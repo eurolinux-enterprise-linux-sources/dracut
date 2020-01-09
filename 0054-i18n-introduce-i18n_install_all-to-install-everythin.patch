@@ -15,7 +15,7 @@ the initramfs.
  3 files changed, 30 insertions(+), 16 deletions(-)
 
 diff --git a/dracut.conf.5.asc b/dracut.conf.5.asc
-index c9c854a..30b7e03 100644
+index c9c854a9..30b7e030 100644
 --- a/dracut.conf.5.asc
 +++ b/dracut.conf.5.asc
 @@ -122,10 +122,10 @@ If chrooted to another root other than the real root device, use --fstab and pro
@@ -49,7 +49,7 @@ index c9c854a..30b7e03 100644
  -----
  _/etc/dracut.conf_::
 diff --git a/dracut.conf.d/fedora.conf.example b/dracut.conf.d/fedora.conf.example
-index 1a56a86..495e8fb 100644
+index 1a56a864..495e8fb3 100644
 --- a/dracut.conf.d/fedora.conf.example
 +++ b/dracut.conf.d/fedora.conf.example
 @@ -3,6 +3,7 @@
@@ -61,7 +61,7 @@ index 1a56a86..495e8fb 100644
  sysloglvl=5
  install_items+=" vi /etc/virc ps grep cat rm "
 diff --git a/modules.d/10i18n/module-setup.sh b/modules.d/10i18n/module-setup.sh
-index 2a83728..413ee12 100755
+index 2a837280..413ee123 100755
 --- a/modules.d/10i18n/module-setup.sh
 +++ b/modules.d/10i18n/module-setup.sh
 @@ -18,15 +18,11 @@ depends() {

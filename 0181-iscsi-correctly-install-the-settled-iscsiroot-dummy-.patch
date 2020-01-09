@@ -11,7 +11,7 @@ initqueue parses $1 as the executable command
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/95iscsi/parse-iscsiroot.sh b/modules.d/95iscsi/parse-iscsiroot.sh
-index 52a4805..b48be38 100755
+index 52a4805a..b48be387 100755
 --- a/modules.d/95iscsi/parse-iscsiroot.sh
 +++ b/modules.d/95iscsi/parse-iscsiroot.sh
 @@ -88,7 +88,7 @@ fi

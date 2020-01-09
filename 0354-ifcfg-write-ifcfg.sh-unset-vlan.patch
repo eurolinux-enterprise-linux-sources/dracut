@@ -12,7 +12,7 @@ was a vlan interface
  1 file changed, 2 insertions(+)
 
 diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
-index b2462da..ed66370 100755
+index b2462dae..ed66370f 100755
 --- a/modules.d/45ifcfg/write-ifcfg.sh
 +++ b/modules.d/45ifcfg/write-ifcfg.sh
 @@ -140,6 +140,8 @@ for netup in /tmp/net.*.did-setup ; do

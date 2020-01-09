@@ -9,7 +9,7 @@ Subject: [PATCH] dracut.sh: no need to make subdirs in run
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index bcdc2d8..7d5c9e0 100755
+index bcdc2d8a..7d5c9e07 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1129,7 +1129,7 @@ if [[ $kernel_only != yes ]]; then

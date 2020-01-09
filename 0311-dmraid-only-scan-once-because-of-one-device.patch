@@ -9,7 +9,7 @@ Subject: [PATCH] dmraid: only scan once because of one device
  2 files changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/90dmraid/61-dmraid-imsm.rules b/modules.d/90dmraid/61-dmraid-imsm.rules
-index 33e060b..de7e97e 100644
+index 33e060be..de7e97e5 100644
 --- a/modules.d/90dmraid/61-dmraid-imsm.rules
 +++ b/modules.d/90dmraid/61-dmraid-imsm.rules
 @@ -24,6 +24,6 @@ PROGRAM=="/bin/sh -c 'for i in $sys/$devpath/holders/dm-[0-9]*; do [ -e $$i ] &&
@@ -21,7 +21,7 @@ index 33e060b..de7e97e 100644
  
  LABEL="dm_end"
 diff --git a/modules.d/90dmraid/dmraid.sh b/modules.d/90dmraid/dmraid.sh
-index 3753ddd..ce9a6b2 100755
+index 3753ddd7..ce9a6b20 100755
 --- a/modules.d/90dmraid/dmraid.sh
 +++ b/modules.d/90dmraid/dmraid.sh
 @@ -4,6 +4,13 @@

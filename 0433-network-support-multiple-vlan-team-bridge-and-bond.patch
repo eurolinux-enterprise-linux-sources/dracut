@@ -14,7 +14,7 @@ Subject: [PATCH] network: support multiple vlan, team, bridge and bond
  7 files changed, 254 insertions(+), 298 deletions(-)
 
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
-index cedf9a7..d7503c7 100755
+index cedf9a77..d7503c7f 100755
 --- a/modules.d/40network/ifup.sh
 +++ b/modules.d/40network/ifup.sh
 @@ -17,79 +17,12 @@ type ip_to_var >/dev/null 2>&1 || . /lib/net-lib.sh
@@ -460,7 +460,7 @@ index cedf9a7..d7503c7 100755
          BOOTDEV=$(cat /tmp/net.bootdev)
          if [ "$netif" = "$BOOTDEV" ] || [ "$BOOTDEV" = "$(cat /sys/class/net/${netif}/address)" ]; then
 diff --git a/modules.d/40network/net-genrules.sh b/modules.d/40network/net-genrules.sh
-index 526dd5c..08072fb 100755
+index 526dd5cf..08072fbe 100755
 --- a/modules.d/40network/net-genrules.sh
 +++ b/modules.d/40network/net-genrules.sh
 @@ -1,6 +1,4 @@
@@ -513,7 +513,7 @@ index 526dd5c..08072fb 100755
      RAW_IFACES="$(trim "$RAW_IFACES")"
  
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 7120193..de334d9 100755
+index 71201938..de334d98 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -102,7 +102,8 @@ ifdown() {
@@ -547,7 +547,7 @@ index 7120193..de334d9 100755
  }
  
 diff --git a/modules.d/40network/parse-bridge.sh b/modules.d/40network/parse-bridge.sh
-index a910109..5c3af29 100755
+index a9101094..5c3af292 100755
 --- a/modules.d/40network/parse-bridge.sh
 +++ b/modules.d/40network/parse-bridge.sh
 @@ -1,6 +1,4 @@
@@ -613,7 +613,7 @@ index a910109..5c3af29 100755
 +    echo "bridgeslaves=\"$bridgeslaves\"" >> /tmp/bridge.${bridgename}.info
 +done
 diff --git a/modules.d/40network/parse-team.sh b/modules.d/40network/parse-team.sh
-index a836d68..136c370 100755
+index a836d688..136c3705 100755
 --- a/modules.d/40network/parse-team.sh
 +++ b/modules.d/40network/parse-team.sh
 @@ -6,14 +6,6 @@
@@ -680,7 +680,7 @@ index a836d68..136c370 100755
 +    fi
 +done
 diff --git a/modules.d/40network/parse-vlan.sh b/modules.d/40network/parse-vlan.sh
-index 3ba2289..5a747f0 100755
+index 3ba22892..5a747f0f 100755
 --- a/modules.d/40network/parse-vlan.sh
 +++ b/modules.d/40network/parse-vlan.sh
 @@ -4,14 +4,6 @@
@@ -723,7 +723,7 @@ index 3ba2289..5a747f0 100755
 +    echo "$vlanname" > /tmp/vlan.${vlanname}.${phydevice}
 +done
 diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
-index cab7477..a077da1 100755
+index cab74772..a077da1c 100755
 --- a/modules.d/45ifcfg/write-ifcfg.sh
 +++ b/modules.d/45ifcfg/write-ifcfg.sh
 @@ -7,14 +7,6 @@ type is_persistent_ethernet_name >/dev/null 2>&1 || . /lib/net-lib.sh

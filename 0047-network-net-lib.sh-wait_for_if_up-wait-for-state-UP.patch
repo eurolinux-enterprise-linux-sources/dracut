@@ -9,7 +9,7 @@ really wait for "state UP", otherwise it returns earlier than we want
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 88e72ec..0aa312a 100644
+index 88e72ece..0aa312a0 100644
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -443,7 +443,7 @@ wait_for_if_up() {

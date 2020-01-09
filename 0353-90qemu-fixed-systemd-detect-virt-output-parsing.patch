@@ -14,7 +14,7 @@ Also, add "Red Hat" as a vendor.
  1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/modules.d/90qemu/module-setup.sh b/modules.d/90qemu/module-setup.sh
-index 64eac9e..46b7ae2 100755
+index 64eac9ed..46b7ae21 100755
 --- a/modules.d/90qemu/module-setup.sh
 +++ b/modules.d/90qemu/module-setup.sh
 @@ -4,7 +4,7 @@

@@ -9,7 +9,7 @@ Subject: [PATCH] dracut-initramfs-restore: fix unpacking with early microcode
  1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/dracut-initramfs-restore.sh b/dracut-initramfs-restore.sh
-index f29c814..0dd1938 100644
+index f29c8146..0dd1938d 100644
 --- a/dracut-initramfs-restore.sh
 +++ b/dracut-initramfs-restore.sh
 @@ -6,6 +6,10 @@ set -e

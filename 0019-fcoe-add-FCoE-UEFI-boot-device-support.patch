@@ -13,7 +13,7 @@ Subject: [PATCH] fcoe: add FCoE UEFI boot device support
  create mode 100755 modules.d/99base/uefi-lib.sh
 
 diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
-index d3c58cc..08ba4ea 100755
+index d3c58cc6..08ba4eac 100755
 --- a/modules.d/95fcoe/module-setup.sh
 +++ b/modules.d/95fcoe/module-setup.sh
 @@ -32,6 +32,7 @@ install() {
@@ -26,7 +26,7 @@ index d3c58cc..08ba4ea 100755
  }
 diff --git a/modules.d/95fcoe/parse-uefifcoe.sh b/modules.d/95fcoe/parse-uefifcoe.sh
 new file mode 100755
-index 0000000..e03bcb3
+index 00000000..e03bcb39
 --- /dev/null
 +++ b/modules.d/95fcoe/parse-uefifcoe.sh
 @@ -0,0 +1,35 @@
@@ -66,7 +66,7 @@ index 0000000..e03bcb3
 +    print_fcoe_uefi_conf > /etc/cmdline.d/40-fcoe-uefi.conf
 +fi
 diff --git a/modules.d/99base/module-setup.sh b/modules.d/99base/module-setup.sh
-index 52ce400..d33a0fb 100755
+index 52ce4004..d33a0fb4 100755
 --- a/modules.d/99base/module-setup.sh
 +++ b/modules.d/99base/module-setup.sh
 @@ -42,6 +42,7 @@ install() {
@@ -79,7 +79,7 @@ index 52ce400..d33a0fb 100755
          inst_multiple switch_root || dfatal "Failed to install switch_root"
 diff --git a/modules.d/99base/uefi-lib.sh b/modules.d/99base/uefi-lib.sh
 new file mode 100755
-index 0000000..faedbac
+index 00000000..faedbac5
 --- /dev/null
 +++ b/modules.d/99base/uefi-lib.sh
 @@ -0,0 +1,155 @@

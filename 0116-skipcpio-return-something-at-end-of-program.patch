@@ -10,7 +10,7 @@ in theory undefined.
  1 file changed, 2 insertions(+)
 
 diff --git a/skipcpio/skipcpio.c b/skipcpio/skipcpio.c
-index fbf391b..c912061 100644
+index fbf391bf..c9120617 100644
 --- a/skipcpio/skipcpio.c
 +++ b/skipcpio/skipcpio.c
 @@ -120,4 +120,6 @@ int main(int argc, char **argv)

@@ -21,7 +21,7 @@ Signed-off-by: Major Hayden <major@mhtx.net>
  3 files changed, 96 insertions(+), 4 deletions(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index bce8608..0493dcd 100644
+index bce86084..0493dcd8 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -729,10 +729,90 @@ rd.znet=qeth,0.0.0600,0.0.0601,0.0.0602,layer2=1,portname=foo
@@ -117,7 +117,7 @@ index bce8608..0493dcd 100644
  **rd.plymouth=0**::
      disable the plymouth bootsplash only for the initramfs.
 diff --git a/modules.d/90dmsquash-live/dmsquash-live-root.sh b/modules.d/90dmsquash-live/dmsquash-live-root.sh
-index 5705e8d..c6c02c7 100755
+index 5705e8df..c6c02c74 100755
 --- a/modules.d/90dmsquash-live/dmsquash-live-root.sh
 +++ b/modules.d/90dmsquash-live/dmsquash-live-root.sh
 @@ -4,6 +4,8 @@
@@ -159,7 +159,7 @@ index 5705e8d..c6c02c7 100755
  
  # we might have an embedded fs image on squashfs (compressed live)
 diff --git a/modules.d/90dmsquash-live/module-setup.sh b/modules.d/90dmsquash-live/module-setup.sh
-index c6d1f9d..f52717d 100755
+index c6d1f9d5..f52717de 100755
 --- a/modules.d/90dmsquash-live/module-setup.sh
 +++ b/modules.d/90dmsquash-live/module-setup.sh
 @@ -11,7 +11,7 @@ check() {

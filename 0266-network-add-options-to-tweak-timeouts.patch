@@ -35,7 +35,7 @@ Subject: [PATCH] network: add options to tweak timeouts
  3 files changed, 77 insertions(+), 10 deletions(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
-index c7e3bd4..5f3dead 100644
+index c7e3bd40..5f3dead1 100644
 --- a/dracut.cmdline.7.asc
 +++ b/dracut.cmdline.7.asc
 @@ -572,6 +572,31 @@ NFS
@@ -71,7 +71,7 @@ index c7e3bd4..5f3dead 100644
  ~~~
  **root=**cifs://[__<username>__[:__<password>__]@]__<server-ip>__:__<root-dir>__::
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
-index 3cff725..2f51e6d 100755
+index 3cff725c..2f51e6d5 100755
 --- a/modules.d/40network/ifup.sh
 +++ b/modules.d/40network/ifup.sh
 @@ -98,15 +98,33 @@ do_dhcp() {
@@ -113,7 +113,7 @@ index 3cff725..2f51e6d 100755
  
  load_ipv6() {
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
-index 1f77a15..de5273c 100755
+index 1f77a154..de5273ca 100755
 --- a/modules.d/40network/net-lib.sh
 +++ b/modules.d/40network/net-lib.sh
 @@ -486,7 +486,11 @@ parse_ifname_opts() {

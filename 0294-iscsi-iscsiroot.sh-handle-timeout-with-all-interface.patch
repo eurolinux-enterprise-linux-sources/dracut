@@ -11,7 +11,7 @@ restart iscsid, because it may disbehaved
  1 file changed, 13 insertions(+), 4 deletions(-)
 
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
-index 68da9dd..9452afe 100755
+index 68da9dd0..9452afec 100755
 --- a/modules.d/95iscsi/iscsiroot.sh
 +++ b/modules.d/95iscsi/iscsiroot.sh
 @@ -199,13 +199,14 @@ handle_netroot()

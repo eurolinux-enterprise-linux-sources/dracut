@@ -8,7 +8,7 @@ Subject: [PATCH] dracut.spec: move /sbin/dracut to /usr/sbin/dracut
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/dracut.spec b/dracut.spec
-index 8dfc753..596d728 100644
+index 8dfc7535..596d7283 100644
 --- a/dracut.spec
 +++ b/dracut.spec
 @@ -276,8 +276,8 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/

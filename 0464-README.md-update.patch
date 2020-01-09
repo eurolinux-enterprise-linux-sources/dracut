@@ -8,7 +8,7 @@ Subject: [PATCH] README.md: update
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/README.md b/README.md
-index 4c53f28..9617eaf 100644
+index 4c53f28d..9617eaf9 100644
 --- a/README.md
 +++ b/README.md
 @@ -1,4 +1,4 @@

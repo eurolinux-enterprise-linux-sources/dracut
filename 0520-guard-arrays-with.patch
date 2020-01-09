@@ -1,0 +1,181 @@
+From 69b5de6251ab7dace7ed7eb8bea7a81324cefe16 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 9 Jul 2015 15:27:44 +0200
+Subject: [PATCH] guard ${arrays[@]} with ""
+
+Cherry-picked from: 3721635b2c5df033fca1e19181d7598e075f5308
+Resolves: #1520721
+---
+ dracut-functions.sh                        | 8 ++++----
+ dracut.sh                                  | 6 +++---
+ lsinitrd.sh                                | 2 +-
+ modules.d/90btrfs/module-setup.sh          | 2 +-
+ modules.d/90kernel-modules/module-setup.sh | 2 +-
+ modules.d/95cifs/module-setup.sh           | 2 +-
+ modules.d/95nfs/module-setup.sh            | 2 +-
+ modules.d/95virtfs/module-setup.sh         | 2 +-
+ modules.d/99base/module-setup.sh           | 4 ++--
+ 9 files changed, 15 insertions(+), 15 deletions(-)
+
+diff --git a/dracut-functions.sh b/dracut-functions.sh
+index 3c4118a9..23768bdc 100755
+--- a/dracut-functions.sh
++++ b/dracut-functions.sh
+@@ -593,7 +593,7 @@ for_each_host_dev_fs()
+     local _dev
+     local _ret=1
+ 
+-    [[ "${!host_fs_types[@]}" ]] || return 0
++    [[ "${#host_fs_types[@]}" ]] || return 0
+ 
+     for _dev in "${!host_fs_types[@]}"; do
+         $_func "$_dev" "${host_fs_types[$_dev]}" && _ret=0
+@@ -654,7 +654,7 @@ for_each_host_dev_and_slaves_all()
+ 
+     [[ "${host_devs[@]}" ]] || return 0
+ 
+-    for _dev in ${host_devs[@]}; do
++    for _dev in "${host_devs[@]}"; do
+         [[ -b "$_dev" ]] || continue
+         if check_block_and_slaves_all $_func $(get_maj_min $_dev); then
+             _ret=0
+@@ -670,7 +670,7 @@ for_each_host_dev_and_slaves()
+ 
+     [[ "${host_devs[@]}" ]] || return 0
+ 
+-    for _dev in ${host_devs[@]}; do
++    for _dev in "${host_devs[@]}"; do
+         [[ -b "$_dev" ]] || continue
+         check_block_and_slaves $_func $(get_maj_min $_dev) && return 0
+     done
+@@ -1241,7 +1241,7 @@ check_mount() {
+     local _ret
+     local _moddep
+ 
+-    [ "${#host_fs_types[*]}" -le 0 ] && return 1
++    [ "${#host_fs_types[@]}" -le 0 ] && return 1
+ 
+     # If we are already scheduled to be loaded, no need to check again.
+     [[ " $mods_to_load " == *\ $_mod\ * ]] && return 0
+diff --git a/dracut.sh b/dracut.sh
+index b34edea2..90b75e51 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -1171,7 +1171,7 @@ _get_fs_type() {
+     return 1
+ }
+ 
+-for dev in ${host_devs[@]}; do
++for dev in "${host_devs[@]}"; do
+     _get_fs_type "$dev"
+     check_block_and_slaves_all _get_fs_type "$(get_maj_min "$dev")"
+ done
+@@ -1396,8 +1396,8 @@ if [[ $no_kernel != yes ]]; then
+ fi
+ 
+ if [[ $kernel_only != yes ]]; then
+-    (( ${#install_items[@]} > 0 )) && inst_multiple ${install_items[@]}
+-    (( ${#install_optional_items[@]} > 0 )) && inst_multiple -o ${install_optional_items[@]}
++    (( ${#install_items[@]} > 0 )) && inst_multiple "${install_items[@]}"
++    (( ${#install_optional_items[@]} > 0 )) && inst_multiple -o "${install_optional_items[@]}"
+ 
+     [[ $kernel_cmdline ]] && printf "%s\n" "$kernel_cmdline" >> "${initdir}/etc/cmdline.d/01-default.conf"
+ 
+diff --git a/lsinitrd.sh b/lsinitrd.sh
+index 4103ee23..0fb7e3b5 100755
+--- a/lsinitrd.sh
++++ b/lsinitrd.sh
+@@ -113,7 +113,7 @@ fi
+ extract_files()
+ {
+     (( ${#filenames[@]} == 1 )) && nofileinfo=1
+-    for f in ${!filenames[@]}; do
++    for f in "${!filenames[@]}"; do
+         [[ $nofileinfo ]] || echo "initramfs:/$f"
+         [[ $nofileinfo ]] || echo "========================================================================"
+         $CAT $image 2>/dev/null | cpio --extract --verbose --quiet --to-stdout $f 2>/dev/null
+diff --git a/modules.d/90btrfs/module-setup.sh b/modules.d/90btrfs/module-setup.sh
+index 4804f58b..ac8cb885 100755
+--- a/modules.d/90btrfs/module-setup.sh
++++ b/modules.d/90btrfs/module-setup.sh
+@@ -9,7 +9,7 @@ check() {
+     require_binaries btrfs || return 1
+ 
+     [[ $hostonly ]] || [[ $mount_needs ]] && {
+-        for fs in ${host_fs_types[@]}; do
++        for fs in "${host_fs_types[@]}"; do
+             [[ "$fs" == "btrfs" ]] && return 0
+         done
+         return 255
+diff --git a/modules.d/90kernel-modules/module-setup.sh b/modules.d/90kernel-modules/module-setup.sh
+index c4bf5af5..dea32602 100755
+--- a/modules.d/90kernel-modules/module-setup.sh
++++ b/modules.d/90kernel-modules/module-setup.sh
+@@ -83,7 +83,7 @@ installkernel() {
+                     instmods '=fs'
+             fi
+         else
+-            for i in $(host_fs_all); do
++            for i in "${host_fs_types[@]}"; do
+                 hostonly='' instmods $i
+             done
+         fi
+diff --git a/modules.d/95cifs/module-setup.sh b/modules.d/95cifs/module-setup.sh
+index 9e36f87f..e2509504 100755
+--- a/modules.d/95cifs/module-setup.sh
++++ b/modules.d/95cifs/module-setup.sh
+@@ -7,7 +7,7 @@ check() {
+     require_binaries mount.cifs || return 1
+ 
+     [[ $hostonly ]] || [[ $mount_needs ]] && {
+-        for fs in ${host_fs_types[@]}; do
++        for fs in "${host_fs_types[@]}"; do
+             [[ "$fs" == "cifs" ]] && return 0
+         done
+         return 255
+diff --git a/modules.d/95nfs/module-setup.sh b/modules.d/95nfs/module-setup.sh
+index dc2e7221..b0bb866d 100755
+--- a/modules.d/95nfs/module-setup.sh
++++ b/modules.d/95nfs/module-setup.sh
+@@ -8,7 +8,7 @@ check() {
+     require_binaries rpc.statd mount.nfs mount.nfs4 umount || return 1
+ 
+     [[ $hostonly ]] || [[ $mount_needs ]] && {
+-        for fs in ${host_fs_types[@]}; do
++        for fs in "${host_fs_types[@]}"; do
+             [[ "$fs" == "nfs" ]] && return 0
+             [[ "$fs" == "nfs3" ]] && return 0
+             [[ "$fs" == "nfs4" ]] && return 0
+diff --git a/modules.d/95virtfs/module-setup.sh b/modules.d/95virtfs/module-setup.sh
+index 3d80b75f..c7101c07 100755
+--- a/modules.d/95virtfs/module-setup.sh
++++ b/modules.d/95virtfs/module-setup.sh
+@@ -4,7 +4,7 @@
+ 
+ check() {
+     [[ $hostonly ]] || [[ $mount_needs ]] && {
+-        for fs in ${host_fs_types[@]}; do
++        for fs in "${host_fs_types[@]}"; do
+             [[ "$fs" == "9p" ]] && return 0
+         done
+         return 255
+diff --git a/modules.d/99base/module-setup.sh b/modules.d/99base/module-setup.sh
+index 8fd4e80d..74a3f0c0 100755
+--- a/modules.d/99base/module-setup.sh
++++ b/modules.d/99base/module-setup.sh
+@@ -103,13 +103,13 @@ install() {
+ 
+                 . "$moddir/dracut-lib.sh"
+ 
+-                for _dev in ${host_devs[@]}; do
++                for _dev in "${host_devs[@]}"; do
+                     [[ "$_dev" == "$root_dev" ]] && continue
+ 
+                     # We only actually wait for real devs - swap is only needed
+                     # for resume and udev rules generated when parsing resume=
+                     # argument take care of the waiting for us
+-                    for _dev2 in ${swap_devs[@]}; do
++                    for _dev2 in "${swap_devs[@]}"; do
+                       [[ "$_dev" == "$_dev2" ]] && continue 2
+                     done
+ 

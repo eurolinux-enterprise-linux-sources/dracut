@@ -36,7 +36,7 @@ Simplified the cpio extraction process by using 'lsinitrd'.
  1 file changed, 210 insertions(+), 132 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 8e5e86f..eff096e 100755
+index 8e5e86f7..eff096e5 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -70,6 +70,7 @@ Creates initial ramdisk images for preloading modules

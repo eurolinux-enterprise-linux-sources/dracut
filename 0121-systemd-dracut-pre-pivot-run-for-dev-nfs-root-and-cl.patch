@@ -12,7 +12,7 @@ up /dev/root.
  2 files changed, 3 insertions(+)
 
 diff --git a/modules.d/98systemd/dracut-pre-pivot.service b/modules.d/98systemd/dracut-pre-pivot.service
-index dd4e49b..6db1f2c 100644
+index dd4e49b4..6db1f2c0 100644
 --- a/modules.d/98systemd/dracut-pre-pivot.service
 +++ b/modules.d/98systemd/dracut-pre-pivot.service
 @@ -19,6 +19,8 @@ ConditionDirectoryNotEmpty=|/lib/dracut/hooks/cleanup
@@ -25,7 +25,7 @@ index dd4e49b..6db1f2c 100644
  [Service]
  Environment=DRACUT_SYSTEMD=1
 diff --git a/modules.d/98systemd/dracut-pre-pivot.sh b/modules.d/98systemd/dracut-pre-pivot.sh
-index 8c7554e..e62a1ce 100755
+index 8c7554ea..e62a1cec 100755
 --- a/modules.d/98systemd/dracut-pre-pivot.sh
 +++ b/modules.d/98systemd/dracut-pre-pivot.sh
 @@ -24,5 +24,6 @@ getarg rd.break -d rdbreak && emergency_shell -n switch_root "Break before switc
