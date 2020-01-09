@@ -15,16 +15,16 @@ module is not included in the initramfs.
 
 (cherry picked from commit 30e6e809ed8d189cc8374df3c28cfbcab5a299b9)
 ---
- dracut-functions.sh                           | 57 ++++++++++++++++++++++++---
+ dracut-functions.sh                           | 57 +++++++++++++++++--
  modules.d/00bash/module-setup.sh              |  2 +-
  modules.d/00bootchart/module-setup.sh         |  2 +-
  modules.d/00dash/module-setup.sh              |  2 +-
  modules.d/00systemd-bootchart/module-setup.sh |  2 +-
- modules.d/02caps/module-setup.sh              | 14 ++++---
+ modules.d/02caps/module-setup.sh              | 14 +++--
  modules.d/03modsign/module-setup.sh           |  2 +-
  modules.d/05busybox/module-setup.sh           |  2 +-
  modules.d/10i18n/module-setup.sh              |  4 +-
- modules.d/40network/module-setup.sh           |  7 +---
+ modules.d/40network/module-setup.sh           |  7 +--
  modules.d/45url-lib/module-setup.sh           |  2 +-
  modules.d/50plymouth/module-setup.sh          |  2 +-
  modules.d/90btrfs/module-setup.sh             |  2 +-
@@ -35,16 +35,16 @@ module is not included in the initramfs.
  modules.d/90mdraid/module-setup.sh            |  2 +-
  modules.d/90multipath/module-setup.sh         |  2 +-
  modules.d/91crypt-gpg/module-setup.sh         |  2 +-
- modules.d/91crypt-loop/module-setup.sh        | 21 ++++++----
+ modules.d/91crypt-loop/module-setup.sh        | 21 ++++---
  modules.d/95cifs/module-setup.sh              |  2 +-
  modules.d/95dasd/module-setup.sh              |  1 +
  modules.d/95dasd_mod/module-setup.sh          |  1 +
  modules.d/95fcoe-uefi/module-setup.sh         |  4 +-
- modules.d/95fcoe/module-setup.sh              |  5 +--
+ modules.d/95fcoe/module-setup.sh              |  5 +-
  modules.d/95iscsi/module-setup.sh             |  2 +-
  modules.d/95nbd/module-setup.sh               |  2 +-
  modules.d/95nfs/module-setup.sh               |  4 +-
- modules.d/95ssh-client/module-setup.sh        |  6 +--
+ modules.d/95ssh-client/module-setup.sh        |  6 +-
  modules.d/95udev-rules/module-setup.sh        |  2 +-
  modules.d/95zfcp/module-setup.sh              |  2 +
  modules.d/95znet/module-setup.sh              |  2 +

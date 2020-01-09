@@ -8,7 +8,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1078867
 
 cherry-picked from 29763cb72d17fe8d22766170ec06b32419829243
 ---
- modules.d/40network/net-lib.sh | 112 ++++++++++++++++++-----------------------
+ modules.d/40network/net-lib.sh | 112 +++++++++++++++------------------
  1 file changed, 50 insertions(+), 62 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh

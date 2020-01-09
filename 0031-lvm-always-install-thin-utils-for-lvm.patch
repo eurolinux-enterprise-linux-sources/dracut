@@ -4,7 +4,7 @@ Date: Mon, 21 Oct 2013 09:09:26 +0200
 Subject: [PATCH] lvm: always install thin utils for lvm
 
 ---
- modules.d/90lvm/module-setup.sh | 34 ++++++++--------------------------
+ modules.d/90lvm/module-setup.sh | 34 ++++++++-------------------------
  1 file changed, 8 insertions(+), 26 deletions(-)
 
 diff --git a/modules.d/90lvm/module-setup.sh b/modules.d/90lvm/module-setup.sh

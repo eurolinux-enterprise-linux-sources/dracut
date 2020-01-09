@@ -4,13 +4,13 @@ Date: Thu, 9 Jan 2014 12:17:01 +0100
 Subject: [PATCH] documentation: line wrap
 
 ---
- dracut.8.asc         |  16 ++++---
+ dracut.8.asc         |  16 +++---
  dracut.asc           |  12 +++--
  dracut.bootup.7.asc  |   3 +-
- dracut.cmdline.7.asc | 125 ++++++++++++++++++++++++++++++++-------------------
- dracut.conf.5.asc    |  18 +++++---
- dracut.modules.7.asc |  45 +++++++++++--------
- dracut.usage.asc     |  45 ++++++++++++-------
+ dracut.cmdline.7.asc | 125 +++++++++++++++++++++++++++----------------
+ dracut.conf.5.asc    |  18 ++++---
+ dracut.modules.7.asc |  45 +++++++++-------
+ dracut.usage.asc     |  45 ++++++++++------
  mkinitrd.8.asc       |   4 +-
  8 files changed, 165 insertions(+), 103 deletions(-)
 

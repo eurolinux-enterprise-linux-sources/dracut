@@ -11,12 +11,12 @@ ifcfg files in the initramfs.
 Create a default loadbalance team config, if none present in the
 initramfs.
 ---
- modules.d/40network/ifup.sh         | 38 ++++++++++++++++++++++++++++---------
- modules.d/40network/module-setup.sh | 37 ++++++++++++++++++++++++++++++++++++
- modules.d/40network/net-genrules.sh |  9 ++++++---
- modules.d/40network/net-lib.sh      | 18 ++++++++++++++++++
- modules.d/40network/parse-team.sh   | 30 +++++++++++++++++++----------
- modules.d/45ifcfg/write-ifcfg.sh    | 10 +++++++++-
+ modules.d/40network/ifup.sh         | 38 ++++++++++++++++++++++-------
+ modules.d/40network/module-setup.sh | 37 ++++++++++++++++++++++++++++
+ modules.d/40network/net-genrules.sh |  9 ++++---
+ modules.d/40network/net-lib.sh      | 18 ++++++++++++++
+ modules.d/40network/parse-team.sh   | 30 +++++++++++++++--------
+ modules.d/45ifcfg/write-ifcfg.sh    | 10 +++++++-
  6 files changed, 119 insertions(+), 23 deletions(-)
 
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh

@@ -1,0 +1,26 @@
+From 937b808a0d71b68a3285cf3e9d162b0060c5bcdf Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Mon, 1 Apr 2019 17:25:01 +0200
+Subject: [PATCH] 95iscsi/iscsiroot: synchronously wait until iscsistart
+ finishes
+
+---
+ modules.d/95iscsi/iscsiroot.sh | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
+index c93ff068..e94f596b 100755
+--- a/modules.d/95iscsi/iscsiroot.sh
++++ b/modules.d/95iscsi/iscsiroot.sh
+@@ -197,6 +197,11 @@ handle_netroot()
+ 	                    ${iscsi_netdev_name:+--param "iface.net_ifacename=$iscsi_netdev_name"} \
+                             ${iscsi_param} >/dev/null 2>&1 \
+ 	            && { > $hookdir/initqueue/work ; }
++                while : ; do
++                    status=$(systemctl is-active "$netroot_enc" 2>/dev/null)
++                    [ "$status" != "activating" ] && break
++                    sleep 1
++                done
+             else
+                 systemctl --no-block restart "$netroot_enc" >/dev/null 2>&1 \
+ 	            && { > $hookdir/initqueue/work ; }

@@ -10,7 +10,7 @@ Previously, this was bound unconditionally with HWADDR.
 
 (cherry picked from commit 80043e21c16db168ad087a162f1fa97cae866c8d)
 ---
- modules.d/45ifcfg/write-ifcfg.sh | 47 ++++++++++++++++++++++------------------
+ modules.d/45ifcfg/write-ifcfg.sh | 47 ++++++++++++++++++--------------
  1 file changed, 26 insertions(+), 21 deletions(-)
 
 diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh

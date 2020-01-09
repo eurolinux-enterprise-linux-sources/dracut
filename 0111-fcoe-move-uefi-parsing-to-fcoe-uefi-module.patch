@@ -4,9 +4,9 @@ Date: Thu, 12 Dec 2013 09:20:53 +0100
 Subject: [PATCH] fcoe: move uefi parsing to fcoe-uefi module
 
 ---
- modules.d/95fcoe-uefi/module-setup.sh              | 22 ++++++++++++++++++++++
- .../{95fcoe => 95fcoe-uefi}/parse-uefifcoe.sh      |  0
- modules.d/95fcoe/module-setup.sh                   |  1 -
+ modules.d/95fcoe-uefi/module-setup.sh         | 22 +++++++++++++++++++
+ .../{95fcoe => 95fcoe-uefi}/parse-uefifcoe.sh |  0
+ modules.d/95fcoe/module-setup.sh              |  1 -
  3 files changed, 22 insertions(+), 1 deletion(-)
  create mode 100755 modules.d/95fcoe-uefi/module-setup.sh
  rename modules.d/{95fcoe => 95fcoe-uefi}/parse-uefifcoe.sh (100%)

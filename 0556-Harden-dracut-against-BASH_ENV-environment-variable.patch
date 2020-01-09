@@ -1,0 +1,43 @@
+From fc87cf0e7e9790fb7c02ee54a73dd474ffa6fa38 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Renaud=20M=C3=A9trich?= <rmetrich@redhat.com>
+Date: Thu, 7 Jun 2018 15:42:12 +0200
+Subject: [PATCH] Harden dracut against BASH_ENV environment variable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+When dracut silently produces a broken initramfs, then the system will
+likely not boot and this can be very problematic. Typical use case is
+after the kernel has been updated.
+
+It appears that dracut is not protected against the BASH_ENV variable,
+causing various scripts called by dracut to possibly fail or provide
+wrong output (e.g. "ldd" is one of these).
+Having a broken output for "ldd" makes the generated initramfs be not
+usable, typically because vital binaries will be missing (e.g.
+"awk", "udevadm", ...).
+
+Note: because the shebang line cannot contain more than one argument,
+the '--norc' option had to be removed. IMHO, it was useless anyway.
+
+Signed-off-by: Renaud Métrich <rmetrich@redhat.com>
+
+Cherry-picked from: c1c78f8a91921fe87f5672cdbdf9791f569fc8ac
+Resolves: #1588483
+---
+ dracut.sh | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/dracut.sh b/dracut.sh
+index 52835872..27489528 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -23,6 +23,8 @@
+ # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #
+ 
++unset BASH_ENV
++
+ # store for logging
+ dracut_args=( "$@" )
+ 

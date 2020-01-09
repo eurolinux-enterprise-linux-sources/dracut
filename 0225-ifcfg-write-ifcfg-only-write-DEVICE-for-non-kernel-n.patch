@@ -8,8 +8,8 @@ DEVICE="<iface>", if HWADDR is given.
 
 (cherry picked from commit 3947f07d93cde5e1cf0d788537e93b135d6c27b0)
 ---
- modules.d/40network/net-lib.sh   | 46 ++++++++++++++++++++++++++++++-
- modules.d/45ifcfg/write-ifcfg.sh | 59 ++++++++++++++++++++++++++--------------
+ modules.d/40network/net-lib.sh   | 46 ++++++++++++++++++++++++-
+ modules.d/45ifcfg/write-ifcfg.sh | 59 +++++++++++++++++++++-----------
  2 files changed, 84 insertions(+), 21 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh

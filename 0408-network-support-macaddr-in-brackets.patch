@@ -21,7 +21,7 @@ ip=::::test:ens3:dhcp::[54:52:00:ab:cd:ef]
 ip=::::test:ens3:dhcp:1000:54:52:00:ab:cd:ef
 ip=::::test:ens3:dhcp:1000:[54:52:00:ab:cd:ef]
 ---
- modules.d/40network/net-lib.sh | 119 ++++++++++++++++++++++++++---------------
+ modules.d/40network/net-lib.sh | 119 +++++++++++++++++++++------------
  1 file changed, 75 insertions(+), 44 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh

@@ -7,7 +7,7 @@ Subject: [PATCH] iscsi/iscsiroot.sh: handle iscsi_firmware in online and
 The return code of iscsi_firmware is broken, so set the marker
 unconditionally.
 ---
- modules.d/95iscsi/iscsiroot.sh | 43 +++++++++++++++++++-----------------------
+ modules.d/95iscsi/iscsiroot.sh | 43 +++++++++++++++-------------------
  1 file changed, 19 insertions(+), 24 deletions(-)
 
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh

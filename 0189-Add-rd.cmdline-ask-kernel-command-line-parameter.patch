@@ -12,11 +12,11 @@ Conflicts:
 	modules.d/98systemd/dracut-cmdline.sh
 	modules.d/99base/init.sh
 ---
- dracut.cmdline.7.asc                           |  4 ++++
- modules.d/98systemd/dracut-cmdline-ask.service | 33 ++++++++++++++++++++++++++
- modules.d/98systemd/dracut-cmdline-ask.sh      | 20 ++++++++++++++++
- modules.d/98systemd/module-setup.sh            |  2 ++
- modules.d/99base/init.sh                       |  8 +++++++
+ dracut.cmdline.7.asc                          |  4 +++
+ .../98systemd/dracut-cmdline-ask.service      | 33 +++++++++++++++++++
+ modules.d/98systemd/dracut-cmdline-ask.sh     | 20 +++++++++++
+ modules.d/98systemd/module-setup.sh           |  2 ++
+ modules.d/99base/init.sh                      |  8 +++++
  5 files changed, 67 insertions(+)
  create mode 100644 modules.d/98systemd/dracut-cmdline-ask.service
  create mode 100755 modules.d/98systemd/dracut-cmdline-ask.sh

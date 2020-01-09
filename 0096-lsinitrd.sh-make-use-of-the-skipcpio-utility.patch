@@ -6,7 +6,7 @@ Subject: [PATCH] lsinitrd.sh: make use of the skipcpio utility
 With the skipcpio utility, the whole contents of an initramfs with an
 early cpio image can be displayed.
 ---
- lsinitrd.sh | 96 +++++++++++++++++++++++++++++++++++++++++++++++--------------
+ lsinitrd.sh | 96 +++++++++++++++++++++++++++++++++++++++++------------
  1 file changed, 75 insertions(+), 21 deletions(-)
 
 diff --git a/lsinitrd.sh b/lsinitrd.sh

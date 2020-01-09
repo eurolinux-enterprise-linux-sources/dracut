@@ -9,8 +9,8 @@ effects.
 (cherry picked from commit 777f2db0373ccbc1a44fc2d960ecefbe50195055)
 ---
  Makefile                          |  1 +
- dracut-functions.sh               |  9 ++-------
- dracut-init.sh                    | 34 ++++++++++++++++++++++++++++++++++
+ dracut-functions.sh               |  9 ++------
+ dracut-init.sh                    | 34 +++++++++++++++++++++++++++++++
  dracut.sh                         |  8 ++++----
  dracut.spec                       |  1 +
  test/TEST-01-BASIC/test.sh        |  6 +++---
@@ -27,7 +27,7 @@ effects.
  test/TEST-17-LVM-THIN/test.sh     |  6 +++---
  test/TEST-20-NFS/test.sh          |  6 +++---
  test/TEST-30-ISCSI/test.sh        |  8 ++++----
- test/TEST-40-NBD/test.sh          | 10 +++++-----
+ test/TEST-40-NBD/test.sh          | 10 ++++-----
  test/TEST-50-MULTINIC/test.sh     |  6 +++---
  21 files changed, 92 insertions(+), 61 deletions(-)
  create mode 100644 dracut-init.sh

@@ -9,7 +9,7 @@ Subject: [PATCH] watchdog/module-setup.sh: rewrite
 - follow device path until /sys is reached
 - set kernel version for modprobe checking
 ---
- modules.d/04watchdog/module-setup.sh | 92 ++++++++++++++++++++----------------
+ modules.d/04watchdog/module-setup.sh | 92 +++++++++++++++-------------
  1 file changed, 51 insertions(+), 41 deletions(-)
 
 diff --git a/modules.d/04watchdog/module-setup.sh b/modules.d/04watchdog/module-setup.sh

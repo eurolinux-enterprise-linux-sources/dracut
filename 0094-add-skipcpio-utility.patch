@@ -7,8 +7,8 @@ skipcpio skips a cpio archive at the beginning of a file.
 
 It is used for skipping an early cpio archive for lsinitrd.
 ---
- Makefile            |  13 +++++-
- skipcpio/skipcpio.c | 123 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ Makefile            |  13 ++++-
+ skipcpio/skipcpio.c | 123 ++++++++++++++++++++++++++++++++++++++++++++
  2 files changed, 135 insertions(+), 1 deletion(-)
  create mode 100644 skipcpio/skipcpio.c
 

@@ -8,7 +8,7 @@ all the time, just include all HID drivers.
 
 (cherry picked from commit 180e9d78516fb4b2ee5baef44521007a860d4dd2)
 ---
- modules.d/90kernel-modules/module-setup.sh | 25 ++++++++++++++++++-------
+ modules.d/90kernel-modules/module-setup.sh | 25 ++++++++++++++++------
  1 file changed, 18 insertions(+), 7 deletions(-)
 
 diff --git a/modules.d/90kernel-modules/module-setup.sh b/modules.d/90kernel-modules/module-setup.sh

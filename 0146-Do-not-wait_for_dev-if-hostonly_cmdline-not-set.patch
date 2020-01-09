@@ -5,7 +5,7 @@ Subject: [PATCH] Do not wait_for_dev if hostonly_cmdline not set
 
 ---
  dracut.sh                        |  2 +-
- modules.d/99base/module-setup.sh | 40 +++++++++++++++++++++-------------------
+ modules.d/99base/module-setup.sh | 40 +++++++++++++++++---------------
  2 files changed, 22 insertions(+), 20 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh

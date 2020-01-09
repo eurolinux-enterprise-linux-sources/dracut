@@ -7,8 +7,8 @@ ip=eth0:auto6,dhcp
 
 might work now
 ---
- modules.d/40network/ifup.sh          | 24 ++++++++++++-----------
- modules.d/40network/parse-ip-opts.sh | 38 +++++++++++++++++++-----------------
+ modules.d/40network/ifup.sh          | 24 ++++++++++--------
+ modules.d/40network/parse-ip-opts.sh | 38 +++++++++++++++-------------
  2 files changed, 33 insertions(+), 29 deletions(-)
 
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh

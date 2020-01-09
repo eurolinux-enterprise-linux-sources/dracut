@@ -4,7 +4,7 @@ Date: Mon, 17 Mar 2014 13:00:17 +0100
 Subject: [PATCH] network:dhclient-script do PREINIT6 for DHCP6
 
 ---
- modules.d/40network/dhclient-script.sh | 29 ++++++++++++++++-------------
+ modules.d/40network/dhclient-script.sh | 29 ++++++++++++++------------
  modules.d/40network/ifup.sh            |  1 +
  2 files changed, 17 insertions(+), 13 deletions(-)
 

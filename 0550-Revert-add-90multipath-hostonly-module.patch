@@ -8,8 +8,8 @@ This reverts commit 6ef3173e86c2be99b504f7c7a789dea5c0072f64.
 Cherry-picked from: 35e86ac117acbfd699f371f163cdda9db0ebc047
 Resolves: #1599592
 ---
- modules.d/90multipath-hostonly/module-setup.sh | 53 --------------------------
- modules.d/90multipath/module-setup.sh          | 26 +++++++++++++
+ .../90multipath-hostonly/module-setup.sh      | 53 -------------------
+ modules.d/90multipath/module-setup.sh         | 26 +++++++++
  2 files changed, 26 insertions(+), 53 deletions(-)
  delete mode 100755 modules.d/90multipath-hostonly/module-setup.sh
 

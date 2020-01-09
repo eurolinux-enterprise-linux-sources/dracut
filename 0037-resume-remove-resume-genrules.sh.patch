@@ -13,7 +13,7 @@ dracut-initqueue: rm: cannot remove '/lib/dracut/hooks/initqueue/settled/resume.
 dracut-initqueue: rm: cannot remove '/lib/dracut/hooks/initqueue/timeout/resume.sh': No such file or directory
 ---
  modules.d/95resume/module-setup.sh    |  1 -
- modules.d/95resume/resume-genrules.sh | 51 -----------------------------------
+ modules.d/95resume/resume-genrules.sh | 51 ---------------------------
  2 files changed, 52 deletions(-)
  delete mode 100755 modules.d/95resume/resume-genrules.sh
 

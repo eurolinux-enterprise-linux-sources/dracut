@@ -12,7 +12,7 @@ This should speedup execution with lots of LVs.
 Cherry-picked from: 9ed6eb741
 Resolves: #1531503
 ---
- dracut-functions.sh | 62 +++++++++++++++++++++++++----------------------------
+ dracut-functions.sh | 62 +++++++++++++++++++++------------------------
  1 file changed, 29 insertions(+), 33 deletions(-)
 
 diff --git a/dracut-functions.sh b/dracut-functions.sh

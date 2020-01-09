@@ -13,7 +13,7 @@ Signed-off-by: Hannes Reinecke <hare@suse.de>
 Signed-off-by: Thomas Renninger <trenn@suse.de>
 (cherry picked from commit 8b257fcc86f9a470613c1a5719641144a688acf7)
 ---
- modules.d/95fcoe/module-setup.sh | 45 ++++++++++++++++++++++++++++++++++++++++
+ modules.d/95fcoe/module-setup.sh | 45 ++++++++++++++++++++++++++++++++
  1 file changed, 45 insertions(+)
 
 diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh

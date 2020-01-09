@@ -50,7 +50,7 @@ command.
 Conflicts:
 	lsinitrd.sh
 ---
- lsinitrd.sh | 60 ++++++++++++++++++++++++++++--------------------------------
+ lsinitrd.sh | 60 +++++++++++++++++++++++++----------------------------
  1 file changed, 28 insertions(+), 32 deletions(-)
 
 diff --git a/lsinitrd.sh b/lsinitrd.sh

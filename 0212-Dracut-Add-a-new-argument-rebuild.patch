@@ -32,7 +32,7 @@ Simplified the cpio extraction process by using 'lsinitrd'.
 
 (cherry picked from commit 659dc319d950999f8d191a81fdc4d3114e9213de)
 ---
- dracut.sh | 342 ++++++++++++++++++++++++++++++++++++++------------------------
+ dracut.sh | 342 +++++++++++++++++++++++++++++++++---------------------
  1 file changed, 210 insertions(+), 132 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh

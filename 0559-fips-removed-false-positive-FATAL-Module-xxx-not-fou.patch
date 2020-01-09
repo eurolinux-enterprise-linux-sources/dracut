@@ -1,0 +1,39 @@
+From 2ee1e96e1a2bd37cfb9a70e924fd93d709939979 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Renaud=20M=C3=A9trich?= <rmetrich@redhat.com>
+Date: Wed, 14 Nov 2018 13:19:27 +0100
+Subject: [PATCH] fips: removed false-positive 'FATAL: Module xxx not found'
+ error message when kernel provides a generic algo for module
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Renaud Métrich <rmetrich@redhat.com>
+
+Cherry-picked from: 01ffcf342ae65984c655f10a2fd35019a492ee5c
+Resolves: #1649743
+---
+ modules.d/01fips/fips.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/modules.d/01fips/fips.sh b/modules.d/01fips/fips.sh
+index c72c1273..7ba1ab27 100755
+--- a/modules.d/01fips/fips.sh
++++ b/modules.d/01fips/fips.sh
+@@ -86,7 +86,7 @@ do_fips()
+     mv /etc/modprobe.d/fips.conf /etc/modprobe.d/fips.conf.bak
+     for _module in $FIPSMODULES; do
+         if [ "$_module" != "tcrypt" ]; then
+-            if ! modprobe "${_module}"; then
++            if ! modprobe "${_module}" 2>/tmp/fips.modprobe_err; then
+                 # check if kernel provides generic algo
+                 _found=0
+                 while read _k _s _v; do
+@@ -95,7 +95,7 @@ do_fips()
+                     _found=1
+                     break
+                 done </proc/crypto
+-                [ "$_found" = "0" ] && return 1
++                [ "$_found" = "0" ] && cat /tmp/fips.modprobe_err >&2 && return 1
+             fi
+         fi
+     done

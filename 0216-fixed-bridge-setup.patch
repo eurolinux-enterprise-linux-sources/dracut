@@ -9,10 +9,10 @@ fixed ifcfg generation
 
 (cherry picked from commit 2db6d7111870c5d16d812d9cddc23558f3f4a202)
 ---
- modules.d/40network/ifup.sh         |  4 ++--
+ modules.d/40network/ifup.sh         |  4 +--
  modules.d/40network/net-genrules.sh |  2 +-
- modules.d/40network/parse-bridge.sh | 18 ++++++++--------
- modules.d/45ifcfg/write-ifcfg.sh    | 42 +++++++++----------------------------
+ modules.d/40network/parse-bridge.sh | 18 ++++++-------
+ modules.d/45ifcfg/write-ifcfg.sh    | 42 +++++++----------------------
  4 files changed, 22 insertions(+), 44 deletions(-)
 
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh

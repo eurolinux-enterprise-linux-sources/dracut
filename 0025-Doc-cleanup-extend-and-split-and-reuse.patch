@@ -5,13 +5,13 @@ Subject: [PATCH] Doc: cleanup, extend and split and reuse
 
 ---
  Makefile             |   8 +-
- dracut.8.asc         |  61 +---
- dracut.asc           | 888 +--------------------------------------------------
- dracut.cmdline.7.asc | 414 ++++++++++++++----------
- dracut.css           | 434 +------------------------
- dracut.modules.7.asc | 293 +++++++++++++++++
+ dracut.8.asc         |  61 +--
+ dracut.asc           | 888 +------------------------------------------
+ dracut.cmdline.7.asc | 414 +++++++++++---------
+ dracut.css           | 434 +--------------------
+ dracut.modules.7.asc | 293 ++++++++++++++
  dracut.spec          |   1 +
- dracut.usage.asc     | 526 ++++++++++++++++++++++++++++++
+ dracut.usage.asc     | 526 +++++++++++++++++++++++++
  8 files changed, 1084 insertions(+), 1541 deletions(-)
  create mode 100644 dracut.modules.7.asc
  create mode 100644 dracut.usage.asc

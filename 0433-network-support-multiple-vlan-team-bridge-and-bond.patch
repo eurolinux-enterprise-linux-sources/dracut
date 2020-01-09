@@ -4,13 +4,13 @@ Date: Mon, 4 Jul 2016 11:31:49 +0200
 Subject: [PATCH] network: support multiple vlan, team, bridge and bond
 
 ---
- modules.d/40network/ifup.sh         | 386 +++++++++++++++++-------------------
- modules.d/40network/net-genrules.sh |  27 ++-
+ modules.d/40network/ifup.sh         | 386 ++++++++++++++--------------
+ modules.d/40network/net-genrules.sh |  27 +-
  modules.d/40network/net-lib.sh      |   9 +-
  modules.d/40network/parse-bridge.sh |  30 +--
- modules.d/40network/parse-team.sh   |  47 ++---
- modules.d/40network/parse-vlan.sh   |  27 +--
- modules.d/45ifcfg/write-ifcfg.sh    |  26 +--
+ modules.d/40network/parse-team.sh   |  47 +---
+ modules.d/40network/parse-vlan.sh   |  27 +-
+ modules.d/45ifcfg/write-ifcfg.sh    |  26 +-
  7 files changed, 254 insertions(+), 298 deletions(-)
 
 diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh

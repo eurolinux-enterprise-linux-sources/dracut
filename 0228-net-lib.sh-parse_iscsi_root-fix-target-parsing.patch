@@ -14,7 +14,7 @@ the fallback parser by checking the LUN for a numerical value.
 
 (cherry picked from commit 36e8ce4fb01824b49697bd0e7ad3ca3c4cfd4297)
 ---
- modules.d/40network/net-lib.sh | 50 ++++++++++++++++++++++++++++++++----------
+ modules.d/40network/net-lib.sh | 50 ++++++++++++++++++++++++++--------
  1 file changed, 38 insertions(+), 12 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh

@@ -13,8 +13,8 @@ memory, and freed blocks will really be freed in ram.
 Signed-off-by: Fabian Deutsch <fabiand@fedoraproject.org>
 (cherry picked from commit d6e34d362a05cda61baaf8e231ad3f0e8665a9cc)
 ---
- dracut.cmdline.7.asc                            |  7 +++++++
- modules.d/90dmsquash-live/dmsquash-live-root.sh | 27 ++++++++++++++++++++++++-
+ dracut.cmdline.7.asc                          |  7 +++++
+ .../90dmsquash-live/dmsquash-live-root.sh     | 27 ++++++++++++++++++-
  2 files changed, 33 insertions(+), 1 deletion(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc

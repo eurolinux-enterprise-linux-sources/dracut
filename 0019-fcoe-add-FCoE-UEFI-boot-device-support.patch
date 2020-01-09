@@ -5,9 +5,9 @@ Subject: [PATCH] fcoe: add FCoE UEFI boot device support
 
 ---
  modules.d/95fcoe/module-setup.sh   |   1 +
- modules.d/95fcoe/parse-uefifcoe.sh |  35 +++++++++
+ modules.d/95fcoe/parse-uefifcoe.sh |  35 +++++++
  modules.d/99base/module-setup.sh   |   1 +
- modules.d/99base/uefi-lib.sh       | 155 +++++++++++++++++++++++++++++++++++++
+ modules.d/99base/uefi-lib.sh       | 155 +++++++++++++++++++++++++++++
  4 files changed, 192 insertions(+)
  create mode 100755 modules.d/95fcoe/parse-uefifcoe.sh
  create mode 100755 modules.d/99base/uefi-lib.sh

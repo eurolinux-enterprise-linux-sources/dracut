@@ -7,8 +7,8 @@ prevent a systemd daemon-reload, if it is not necessary to do.
 ---
  modules.d/98systemd/dracut-cmdline.sh   |  2 --
  modules.d/98systemd/module-setup.sh     |  2 ++
- modules.d/98systemd/rootfs-generator.sh | 30 ++++++++++++++++++++++++++++++
- modules.d/99base/dracut-lib.sh          | 30 ++++++++++++++++++++++++------
+ modules.d/98systemd/rootfs-generator.sh | 30 +++++++++++++++++++++++++
+ modules.d/99base/dracut-lib.sh          | 30 ++++++++++++++++++++-----
  4 files changed, 56 insertions(+), 8 deletions(-)
  create mode 100755 modules.d/98systemd/rootfs-generator.sh
 

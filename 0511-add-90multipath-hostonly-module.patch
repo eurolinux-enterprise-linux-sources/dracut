@@ -12,8 +12,8 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1457311
 Cherry-picked from: 5ce7cc7337a4c769b223152c083914f2052aa348
 Resolves: #1457311
 ---
- modules.d/90multipath-hostonly/module-setup.sh | 53 ++++++++++++++++++++++++++
- modules.d/90multipath/module-setup.sh          | 26 -------------
+ .../90multipath-hostonly/module-setup.sh      | 53 +++++++++++++++++++
+ modules.d/90multipath/module-setup.sh         | 26 ---------
  2 files changed, 53 insertions(+), 26 deletions(-)
  create mode 100755 modules.d/90multipath-hostonly/module-setup.sh
 

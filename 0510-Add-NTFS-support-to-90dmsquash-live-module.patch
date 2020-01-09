@@ -9,8 +9,8 @@ squashfs.img (and any other file on the same USB media).
 
 Backports 37437cac8a1f2c411ead5fca28fb743a6f36f912 from dracut 046
 ---
- modules.d/90dmsquash-live-ntfs/module-setup.sh  | 22 ++++++++++++++++++++++
- modules.d/90dmsquash-live/dmsquash-live-root.sh | 15 ++++++++++++++-
+ .../90dmsquash-live-ntfs/module-setup.sh      | 22 +++++++++++++++++++
+ .../90dmsquash-live/dmsquash-live-root.sh     | 15 ++++++++++++-
  2 files changed, 36 insertions(+), 1 deletion(-)
  create mode 100755 modules.d/90dmsquash-live-ntfs/module-setup.sh
 

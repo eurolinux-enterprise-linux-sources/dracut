@@ -14,8 +14,8 @@ got added.
 Signed-off-by: Fabian Deutsch <fabiand@fedoraproject.org>
 (cherry picked from commit b0472eac111268e2cae783097d0eccc1986e1762)
 ---
- dracut.cmdline.7.asc                            |  9 ++++
- modules.d/90dmsquash-live/dmsquash-live-root.sh | 64 +++++++++++++------------
+ dracut.cmdline.7.asc                          |  9 +++
+ .../90dmsquash-live/dmsquash-live-root.sh     | 64 ++++++++++---------
  2 files changed, 42 insertions(+), 31 deletions(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc

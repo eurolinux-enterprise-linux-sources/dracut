@@ -6,7 +6,7 @@ Subject: [PATCH] network/net-lib.sh:iface_has_link() fixup
 Just echo'ing the flags IFF_UP|IFF_RUNNING does _not_ reflect the
 carrier state immediately. So wait for it to really show up.
 ---
- modules.d/40network/net-lib.sh | 47 +++++++++++++++++++++---------------------
+ modules.d/40network/net-lib.sh | 47 +++++++++++++++++-----------------
  1 file changed, 23 insertions(+), 24 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh

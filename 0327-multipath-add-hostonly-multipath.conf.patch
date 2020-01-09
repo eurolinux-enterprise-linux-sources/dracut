@@ -5,7 +5,7 @@ Subject: [PATCH] multipath: add hostonly multipath.conf
 
 Resolves: rhbz#994702
 ---
- modules.d/90multipath/module-setup.sh | 43 ++++++++++++++++++++++++++++-------
+ modules.d/90multipath/module-setup.sh | 43 ++++++++++++++++++++++-----
  1 file changed, 35 insertions(+), 8 deletions(-)
 
 diff --git a/modules.d/90multipath/module-setup.sh b/modules.d/90multipath/module-setup.sh

@@ -7,7 +7,7 @@ Subject: [PATCH] fcoe/fcoe-edd.sh: cleanup the script
 - add a timeout for /sys/firmware/edd
 - only remove the module, if it was loaded by the script
 ---
- modules.d/95fcoe/fcoe-edd.sh | 46 ++++++++++++++++++++++++++++++--------------
+ modules.d/95fcoe/fcoe-edd.sh | 46 +++++++++++++++++++++++++-----------
  1 file changed, 32 insertions(+), 14 deletions(-)
 
 diff --git a/modules.d/95fcoe/fcoe-edd.sh b/modules.d/95fcoe/fcoe-edd.sh

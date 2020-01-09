@@ -7,7 +7,7 @@ configure IPv6 interface for DHCP6
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1064365
 ---
- modules.d/40network/dhclient-script.sh | 49 ++++++++++++++++++++++++++++++++++
+ modules.d/40network/dhclient-script.sh | 49 ++++++++++++++++++++++++++
  1 file changed, 49 insertions(+)
 
 diff --git a/modules.d/40network/dhclient-script.sh b/modules.d/40network/dhclient-script.sh

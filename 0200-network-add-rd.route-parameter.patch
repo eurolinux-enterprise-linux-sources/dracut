@@ -5,8 +5,8 @@ Subject: [PATCH] network: add rd.route parameter
 
 (cherry picked from commit 7b46244bb94e3dfd635a8d222044ae7fc920240d)
 ---
- dracut.cmdline.7.asc             | 15 +++++++++++++-
- modules.d/40network/net-lib.sh   | 42 ++++++++++++++++++++++++++++++++++++++++
+ dracut.cmdline.7.asc             | 15 +++++++++++-
+ modules.d/40network/net-lib.sh   | 42 ++++++++++++++++++++++++++++++++
  modules.d/45ifcfg/write-ifcfg.sh |  3 +++
  3 files changed, 59 insertions(+), 1 deletion(-)
 

@@ -14,7 +14,7 @@ Fixes https://github.com/dracutdevs/dracut/issues/227
 Cherry-picked from: 3cea0658
 Resolves: #1451660
 ---
- modules.d/90mdraid/mdraid_start.sh | 74 +++++++++++++++++++++++++++-----------
+ modules.d/90mdraid/mdraid_start.sh | 74 ++++++++++++++++++++++--------
  modules.d/90mdraid/parse-md.sh     |  3 ++
  2 files changed, 57 insertions(+), 20 deletions(-)
 

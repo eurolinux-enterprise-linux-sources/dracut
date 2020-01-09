@@ -7,17 +7,17 @@ multiple bonds
 multiple bridges
 multiple vlans
 ---
- .../99-idesymlinks.rules                           |   8 +
- test/TEST-70-BONDBRIDGETEAMVLAN/Makefile           |  10 +
- test/TEST-70-BONDBRIDGETEAMVLAN/client-init.sh     |  22 ++
- test/TEST-70-BONDBRIDGETEAMVLAN/dhcpd.conf         |  27 ++
- test/TEST-70-BONDBRIDGETEAMVLAN/dhcpd2.conf        |  15 +
- test/TEST-70-BONDBRIDGETEAMVLAN/exports            |   1 +
- test/TEST-70-BONDBRIDGETEAMVLAN/finished-false.sh  |   2 +
- test/TEST-70-BONDBRIDGETEAMVLAN/hard-off.sh        |   3 +
- test/TEST-70-BONDBRIDGETEAMVLAN/hosts              |   5 +
- test/TEST-70-BONDBRIDGETEAMVLAN/server-init.sh     | 117 ++++++++
- test/TEST-70-BONDBRIDGETEAMVLAN/test.sh            | 308 +++++++++++++++++++++
+ .../99-idesymlinks.rules                      |   8 +
+ test/TEST-70-BONDBRIDGETEAMVLAN/Makefile      |  10 +
+ .../TEST-70-BONDBRIDGETEAMVLAN/client-init.sh |  22 ++
+ test/TEST-70-BONDBRIDGETEAMVLAN/dhcpd.conf    |  27 ++
+ test/TEST-70-BONDBRIDGETEAMVLAN/dhcpd2.conf   |  15 +
+ test/TEST-70-BONDBRIDGETEAMVLAN/exports       |   1 +
+ .../finished-false.sh                         |   2 +
+ test/TEST-70-BONDBRIDGETEAMVLAN/hard-off.sh   |   3 +
+ test/TEST-70-BONDBRIDGETEAMVLAN/hosts         |   5 +
+ .../TEST-70-BONDBRIDGETEAMVLAN/server-init.sh | 117 +++++++
+ test/TEST-70-BONDBRIDGETEAMVLAN/test.sh       | 308 ++++++++++++++++++
  11 files changed, 518 insertions(+)
  create mode 100644 test/TEST-70-BONDBRIDGETEAMVLAN/99-idesymlinks.rules
  create mode 100644 test/TEST-70-BONDBRIDGETEAMVLAN/Makefile

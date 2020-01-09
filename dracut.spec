@@ -10,7 +10,7 @@
 
 Name: dracut
 Version: 033
-Release: 554%{?dist}
+Release: 564%{?dist}
 
 Summary: Initramfs generator using udev
 %if 0%{?fedora} || 0%{?rhel}
@@ -582,6 +582,16 @@ Patch550: 0550-Revert-add-90multipath-hostonly-module.patch
 Patch551: 0551-dracut.spec-remove-90multipath-hostonly.patch
 Patch552: 0552-dracut-functions-fix-the-word-splitting.patch
 Patch553: 0553-kernel-modules-add-nfit.patch
+Patch554: 0554-added-make-rpm-srpm-options.patch
+Patch555: 0555-fips-check-fips-integrity-just-before-mounting-local.patch
+Patch556: 0556-Harden-dracut-against-BASH_ENV-environment-variable.patch
+Patch557: 0557-iscsi-always-popd-even-if-there-is-no-iscsi-device.patch
+Patch558: 0558-fips-ensure-fs-module-for-boot-is-installed.patch
+Patch559: 0559-fips-removed-false-positive-FATAL-Module-xxx-not-fou.patch
+Patch560: 0560-95iscsi-iscsiroot-synchronously-wait-until-iscsistar.patch
+Patch561: 0561-rootfs-generator-rebase-to-upstream-version.patch
+Patch562: 0562-fips-split-loading-the-crypto-modules-and-checking-t.patch
+Patch563: 0563-network-skip-already-enslaved-interfaces.patch
 
 
 BuildRequires: bash git
@@ -1013,6 +1023,27 @@ rm -rf -- $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jun 19 2019 Lukas Nykryn <lnykryn@redhat.com> - 033-564
+- network: skip already enslaved interfaces
+
+* Tue May 14 2019 Lukas Nykryn <lnykryn@redhat.com> - 033-563
+- fips: split loading the crypto modules and checking the kernel
+Resolves: #1709307
+
+* Thu Apr 25 2019 Lukas Nykryn <lnykryn@redhat.com> - 033-562
+- rootfs-generator: rebase to upstream version
+Resolves: #1640866
+
+* Mon Apr 01 2019 Lukas Nykryn <lnykryn@redhat.com> - 033-561
+- 95iscsi/iscsiroot: synchronously wait until iscsistart finishes
+
+* Wed Mar 27 2019 Lukas Nykryn <lnykryn@redhat.com> - 033-560
+- fips: removed false-positive 'FATAL: Module xxx not found' error message when kernel provides a generic algo for module
+- fips: ensure fs module for /boot is installed
+- iscsi: always popd, even if there is no iscsi device
+- Harden dracut against BASH_ENV environment variable
+- fips: check fips integrity just before mounting local filesystems in /sysroot
+
 * Thu Sep 27 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-554
 - kernel-modules: add nfit
 Resolves: #1288619

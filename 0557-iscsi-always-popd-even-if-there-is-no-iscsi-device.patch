@@ -1,0 +1,27 @@
+From 97dd467e8e5996c512584123a762a7c9f12e5e86 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Renaud=20M=C3=A9trich?= <rmetrich@redhat.com>
+Date: Fri, 1 Mar 2019 11:46:43 +0100
+Subject: [PATCH] iscsi: always popd, even if there is no iscsi device
+
+Cherry-picked from: 33cfad0b8f31a8241003b8f7728a2dc1ef61ca41
+Resolves: #1684474
+---
+ modules.d/95iscsi/module-setup.sh | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/modules.d/95iscsi/module-setup.sh b/modules.d/95iscsi/module-setup.sh
+index b1f5c6cb..432c8cb2 100755
+--- a/modules.d/95iscsi/module-setup.sh
++++ b/modules.d/95iscsi/module-setup.sh
+@@ -23,8 +23,10 @@ check() {
+ 
+     [[ $hostonly ]] || [[ $mount_needs ]] && {
+         pushd . >/dev/null
+-        for_each_host_dev_and_slaves is_iscsi || return 255
++        for_each_host_dev_and_slaves is_iscsi
++        local _is_iscsi=$?
+         popd >/dev/null
++        [[ $_is_iscsi == 0 ]] || return 255
+     }
+     return 0
+ }

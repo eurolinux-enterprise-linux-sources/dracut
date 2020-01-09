@@ -1,0 +1,50 @@
+From e8a7c2a15215f73fff10358af7d9ecd0ab7b597f Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Tue, 21 Aug 2018 13:14:44 +0200
+Subject: [PATCH] network: skip already enslaved interfaces
+
+---
+ modules.d/40network/ifup.sh    | 11 +++++++----
+ modules.d/40network/net-lib.sh |  7 +++++++
+ 2 files changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
+index b3631648..181ab67c 100755
+--- a/modules.d/40network/ifup.sh
++++ b/modules.d/40network/ifup.sh
+@@ -377,10 +377,13 @@ for p in $(getargs ip=); do
+     esac
+ 
+     # If this option isn't directed at our interface, skip it
+-    [ -n "$dev" ] && [ "$dev" != "$netif" ] && \
+-    [ "$use_bridge" != 'true' ] && \
+-    [ "$use_vlan" != 'true' ] && continue
+-
++    if [ -n "$dev" ]; then
++        [ "$dev" != "$netif" ] && \
++        [ "$use_bridge" != 'true' ] && \
++        [ "$use_vlan" != 'true' ] && continue
++    else
++        iface_is_enslaved "$netif" && continue
++    fi
+     # Store config for later use
+     for i in ip srv gw mask hostname macaddr mtu dns1 dns2; do
+         eval '[ "$'$i'" ] && echo '$i'="$'$i'"'
+diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
+index 9e87aeab..35e6e833 100755
+--- a/modules.d/40network/net-lib.sh
++++ b/modules.d/40network/net-lib.sh
+@@ -731,6 +731,13 @@ iface_has_link() {
+     iface_has_carrier "$@"
+ }
+ 
++iface_is_enslaved() {
++    local _li
++    _li=$(ip -o link show dev $1)
++    strstr "$li" " master " || return 1
++    return 0
++}
++
+ find_iface_with_link() {
+     local iface_path="" iface=""
+     for iface_path in /sys/class/net/*; do

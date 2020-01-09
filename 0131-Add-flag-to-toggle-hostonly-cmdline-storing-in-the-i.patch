@@ -9,14 +9,14 @@ Subject: [PATCH] Add flag to toggle hostonly cmdline storing in the initramfs
 --no-hostonly-cmdline:
     Do not store kernel command line arguments needed in the initramfs
 ---
- dracut.8.asc                             |  6 ++++++
+ dracut.8.asc                             |  6 +++++
  dracut.conf.5.asc                        |  3 +++
- dracut.sh                                | 27 +++++++++++++++++++++------
- modules.d/90crypt/module-setup.sh        |  6 ++++--
- modules.d/90dmraid/module-setup.sh       |  6 ++++--
- modules.d/90lvm/module-setup.sh          |  6 ++++--
- modules.d/90mdraid/module-setup.sh       |  6 ++++--
- modules.d/95rootfs-block/module-setup.sh | 31 ++++++++++++++++++++-----------
+ dracut.sh                                | 27 ++++++++++++++++-----
+ modules.d/90crypt/module-setup.sh        |  6 +++--
+ modules.d/90dmraid/module-setup.sh       |  6 +++--
+ modules.d/90lvm/module-setup.sh          |  6 +++--
+ modules.d/90mdraid/module-setup.sh       |  6 +++--
+ modules.d/95rootfs-block/module-setup.sh | 31 +++++++++++++++---------
  8 files changed, 66 insertions(+), 25 deletions(-)
 
 diff --git a/dracut.8.asc b/dracut.8.asc

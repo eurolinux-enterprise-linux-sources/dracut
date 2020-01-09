@@ -5,13 +5,13 @@ Subject: [PATCH] test/TEST-17-LVM-THIN: add test case for lvm thin pools
 
 ---
  test/TEST-17-LVM-THIN/.testdir             |  1 +
- test/TEST-17-LVM-THIN/99-idesymlinks.rules |  8 +++
- test/TEST-17-LVM-THIN/Makefile             | 10 ++++
- test/TEST-17-LVM-THIN/create-root.sh       | 31 +++++++++++
+ test/TEST-17-LVM-THIN/99-idesymlinks.rules |  8 ++
+ test/TEST-17-LVM-THIN/Makefile             | 10 +++
+ test/TEST-17-LVM-THIN/create-root.sh       | 31 ++++++++
  test/TEST-17-LVM-THIN/finished-false.sh    |  2 +
  test/TEST-17-LVM-THIN/hard-off.sh          |  3 +
- test/TEST-17-LVM-THIN/test-init.sh         | 17 ++++++
- test/TEST-17-LVM-THIN/test.sh              | 88 ++++++++++++++++++++++++++++++
+ test/TEST-17-LVM-THIN/test-init.sh         | 17 +++++
+ test/TEST-17-LVM-THIN/test.sh              | 88 ++++++++++++++++++++++
  8 files changed, 160 insertions(+)
  create mode 100644 test/TEST-17-LVM-THIN/.testdir
  create mode 100644 test/TEST-17-LVM-THIN/99-idesymlinks.rules

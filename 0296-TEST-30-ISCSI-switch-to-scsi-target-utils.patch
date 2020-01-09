@@ -12,10 +12,10 @@ Test the new iSCSI parameters rd.iscsi.waitnet and rd.iscsi.testroute.
 
 (cherry picked from commit c22c43f81a5f15c8759e6aa69773d0e9010c4741)
 ---
- README.testsuite                  |  20 ++++---
- test/TEST-30-ISCSI/server-init.sh |  24 +++++++-
- test/TEST-30-ISCSI/targets        |  25 --------
- test/TEST-30-ISCSI/test.sh        | 119 +++++++++++++++++++++++++++-----------
+ README.testsuite                  |  20 ++---
+ test/TEST-30-ISCSI/server-init.sh |  24 +++++-
+ test/TEST-30-ISCSI/targets        |  25 -------
+ test/TEST-30-ISCSI/test.sh        | 119 +++++++++++++++++++++---------
  4 files changed, 117 insertions(+), 71 deletions(-)
  delete mode 100644 test/TEST-30-ISCSI/targets
 

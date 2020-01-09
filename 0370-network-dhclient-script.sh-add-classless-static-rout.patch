@@ -6,8 +6,8 @@ Subject: [PATCH] network/dhclient-script.sh: add classless-static-routes
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1260955
 ---
- modules.d/40network/dhclient-script.sh | 48 ++++++++++++++++++++++++++++++++++
- modules.d/40network/dhclient.conf      |  5 +++-
+ modules.d/40network/dhclient-script.sh | 48 ++++++++++++++++++++++++++
+ modules.d/40network/dhclient.conf      |  5 ++-
  2 files changed, 52 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/40network/dhclient-script.sh b/modules.d/40network/dhclient-script.sh

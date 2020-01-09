@@ -10,7 +10,7 @@ systemd.
 https://bugzilla.redhat.com/show_bug.cgi?id=1069133
 https://bugzilla.redhat.com/show_bug.cgi?id=949697
 ---
- modules.d/98systemd/rootfs-generator.sh | 33 ++++++++++++++++++++++++++++++++-
+ modules.d/98systemd/rootfs-generator.sh | 33 ++++++++++++++++++++++++-
  1 file changed, 32 insertions(+), 1 deletion(-)
 
 diff --git a/modules.d/98systemd/rootfs-generator.sh b/modules.d/98systemd/rootfs-generator.sh

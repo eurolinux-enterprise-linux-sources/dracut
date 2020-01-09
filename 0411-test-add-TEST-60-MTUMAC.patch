@@ -6,15 +6,15 @@ Subject: [PATCH] test: add TEST-60-MTUMAC
 test MTU and MACADDR setting
 ---
  test/TEST-60-MTUMAC/99-idesymlinks.rules |   8 +
- test/TEST-60-MTUMAC/Makefile             |  10 ++
- test/TEST-60-MTUMAC/client-init.sh       |  22 +++
+ test/TEST-60-MTUMAC/Makefile             |  10 +
+ test/TEST-60-MTUMAC/client-init.sh       |  22 ++
  test/TEST-60-MTUMAC/dhcpd.conf           |  15 ++
  test/TEST-60-MTUMAC/exports              |   1 +
  test/TEST-60-MTUMAC/finished-false.sh    |   2 +
  test/TEST-60-MTUMAC/hard-off.sh          |   3 +
  test/TEST-60-MTUMAC/hosts                |   5 +
- test/TEST-60-MTUMAC/server-init.sh       |  98 +++++++++++
- test/TEST-60-MTUMAC/test.sh              | 282 +++++++++++++++++++++++++++++++
+ test/TEST-60-MTUMAC/server-init.sh       |  98 ++++++++
+ test/TEST-60-MTUMAC/test.sh              | 282 +++++++++++++++++++++++
  10 files changed, 446 insertions(+)
  create mode 100644 test/TEST-60-MTUMAC/99-idesymlinks.rules
  create mode 100644 test/TEST-60-MTUMAC/Makefile

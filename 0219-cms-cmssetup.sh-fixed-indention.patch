@@ -5,7 +5,7 @@ Subject: [PATCH] cms/cmssetup.sh: fixed indention
 
 (cherry picked from commit d68163551226d302677e358e721560d8d651a30f)
 ---
- modules.d/80cms/cmssetup.sh | 260 ++++++++++++++++++++++----------------------
+ modules.d/80cms/cmssetup.sh | 260 ++++++++++++++++++------------------
  1 file changed, 130 insertions(+), 130 deletions(-)
 
 diff --git a/modules.d/80cms/cmssetup.sh b/modules.d/80cms/cmssetup.sh

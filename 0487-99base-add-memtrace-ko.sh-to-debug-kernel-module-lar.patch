@@ -72,7 +72,7 @@ in the following patch.
 
 Signed-off-by: Xunlei Pang <xlpang@redhat.com>
 ---
- modules.d/99base/memtrace-ko.sh | 191 ++++++++++++++++++++++++++++++++++++++++
+ modules.d/99base/memtrace-ko.sh | 191 ++++++++++++++++++++++++++++++++
  1 file changed, 191 insertions(+)
  create mode 100755 modules.d/99base/memtrace-ko.sh
 

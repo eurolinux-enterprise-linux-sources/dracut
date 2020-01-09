@@ -15,9 +15,9 @@ options is included.
 Signed-off-by: Major Hayden <major@mhtx.net>
 (cherry picked from commit 504c0a8feca7d7ef470e4483a68cbaf9cb7df2bf)
 ---
- dracut.cmdline.7.asc                            | 82 ++++++++++++++++++++++++-
- modules.d/90dmsquash-live/dmsquash-live-root.sh | 16 ++++-
- modules.d/90dmsquash-live/module-setup.sh       |  2 +-
+ dracut.cmdline.7.asc                          | 82 ++++++++++++++++++-
+ .../90dmsquash-live/dmsquash-live-root.sh     | 16 +++-
+ modules.d/90dmsquash-live/module-setup.sh     |  2 +-
  3 files changed, 96 insertions(+), 4 deletions(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc

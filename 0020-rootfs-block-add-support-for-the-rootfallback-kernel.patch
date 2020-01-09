@@ -5,9 +5,9 @@ Subject: [PATCH] rootfs-block: add support for the rootfallback= kernel
  cmdline option
 
 ---
- dracut.cmdline.7.asc                     |  6 +++++
- modules.d/95rootfs-block/module-setup.sh |  3 ++-
- modules.d/95rootfs-block/rootfallback.sh | 46 ++++++++++++++++++++++++++++++++
+ dracut.cmdline.7.asc                     |  6 ++++
+ modules.d/95rootfs-block/module-setup.sh |  3 +-
+ modules.d/95rootfs-block/rootfallback.sh | 46 ++++++++++++++++++++++++
  3 files changed, 54 insertions(+), 1 deletion(-)
  create mode 100755 modules.d/95rootfs-block/rootfallback.sh
 

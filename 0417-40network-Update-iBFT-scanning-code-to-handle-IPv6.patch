@@ -12,7 +12,7 @@ Signed-off-by: Hannes Reinecke <hare@suse.de>
 Signed-off-by: Thomas Renninger <trenn@suse.com>
 (cherry picked from commit c98d1756f766e49f7b457e217b0e0156d577d8b8)
 ---
- modules.d/40network/net-lib.sh | 38 ++++++++++++++++++++++++++++++++++----
+ modules.d/40network/net-lib.sh | 38 ++++++++++++++++++++++++++++++----
  1 file changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh

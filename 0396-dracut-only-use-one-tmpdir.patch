@@ -6,7 +6,7 @@ Subject: [PATCH] dracut: only use one tmpdir
 also remove any partial written initramfs images
 ---
  dracut-logger.sh |  3 +--
- dracut.sh        | 66 +++++++++++++++++++++++++++++++++++++++-----------------
+ dracut.sh        | 66 +++++++++++++++++++++++++++++++++---------------
  2 files changed, 47 insertions(+), 22 deletions(-)
 
 diff --git a/dracut-logger.sh b/dracut-logger.sh

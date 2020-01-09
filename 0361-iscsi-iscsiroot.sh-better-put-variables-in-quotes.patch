@@ -5,7 +5,7 @@ Subject: [PATCH] iscsi/iscsiroot.sh: better put variables in quotes
 
 first rule for a bash programmer
 ---
- modules.d/95iscsi/iscsiroot.sh | 62 +++++++++++++++++++++---------------------
+ modules.d/95iscsi/iscsiroot.sh | 62 +++++++++++++++++-----------------
  1 file changed, 31 insertions(+), 31 deletions(-)
 
 diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh

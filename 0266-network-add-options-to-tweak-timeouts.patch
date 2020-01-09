@@ -29,9 +29,9 @@ Subject: [PATCH] network: add options to tweak timeouts
  rd.net.timeout.carrier=<seconds>
      Wait <seconds> until carrier is recognized. Default is 5 seconds.
 ---
- dracut.cmdline.7.asc           | 25 +++++++++++++++++++++++++
- modules.d/40network/ifup.sh    | 26 ++++++++++++++++++++++----
- modules.d/40network/net-lib.sh | 36 ++++++++++++++++++++++++++++++------
+ dracut.cmdline.7.asc           | 25 +++++++++++++++++++++++
+ modules.d/40network/ifup.sh    | 26 ++++++++++++++++++++----
+ modules.d/40network/net-lib.sh | 36 ++++++++++++++++++++++++++++------
  3 files changed, 77 insertions(+), 10 deletions(-)
 
 diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
