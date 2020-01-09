@@ -13,7 +13,7 @@
 
 Name: dracut
 Version: 004
-Release: 409%{?dist}.2
+Release: 411%{?dist}
 Summary: Initramfs generator using udev
 Group: System Environment/Base
 License: GPLv2+
@@ -429,6 +429,7 @@ Patch406: 0406-plymouth-plymouth-pretrigger.sh-also-trigger-acpi-su.patch
 Patch407: 0407-crypt-installkernel-install-more-crypto-modules.patch
 Patch408: 0408-iscsi-iscsiroot-don-t-evaluate-iscsistart-N-return-v.patch
 Patch409: 0409-iscsi-iscsistart-b-does-not-like-to-be-started-in-pa.patch
+Patch410: 0410-fcoe-Allow-more-time-for-the-bnx2x-link-negotiation-.patch
 
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -703,11 +704,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/lib/dracut/overlay
 
 %changelog
-* Fri Apr 29 2016 Harald Hoyer <harald@redhat.com> - 004-409.2
-- rebuild for z
-Resolves: rhbz#1322209
+* Thu Dec 07 2017 Lukáš Nykrýn <lnykryn@redhat.com> - 004-411
+- fcoe: Allow more time for the bnx2x link negotiation before brining up fcoe interfaces.
+Resolves: rhbz#1482185
 
-* Fri Apr 29 2016 Harald Hoyer <harald@redhat.com> - 004-409.1
+* Fri Apr 29 2016 Harald Hoyer <harald@redhat.com> - 004-410
 - cannot start multiple "iscsistart -b" in parallel
 Resolves: rhbz#1322209
 
