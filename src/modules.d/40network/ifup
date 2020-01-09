@@ -1,0 +1,123 @@
+#!/bin/sh
+#
+# We don't need to check for ip= errors here, that is handled by the
+# cmdline parser script
+#
+
+# Sadly there's no easy way to split ':' separated lines into variables
+ip_to_var() {
+    local v=${1}:
+    set --
+    while [ -n "$v" ]; do
+	set -- "$@" "${v%%:*}"
+	v=${v#*:}
+    done
+
+    unset ip srv gw mask hostname dev autoconf
+    case $# in
+    0)	autoconf="error" ;;
+    1)	autoconf=$1 ;;
+    2)	dev=$1; autoconf=$2 ;;
+    *)	ip=$1; srv=$2; gw=$3; mask=$4; hostname=$5; dev=$6; autoconf=$7 ;;
+    esac
+}
+
+# Run dhclient
+do_dhcp() {
+    # /sbin/dhclient-script will mark the netif up and generate the online
+    # event for nfsroot
+    # XXX add -V vendor class and option parsing per kernel
+    dhclient -1 -q -cf /etc/dhclient.conf -pf /tmp/dhclient.$netif.pid -lf /tmp/dhclient.$netif.lease $netif
+}
+
+# Handle static ip configuration
+do_static() {
+    {
+	echo ip link set $netif up 
+	echo wait_for_if_up $netif
+	echo ip addr flush dev $netif
+	echo ip addr add $ip/$mask dev $netif
+    } > /tmp/net.$netif.up
+
+    [ -n "$gw" ] && echo ip route add default via $gw dev $netif > /tmp/net.$netif.gw
+    [ -n "$hostname" ] && echo "echo $hostname > /proc/sys/kernel/hostname" > /tmp/net.$netif.hostname
+
+    echo online > /sys/class/net/$netif/uevent
+    /sbin/initqueue --onetime --name netroot-$netif  /sbin/netroot $netif 
+}
+
+PATH=$PATH:/sbin:/usr/sbin
+
+. /lib/dracut-lib.sh
+
+if getarg rdnetdebug ; then
+    exec >/tmp/ifup.$1.$$.out
+    exec 2>>/tmp/ifup.$1.$$.out
+    set -x
+fi
+
+# Huh? No $1?
+[ -z "$1" ] && exit 1
+
+# $netif reads easier than $1
+netif=$1
+
+# bridge this interface?
+if [ -e /tmp/bridge.info ]; then
+    . /tmp/bridge.info
+    if [ "$netif" = "$ethname" ]; then
+        netif="$bridgename"
+    fi
+fi
+
+# bail immediately if the interface is already up
+# or we don't need the network
+[ -f "/tmp/net.$netif.up" ] && exit 0
+[ -f "/tmp/root.info" ] || exit 0
+. /tmp/root.info
+[ -z "$netroot" ] && exit 0
+
+# loopback is always handled the same way
+if [ "$netif" = "lo" ] ; then
+    ip link set lo up
+    ip addr add 127.0.0.1/8 dev lo
+    >/tmp/net.$netif.up
+    exit 0
+fi
+
+# XXX need error handling like dhclient-script
+
+# start bridge if necessary
+if [ "$netif" = "$bridgename" ] && [ ! -e /tmp/net.$bridgename.up ]; then
+    ip link set $ethname up
+    wait_for_if_up $ethname
+    # Create bridge and add eth to bridge
+    brctl addbr $bridgename
+    brctl setfd $bridgename 0
+    brctl addif $bridgename $ethname
+fi
+
+# No ip lines default to dhcp
+ip=$(getarg ip)
+[ -z "$ip" ] && do_dhcp;
+
+# Specific configuration, spin through the kernel command line
+# looking for ip= lines
+for p in $(getargs ip=); do
+    ip_to_var $p
+	
+    # If this option isn't directed at our interface, skip it
+    [ -n "$dev" ] && [ "$dev" != "$netif" ] && continue
+
+    # Store config for later use
+    for i in ip srv gw mask hostname; do
+	eval '[ "$'$i'" ] && echo '$i'="$'$i'"'
+    done > /tmp/net.$netif.override
+
+    case $autoconf in
+	dhcp|on|any)	 do_dhcp ;;
+        *) do_static ;;
+    esac
+    break
+done
+exit 0
