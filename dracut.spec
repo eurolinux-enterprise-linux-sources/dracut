@@ -13,7 +13,7 @@
 
 Name: dracut
 Version: 004
-Release: 409%{?dist}
+Release: 409%{?dist}.2
 Summary: Initramfs generator using udev
 Group: System Environment/Base
 License: GPLv2+
@@ -428,6 +428,7 @@ Patch405: 0405-network-ifup-fix-vlan-get_vid.patch
 Patch406: 0406-plymouth-plymouth-pretrigger.sh-also-trigger-acpi-su.patch
 Patch407: 0407-crypt-installkernel-install-more-crypto-modules.patch
 Patch408: 0408-iscsi-iscsiroot-don-t-evaluate-iscsistart-N-return-v.patch
+Patch409: 0409-iscsi-iscsistart-b-does-not-like-to-be-started-in-pa.patch
 
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -702,6 +703,14 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/lib/dracut/overlay
 
 %changelog
+* Fri Apr 29 2016 Harald Hoyer <harald@redhat.com> - 004-409.2
+- rebuild for z
+Resolves: rhbz#1322209
+
+* Fri Apr 29 2016 Harald Hoyer <harald@redhat.com> - 004-409.1
+- cannot start multiple "iscsistart -b" in parallel
+Resolves: rhbz#1322209
+
 * Thu Apr 07 2016 Harald Hoyer <harald@redhat.com> - 004-409
 - don't handle "iscsistart -N" exit value
   start iscsistart -b more reliably in the background
