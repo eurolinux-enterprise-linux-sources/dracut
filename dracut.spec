@@ -13,7 +13,7 @@
 
 Name: dracut
 Version: 004
-Release: 356%{?dist}.3
+Release: 388%{?dist}
 Summary: Initramfs generator using udev
 Group: System Environment/Base		
 License: GPLv2+	
@@ -375,11 +375,39 @@ Patch352: 0352-init-remove-debug-log-pipe-if-loginit-process-killed.patch
 Patch353: 0353-iscsi-parse-iscsiroot.sh-honor-blacklist-for-modprob.patch
 Patch354: 0354-iscsi-iscsiroot-call-iscsiroot-in-the-background-onl.patch
 Patch355: 0355-proper-debug-for-netroot-and-ifup.patch
+Patch356: 0356-dracut-lib-error-out-on-empty-parm-for-parse_iscsi_r.patch
+Patch357: 0357-iscsiroot-start-iscsistart-in-the-background.patch
 Patch358: 0358-fips-add-drbg-kernel-module.patch
-
+Patch359: 0359-lvm-also-install-etc-lvm-lvm_hostname.conf.patch
+Patch360: 0360-dracut.logrotate-remove-yearly-and-increase-size.patch
+Patch361: 0361-ifcfg-write-ifcfg.sh-write-vlan-ifcfg-files.patch
+Patch362: 0362-crypt-cryptroot-ask.sh-handle-crypttab-without-endin.patch
+Patch363: 0363-fips-nss-softokn-freebl-has-its-own-dracut-module-no.patch
+Patch364: 0364-45ifcfg-write-ifcfg.sh-clarify-DHCPV6-case.patch
+Patch365: 0365-network-netroot-setup-interface-correctly-before-bai.patch
+Patch366: 0366-ifcfg-write-ifcfg.sh-if-a-lease-file-is-found-BOOTPR.patch
+Patch367: 0367-ifcfg-write-ifcfg.sh-copy-over-all-dhcp-lease-files.patch
+Patch368: 0368-netroot-do-not-bail-out-early.patch
+Patch369: 0369-TEST-40-NBD-check-for-nbd-kernel-module.patch
+Patch370: 0370-base-init-don-t-exit-the-main-loop-with-waiting-jobs.patch
+Patch371: 0371-ifcfg-write-ifcfg.sh-use-the-correct-interface-name-.patch
 Patch372: 0372-ifcfg-write-ifcfg.sh-do-not-source-net.-.override-if.patch
-
+Patch373: 0373-ifcfg-write-ifcfg.sh-depend-on-dhcpopts-for-dhcp-mod.patch
+Patch374: 0374-Add-hyperv-keyboard-kernel-module-for-Hyper-V-Gen2-V.patch
+Patch375: 0375-Defer-modprobe-of-HW-modules-until-udev-is-running.patch
+Patch376: 0376-iscsi-kill-iscsistart-after-10-seconds.patch
+Patch377: 0377-iscsi-install-timeout-jobs-for-every-iscsi-netroot.patch
+Patch378: 0378-iscsi-start-iscsi-only-for-iscsi-netroot.patch
+Patch379: 0379-.dir-locals.el-fixup.patch
+Patch380: 0380-lvm-install-all-lvm_-.conf-files-from-etc-lvm.patch
+Patch381: 0381-network-move-ibft-parsing-to-own-script-before-main-.patch
+Patch382: 0382-ibft-correct-device-name.patch
+Patch383: 0383-network-remove-ibft-parsing-from-parse-ip-opts.patch
+Patch384: 0384-dracut-functions-degrade-message-about-optional-miss.patch
+Patch385: 0385-lvm-optionally-install-thin-tools.patch
+Patch386: 0386-base-add-hostname-hostname-kernel-cmdline-parameter.patch
 Patch387: 0387-crypt-add-drbg-kernel-module.patch
+
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -451,7 +479,7 @@ Requires: nss
 %else
 Requires: nss-softokn
 %endif
-Requires: nss-softokn-freebl
+Requires: nss-softokn-freebl >= 3.14.3-22.el6_6
 
 %description fips
 This package requires everything which is needed to build an
@@ -653,17 +681,64 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/lib/dracut/overlay
  
 %changelog
-* Wed Jul 08 2015 Harald Hoyer <harald@redhat.com> 004-356.3
+* Tue Jun 23 2015 Harald Hoyer <harald@redhat.com> 004-388
 - add drbg kernel module for crypto
-Resolves: rhbz#1241174
+Resolves: rhbz#1233683
 
-* Mon Apr 20 2015 Harald Hoyer <harald@redhat.com> 004-356.2
-- do not source net.*.override, if it doesn't exist
-Resolves: rhbz#1207056
+* Fri Jun 05 2015 Harald Hoyer <harald@redhat.com> 004-387
+- add parameter to set the hostname
+Resolves: rhbz#1226905
 
-* Thu Feb 19 2015 Harald Hoyer <harald@redhat.com> 004-356.1
+* Wed Jun 03 2015 Harald Hoyer <harald@redhat.com> 004-386
+- add lvm thin tools
+Resolves: rhbz#1226905
+
+* Thu May 28 2015 Harald Hoyer <harald@redhat.com> 004-384
+- fix vlan with iBFT
+Resolves: rhbz#1111358
+
+* Thu May 21 2015 Harald Hoyer <harald@redhat.com> 004-381
+- lvm: install all lvm_*.conf files from /etc/lvm
+Resolves: rhbz#1130565
+
+* Fri May 08 2015 Harald Hoyer <harald@redhat.com> 004-380
+- load iSCSI modules after udevd is started for firmware
+  loading
+Resolves: rhbz#1213077
+- add the hyperv-keyboard kernel module for Hyper-V Gen2 VM
+Resolves: rhbz#1205095
+- starting iscsistart in parallel has problems, if on the same
+  network interface
+Resolves: rhbz#1209406
+
+* Tue Mar 17 2015 Harald Hoyer <harald@redhat.com> 004-374
+- more ifcfg write fixes
+Resolves: rhbz#1198117
+
+* Tue Mar 03 2015 Harald Hoyer <harald@redhat.com> 004-371
+- start iscistart in the background
+Resolves: rhbz#1191721 rhbz#1176671
+- require nss-softokn-freebl >= 3.14.3-22.el6_6
+  and remove libfreebl3* inclusion as nss-softokn-freebl
+  has its own dracut module
+Resolves: rhbz#1184142
+- logrotate: remove yearly keyword
+Resolves: rhbz#1005886
+- let ip=ibft boot without ifname=...
+Resolves: rhbz#1069275
+- save vlan info in ifcfg files
+Resolves: rhbz#1111358
+- include /etc/lvm/lvm_hostname.conf if present
+Resolves: rhbz#1130565
+- handle /etc/crypttab without newline at the end of the last line
+Resolves: rhbz#1085562
+- copy over dhcp lease files of all interfaces and write
+  correct ifcfg file
+Resolves: rhbz#1198117
+
+* Thu Feb 19 2015 Harald Hoyer <harald@redhat.com> 004-359
 - fips: load drbg kernel module
-Resolves: rhbz#1194308
+Resolves: rhbz#1193528
 
 * Fri Sep 05 2014 Harald Hoyer <harald@redhat.com> 004-356
 - fixed support for multiple fcoe devices
