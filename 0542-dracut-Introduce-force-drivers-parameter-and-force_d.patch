@@ -1,0 +1,126 @@
+From 125bb747c3fd357b95e9833ae4255a370ba3211c Mon Sep 17 00:00:00 2001
+From: Thomas Renninger <trenn@suse.de>
+Date: Mon, 8 Sep 2014 12:34:48 +0200
+Subject: [PATCH] dracut: Introduce --force-drivers parameter and
+ force_drivers=+ config option
+
+Which will not only add listed drivers, but also enforce that they are
+tried to be loaded at early boot time.
+
+This is needed if drivers which are not autoloaded (e.g. loop and a lot
+others) shall get loaded via initramfs.
+
+Cherry-picked from: cea907f6bf2fc97933b59e04f4520ca227251574
+Resolves: #1577626
+---
+ dracut.8.asc      | 13 +++++++++++++
+ dracut.conf.5.asc |  4 ++++
+ dracut.sh         | 21 +++++++++++++++++++++
+ 3 files changed, 38 insertions(+)
+
+diff --git a/dracut.8.asc b/dracut.8.asc
+index e097e769..5af99fa3 100644
+--- a/dracut.8.asc
++++ b/dracut.8.asc
+@@ -136,6 +136,19 @@ example:
+ ----
+ ===============================
+ 
++**--force-drivers** _<list of kernel modules>_::
++    See add-drivers above. But in this case it is ensured that the drivers
++    are tried to be loaded early via modprobe.
+++
++[NOTE]
++===============================
++If [LIST] has multiple arguments, then you have to put these in quotes. For
++example:
++----
++# dracut --force-drivers "kmodule1 kmodule2"  ...
++----
++===============================
++
+ **--omit-drivers** _<list of kernel modules>_::
+     specify a space-separated list of kernel modules not to add to the
+     initramfs.
+diff --git a/dracut.conf.5.asc b/dracut.conf.5.asc
+index f4ad49d2..90120115 100644
+--- a/dracut.conf.5.asc
++++ b/dracut.conf.5.asc
+@@ -54,6 +54,10 @@ Space-separated lists have to have a leading and trailing space!
+     Specify a space-separated list of kernel modules to add to the initramfs.
+     The kernel modules have to be specified without the ".ko" suffix.
+ 
++*force_drivers+=*" __<list of kernel modules>__ "::
++    See add_drivers above. But in this case it is ensured that the drivers
++    are tried to be loaded early via modprobe.
++
+ *omit_drivers+=*" __<kernel modules>__ "::
+     Specify a space-separated list of kernel modules not to add to the
+     initramfs. The kernel modules have to be specified without the ".ko" suffix.
+diff --git a/dracut.sh b/dracut.sh
+index 9dadece0..a34ca2a6 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -81,6 +81,10 @@ Creates initial ramdisk images for preloading modules
+                          exclusively include in the initramfs.
+   --add-drivers [LIST]  Specify a space-separated list of kernel
+                          modules to add to the initramfs.
++  --force-drivers [LIST] Specify a space-separated list of kernel
++                         modules to add to the initramfs and make sure they
++                         are tried to be loaded via modprobe same as passing
++                         rd.driver.pre=DRIVER kernel parameter.
+   --omit-drivers [LIST] Specify a space-separated list of kernel
+                          modules not to add to the initramfs.
+   --filesystems [LIST]  Specify a space-separated list of kernel filesystem
+@@ -308,6 +312,7 @@ rearrange_params()
+         --long add: \
+         --long force-add: \
+         --long add-drivers: \
++        --long force-drivers: \
+         --long omit-drivers: \
+         --long modules: \
+         --long omit: \
+@@ -476,6 +481,7 @@ while :; do
+         -a|--add)      push add_dracutmodules_l  "$2"; PARMS_TO_STORE+=" '$2'"; shift;;
+         --force-add)   push force_add_dracutmodules_l  "$2"; PARMS_TO_STORE+=" '$2'"; shift;;
+         --add-drivers) push add_drivers_l        "$2"; PARMS_TO_STORE+=" '$2'"; shift;;
++        --force-drivers) push force_drivers_l    "$2"; PARMS_TO_STORE+=" '$2'"; shift;;
+         --omit-drivers) push omit_drivers_l      "$2"; PARMS_TO_STORE+=" '$2'"; shift;;
+         -m|--modules)  push dracutmodules_l      "$2"; PARMS_TO_STORE+=" '$2'"; shift;;
+         -o|--omit)     push omit_dracutmodules_l "$2"; PARMS_TO_STORE+=" '$2'"; shift;;
+@@ -928,6 +934,13 @@ if (( ${#add_drivers_l[@]} )); then
+ fi
+ add_drivers=${add_drivers/-/_}
+ 
++if (( ${#force_drivers_l[@]} )); then
++    while pop force_drivers_l val; do
++        force_drivers+=" $val "
++    done
++fi
++force_drivers=${force_drivers/-/_}
++
+ if (( ${#omit_drivers_l[@]} )); then
+     while pop omit_drivers_l val; do
+         omit_drivers+=" $val "
+@@ -944,6 +957,7 @@ fi
+ omit_drivers_corrected=""
+ for d in $omit_drivers; do
+     [[ " $drivers $add_drivers " == *\ $d\ * ]] && continue
++    [[ " $drivers $force_drivers " == *\ $d\ * ]] && continue
+     omit_drivers_corrected+="$d|"
+ done
+ omit_drivers="${omit_drivers_corrected%|}"
+@@ -1389,6 +1403,13 @@ if [[ $no_kernel != yes ]]; then
+     if [[ $add_drivers ]]; then
+         hostonly='' instmods -c $add_drivers
+     fi
++    if [[ $force_drivers ]]; then
++        hostonly='' instmods -c $force_drivers
++        rm -f $initdir/etc/cmdline.d/20-force_driver.conf
++        for mod in $force_drivers; do
++            echo "rd.driver.pre=$mod" >>$initdir/etc/cmdline.d/20-force_drivers.conf
++        done
++    fi
+     if [[ $filesystems ]]; then
+         hostonly='' instmods -c $filesystems
+     fi

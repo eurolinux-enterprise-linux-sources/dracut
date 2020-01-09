@@ -1,0 +1,115 @@
+From 26273649dcfbc095c8e9dbc0f65bb02fd90ee510 Mon Sep 17 00:00:00 2001
+From: Pingfan Liu <piliu@redhat.com>
+Date: Tue, 24 Apr 2018 16:41:21 +0800
+Subject: [PATCH] 40network: introduce ip=either6 option
+
+In kdump, if dump-target is ssh on ipv6, we need to sync until ipv6 addr
+is ready. Currently ip=auto6/dhcp6 provides such function. But in 1st kernel,
+it is hard to know whether the ipv6 addr is got by dhcpv6 or SLAAC.
+E.g ifcfg-eth* contains DHCPV6C=yes direction, but there is no dhcpv6
+server in the network, and then after the system is up, the user
+echo 1 > /proc/sys/net/ipv6/conf/eth0/autoconf && accept_ra by manual
+to obtain a ipv6 addr. Or vice.
+So this patch suggests to make dhcpv6 as auto6 fallback
+
+Signed-off-by: Pingfan Liu <piliu@redhat.com>
+
+Cherry-picked from: 67354ee
+Resolves: #1582398
+---
+ dracut.cmdline.7.asc                 | 4 +++-
+ modules.d/40network/ifup.sh          | 6 +++++-
+ modules.d/40network/net-lib.sh       | 4 ++--
+ modules.d/40network/parse-ip-opts.sh | 1 +
+ 4 files changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
+index 45902fa9..1204aeb2 100644
+--- a/dracut.cmdline.7.asc
++++ b/dracut.cmdline.7.asc
+@@ -449,7 +449,7 @@ USB Android phone::
+ * enp0s29u1u2
+ =====================
+ 
+-**ip=**__{dhcp|on|any|dhcp6|auto6}__::
++**ip=**__{dhcp|on|any|dhcp6|auto6|either6}__::
+     dhcp|on|any::: get ip from dhcp server from all interfaces. If root=dhcp,
+     loop sequentially through all interfaces (eth0, eth1, ...) and use the first
+     with a valid DHCP root-path.
+@@ -458,6 +458,8 @@ USB Android phone::
+ 
+     dhcp6::: IPv6 DHCP
+ 
++    either6::: if auto6 fails, then dhcp6
++
+ **ip=**__<interface>__:__{dhcp|on|any|dhcp6|auto6}__[:[__<mtu>__][:__<macaddr>__]]::
+     This parameter can be specified multiple times.
+ +
+diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
+index 9ed48155..b3631648 100755
+--- a/modules.d/40network/ifup.sh
++++ b/modules.d/40network/ifup.sh
+@@ -76,6 +76,7 @@ load_ipv6() {
+ }
+ 
+ do_ipv6auto() {
++    local ret
+     load_ipv6
+     echo 0 > /proc/sys/net/ipv6/conf/$netif/forwarding
+     echo 1 > /proc/sys/net/ipv6/conf/$netif/accept_ra
+@@ -84,10 +85,11 @@ do_ipv6auto() {
+     [ -n "$macaddr" ] && ip link set address $macaddr dev $netif
+     [ -n "$mtu" ] && ip link set mtu $mtu dev $netif
+     wait_for_ipv6_auto $netif
++    ret=$?
+ 
+     [ -n "$hostname" ] && echo "echo $hostname > /proc/sys/kernel/hostname" > /tmp/net.$netif.hostname
+ 
+-    return 0
++    return $ret
+ }
+ 
+ # Handle static ip configuration
+@@ -393,6 +395,8 @@ for p in $(getargs ip=); do
+                 do_dhcp -6 ;;
+             auto6)
+                 do_ipv6auto ;;
++            either6)
++                do_ipv6auto || do_dhcp -6 ;;
+             *)
+                 do_static ;;
+         esac
+diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
+index 23f2f9ff..9e87aeab 100755
+--- a/modules.d/40network/net-lib.sh
++++ b/modules.d/40network/net-lib.sh
+@@ -445,7 +445,7 @@ ip_to_var() {
+     fi
+ 
+     if [ $# -eq 1 ]; then
+-        # format: ip={dhcp|on|any|dhcp6|auto6}
++        # format: ip={dhcp|on|any|dhcp6|auto6|either6}
+         # or
+         #         ip=<ipv4-address> means anaconda-style static config argument cluster
+         autoconf="$1"
+@@ -472,7 +472,7 @@ ip_to_var() {
+         return 0
+     fi
+ 
+-    if [ "$2" = "dhcp" -o "$2" = "on" -o "$2" = "any" -o "$2" = "dhcp6" -o "$2" = "auto6" ]; then
++    if [ "$2" = "dhcp" -o "$2" = "on" -o "$2" = "any" -o "$2" = "dhcp6" -o "$2" = "auto6" -o "$2" = "either6" ]; then
+         # format: ip=<interface>:{dhcp|on|any|dhcp6|auto6}[:[<mtu>][:<macaddr>]]
+         [ -n "$1" ] && dev="$1"
+         [ -n "$2" ] && autoconf="$2"
+diff --git a/modules.d/40network/parse-ip-opts.sh b/modules.d/40network/parse-ip-opts.sh
+index 68afe91b..3d1e95a6 100755
+--- a/modules.d/40network/parse-ip-opts.sh
++++ b/modules.d/40network/parse-ip-opts.sh
+@@ -78,6 +78,7 @@ for p in $(getargs ip=); do
+                     die "Sorry, automatic calculation of netmask is not yet supported"
+                 ;;
+             auto6);;
++            either6);;
+             dhcp|dhcp6|on|any) \
+                 #[ -n "$NEEDBOOTDEV" ] && [ -z "$dev" ] && \
+                 #    die "Sorry, 'ip=$p' does not make sense for multiple interface configurations"

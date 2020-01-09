@@ -1,0 +1,24 @@
+From e4034dcae31a788bf7eeed943862289e0bcc1a04 Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Thu, 9 Aug 2018 12:14:20 +0200
+Subject: [PATCH] dracut-functions: fix the word splitting
+
+Cherry-picked from: dc4f0a40f8fbea23ccd1e0fcde48d5c6f7996021
+Resolves: #1607744
+---
+ dracut-functions.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dracut-functions.sh b/dracut-functions.sh
+index 4387168a..e5985e33 100755
+--- a/dracut-functions.sh
++++ b/dracut-functions.sh
+@@ -1755,7 +1755,7 @@ get_loaded_kernel_modules ()
+     local modules=( )
+     while read _module _size _used _used_by; do
+         modules+=( "$_module" )
+-    done <<< $(lsmod | sed -n '1!p')
++    done <<< "$(lsmod | sed -n '1!p')"
+     printf '%s\n' "${modules[@]}" | sort
+ }
+ 

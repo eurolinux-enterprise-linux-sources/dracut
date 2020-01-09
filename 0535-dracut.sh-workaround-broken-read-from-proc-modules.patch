@@ -1,4 +1,4 @@
-From 14af2ab39994576bda1d2a6b9c7980f08473e784 Mon Sep 17 00:00:00 2001
+From f264cfbe8a9fa36765c918db9d7074a89eedbcd6 Mon Sep 17 00:00:00 2001
 From: Lukas Nykryn <lnykryn@redhat.com>
 Date: Mon, 11 Jun 2018 11:07:59 +0200
 Subject: [PATCH] dracut.sh: workaround broken read from /proc/modules
@@ -10,7 +10,7 @@ Resolves: #1578222
  1 file changed, 17 insertions(+), 4 deletions(-)
 
 diff --git a/dracut.sh b/dracut.sh
-index 873274c..9dadece 100755
+index 873274c0..9dadece0 100755
 --- a/dracut.sh
 +++ b/dracut.sh
 @@ -1145,10 +1145,23 @@ if [[ $hostonly ]]; then
@@ -41,6 +41,3 @@ index 873274c..9dadece 100755
  fi
  
  unset m
--- 
-2.14.4
-

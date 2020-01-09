@@ -1,0 +1,128 @@
+From c9e0ee2c91de55a51d2afc6b0032f39f1f7f2ea8 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Tue, 16 May 2017 11:31:26 +0200
+Subject: [PATCH] mdraid: wait for rd.md.uuid specified devices to be assembled
+
+This patch uses wait_for_dev "/dev/disk/by-id/md-uuid-${uuid}" for the
+specified uuids.
+
+On timeout only md devices are force started which are specified by
+uuid, or all, if rd.auto was specified.
+
+Fixes https://github.com/dracutdevs/dracut/issues/227
+
+Cherry-picked from: 3cea0658
+Resolves: #1451660
+---
+ modules.d/90mdraid/mdraid_start.sh | 74 +++++++++++++++++++++++++++-----------
+ modules.d/90mdraid/parse-md.sh     |  3 ++
+ 2 files changed, 57 insertions(+), 20 deletions(-)
+
+diff --git a/modules.d/90mdraid/mdraid_start.sh b/modules.d/90mdraid/mdraid_start.sh
+index 39998b03..5ebf09f4 100755
+--- a/modules.d/90mdraid/mdraid_start.sh
++++ b/modules.d/90mdraid/mdraid_start.sh
+@@ -2,35 +2,69 @@
+ # -*- mode: shell-script; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
+ # ex: ts=8 sw=4 sts=4 et filetype=sh
+ 
+-type getarg >/dev/null 2>&1 || . /lib/dracut-lib.sh
+-_md_force_run() {
++type getargs >/dev/null 2>&1 || . /lib/dracut-lib.sh
++
++_md_start() {
+     local _udevinfo
+     local _path_s
+     local _path_d
++    local _md="$1"
++    local _offroot="$2"
++
++    _udevinfo="$(udevadm info --query=env --name="${_md}")"
++    strstr "$_udevinfo" "MD_LEVEL=container" && continue
++    strstr "$_udevinfo" "DEVTYPE=partition" && continue
++
++    _path_s="/sys/$(udevadm info -q path -n "${_md}")/md/array_state"
++    [ ! -r "$_path_s" ] && continue
++
++    # inactive ?
++    [ "$(cat "$_path_s")" != "inactive" ] && continue
++
++    mdadm $_offroot -R "${_md}" 2>&1 | vinfo
++
++    # still inactive ?
++    [ "$(cat "$_path_s")" = "inactive" ] && continue
++
++    _path_d="${_path_s%/*}/degraded"
++    [ ! -r "$_path_d" ] && continue
++    > $hookdir/initqueue/work
++}
++
++_md_force_run() {
+     local _offroot
+-    _offroot=$(strstr "$(mdadm --help-options 2>&1)" offroot && echo --offroot)
+-    # try to force-run anything not running yet
+-    for md in /dev/md[0-9_]*; do
+-        [ -b "$md" ] || continue
+-        _udevinfo="$(udevadm info --query=env --name="$md")"
+-        strstr "$_udevinfo" "MD_LEVEL=container" && continue
+-        strstr "$_udevinfo" "DEVTYPE=partition" && continue
++    local _md
++    local _UUID
++    local _MD_UUID=$(getargs rd.md.uuid -d rd_MD_UUID=)
++    [ -n "$_MD_UUID" ] || getargbool 0 rd.auto || return
+ 
+-        _path_s="/sys/$(udevadm info -q path -n "$md")/md/array_state"
+-        [ ! -r "$_path_s" ] && continue
++    _offroot=$(strstr "$(mdadm --help-options 2>&1)" offroot && echo --offroot)
+ 
+-        # inactive ?
+-        [ "$(cat "$_path_s")" != "inactive" ] && continue
++    if [ -n "$_MD_UUID" ]; then
++        for _md in /dev/md[0-9_]*; do
++            [ -b "$_md" ] || continue
++            _UUID=$(
++                /sbin/mdadm -D --export "$_md" \
++                    | while read line || [ -n "$line" ]; do
++                    str_starts "$line" "MD_UUID=" || continue
++                    printf "%s" "${line#MD_UUID=}"
++                done
++                )
+ 
+-        mdadm $_offroot -R "$md" 2>&1 | vinfo
++            [ -z "$_UUID" ] && continue
+ 
+-        # still inactive ?
+-        [ "$(cat "$_path_s")" = "inactive" ] && continue
++            # check if we should handle this device
++            strstr " $_MD_UUID " " $_UUID " || continue
+ 
+-        _path_d="${_path_s%/*}/degraded"
+-        [ ! -r "$_path_d" ] && continue
+-        > $hookdir/initqueue/work
+-    done
++            _md_start "${_md}" "${_offroot}"
++        done
++    else
++        # try to force-run anything not running yet
++        for _md in /dev/md[0-9_]*; do
++            [ -b "$_md" ] || continue
++            _md_start "${_md}" "${_offroot}"
++        done
++    fi
+ }
+ 
+ _md_force_run
+diff --git a/modules.d/90mdraid/parse-md.sh b/modules.d/90mdraid/parse-md.sh
+index dd7bda25..ae76bac1 100755
+--- a/modules.d/90mdraid/parse-md.sh
++++ b/modules.d/90mdraid/parse-md.sh
+@@ -26,6 +26,9 @@ else
+             done < "${f}" > "${f}.new"
+             mv "${f}.new" "$f"
+         done
++        for uuid in $MD_UUID; do
++            wait_for_dev "/dev/disk/by-id/md-uuid-${uuid}"
++        done
+     fi
+ fi
+ 

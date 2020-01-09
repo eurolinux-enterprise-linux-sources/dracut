@@ -1,0 +1,27 @@
+From 388c771a283447b5f080a3a331bc2c3da14885c4 Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Mon, 11 Jun 2018 12:30:07 +0200
+Subject: [PATCH] net-lib: bump carrier timeout to 15
+
+df95b10 caused that dracut now waits only 5 seconds for carrier.
+Let's bump this in downstream to avoid regressions in minor versions.
+
+RHEL-only
+Resolves: #1401811
+---
+ modules.d/40network/net-lib.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
+index 9083aea7..23f2f9ff 100755
+--- a/modules.d/40network/net-lib.sh
++++ b/modules.d/40network/net-lib.sh
+@@ -706,7 +706,7 @@ iface_has_carrier() {
+     interface="/sys/class/net/$interface"
+     [ -d "$interface" ] || return 2
+     local timeout="$(getargs rd.net.timeout.carrier=)"
+-    timeout=${timeout:-5}
++    timeout=${timeout:-15}
+     timeout=$(($timeout*10))
+ 
+     linkup "$1"

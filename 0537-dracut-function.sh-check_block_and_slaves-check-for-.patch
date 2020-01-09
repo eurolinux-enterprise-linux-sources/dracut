@@ -1,0 +1,58 @@
+From dd235965dd7b5de9dd87e5e5a4244005c5fb21e2 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Mon, 19 Feb 2018 09:03:02 +0100
+Subject: [PATCH] dracut-function.sh:check_block_and_slaves() check for block
+ devices
+
+Some nvme have char parents, so check if the "slave" is a block dev.
+
+Fixes https://github.com/dracutdevs/dracut/issues/373
+
+Cherry-picked from: e64dafd1f2489f1d926cce3e3bfd33f62b29b192
+Resolves: #1549498
+---
+ dracut-functions.sh | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/dracut-functions.sh b/dracut-functions.sh
+index 98a4b88b..ca54bd7f 100755
+--- a/dracut-functions.sh
++++ b/dracut-functions.sh
+@@ -616,13 +616,14 @@ check_block_and_slaves() {
+     [[ -b /dev/block/$2 ]] || return 1 # Not a block device? So sorry.
+     if ! lvm_internal_dev $2; then "$1" $2 && return; fi
+     check_vol_slaves "$@" && return 0
+-    if [[ -f /sys/dev/block/$2/../dev ]]; then
++    if [[ -f /sys/dev/block/$2/../dev ]] && [[ /sys/dev/block/$2/../subsystem -ef /sys/class/block ]]; then
+         check_block_and_slaves $1 $(<"/sys/dev/block/$2/../dev") && return 0
+     fi
+     [[ -d /sys/dev/block/$2/slaves ]] || return 1
+-    for _x in /sys/dev/block/$2/slaves/*/dev; do
+-        [[ -f $_x ]] || continue
+-        check_block_and_slaves $1 $(<"$_x") && return 0
++    for _x in /sys/dev/block/$2/slaves/*; do
++        [[ -f $_x/dev ]] || continue
++        [[ $_x/subsystem -ef /sys/class/block ]] || continue
++        check_block_and_slaves $1 $(<"$_x/dev") && return 0
+     done
+     return 1
+ }
+@@ -634,13 +635,14 @@ check_block_and_slaves_all() {
+         _ret=0
+     fi
+     check_vol_slaves_all "$@" && return 0
+-    if [[ -f /sys/dev/block/$2/../dev ]]; then
++    if [[ -f /sys/dev/block/$2/../dev ]] && [[ /sys/dev/block/$2/../subsystem -ef /sys/class/block ]]; then
+         check_block_and_slaves_all $1 $(<"/sys/dev/block/$2/../dev") && _ret=0
+     fi
+     [[ -d /sys/dev/block/$2/slaves ]] || return 1
+-    for _x in /sys/dev/block/$2/slaves/*/dev; do
+-        [[ -f $_x ]] || continue
+-        check_block_and_slaves_all $1 $(<"$_x") && _ret=0
++    for _x in /sys/dev/block/$2/slaves/*; do
++        [[ -f $_x/dev ]] || continue
++        [[ $_x/subsystem -ef /sys/class/block ]] || continue
++        check_block_and_slaves_all $1 $(<"$_x/dev") && _ret=0
+     done
+     return $_ret
+ }

@@ -1,0 +1,125 @@
+From ecd196732f36064aad675e18bf77b2b678673d63 Mon Sep 17 00:00:00 2001
+From: Kairui Song <kasong@redhat.com>
+Date: Wed, 4 Jul 2018 17:21:37 +0800
+Subject: [PATCH] Introduce tri-state hostonly mode
+
+Add a new option --hostonly-mode which accept an <mode> parameter, so we have a tri-state hostonly mode:
+
+    * generic: by passing "--no-hostonly" or not passing anything.
+               "--hostonly-mode" has no effect in such case.
+    * sloppy: by passing "--hostonly --hostonly-mode sloppy". This
+              is also the default mode when only "--hostonly" is given.
+    * strict: by passing "--hostonly --hostonly-mode strict".
+
+Sloppy mode is the original hostonly mode, the new introduced strict
+mode will allow modules to ignore more drivers or do some extra job to
+save memory and disk space, while making the image less portable.
+
+Also introduced a helper function "optional_hostonly" to make it
+easier for modules to leverage new hostonly mode.
+
+To force install modules only in sloppy hostonly mode, use the form:
+
+hostonly="$(optional_hostonly)" instmods <modules>
+
+Signed-off-by: Kairui Song <kasong@redhat.com>
+
+Cherry-picked from: a695250ec7db21359689e50733c6581a8d211215
+Resolves: #1599592
+---
+ dracut-functions.sh | 11 +++++++++++
+ dracut.sh           | 34 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 45 insertions(+)
+
+diff --git a/dracut-functions.sh b/dracut-functions.sh
+index b7568bd9..4387168a 100755
+--- a/dracut-functions.sh
++++ b/dracut-functions.sh
+@@ -1770,3 +1770,14 @@ lvm_internal_dev() {
+     [[ ${DM_LV_LAYER} ]] || [[ ! -L /dev/${DM_VG_NAME}/${DM_LV_NAME} ]]
+ }
+ 
++# Use with form hostonly="$(optional_hostonly)" inst_xxxx <args>
++# If hosotnly mode is set to "strict", hostonly restrictions will still
++# be applied, else will ignore hostonly mode and try to install all
++# given modules.
++optional_hostonly() {
++    if [[ $hostonly_mode = "strict" ]]; then
++        printf -- "$hostonly"
++    else
++        printf ""
++    fi
++}
+diff --git a/dracut.sh b/dracut.sh
+index 4f324439..52835872 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -141,6 +141,21 @@ Creates initial ramdisk images for preloading modules
+   -H, --hostonly        Host-Only mode: Install only what is needed for
+                         booting the local host instead of a generic host.
+   -N, --no-hostonly     Disables Host-Only mode
++  --hostonly-mode <mode>
++                        Specify the hostonly mode to use. <mode> could be
++                        one of "sloppy" or "strict". "sloppy" mode is used
++                        by default.
++                        In "sloppy" hostonly mode, extra drivers and modules
++                        will be installed, so minor hardware change won't make
++                        the image unbootable (eg. changed keyboard), and the
++                        image is still portable among similar hosts.
++                        With "strict" mode enabled, anything not necessary
++                        for booting the local host in its current state will
++                        not be included, and modules may do some extra job
++                        to save more space. Minor change of hardware or
++                        environment could make the image unbootable.
++                        DO NOT use "strict" mode unless you know what you
++                        are doing.
+   --hostonly-cmdline    Store kernel command line arguments needed
+                         in the initramfs
+   --no-hostonly-cmdline Do not store kernel command line arguments needed
+@@ -364,6 +379,7 @@ rearrange_params()
+         --long host-only \
+         --long no-hostonly \
+         --long no-host-only \
++        --long hostonly-mode: \
+         --long hostonly-cmdline \
+         --long no-hostonly-cmdline \
+         --long no-hostonly-default-device \
+@@ -548,6 +564,8 @@ while :; do
+                        hostonly_l="yes" ;;
+         -N|--no-hostonly|--no-host-only)
+                        hostonly_l="no" ;;
++        --hostonly-mode)
++                       hostonly_mode_l="$2";           PARMS_TO_STORE+=" '$2'"; shift;;
+         --hostonly-cmdline)
+                        hostonly_cmdline_l="yes" ;;
+         --hostonly-i18n)
+@@ -803,6 +821,7 @@ stdloglvl=$((stdloglvl + verbosity_mod_l))
+ [[ $prefix = "/" ]] && unset prefix
+ [[ $hostonly_l ]] && hostonly=$hostonly_l
+ [[ $hostonly_cmdline_l ]] && hostonly_cmdline=$hostonly_cmdline_l
++[[ $hostonly_mode_l ]] && hostonly_mode=$hostonly_mode_l
+ [[ $i18n_install_all_l ]] && i18n_install_all=$i18n_install_all_l
+ [[ $persistent_policy_l ]] && persistent_policy=$persistent_policy_l
+ [[ $use_fstab_l ]] && use_fstab=$use_fstab_l
+@@ -840,6 +859,21 @@ fi
+ [[ $hostonly = yes ]] && hostonly="-h"
+ [[ $hostonly != "-h" ]] && unset hostonly
+ 
++case $hostonly_mode in
++    '')
++        [[ $hostonly ]] && hostonly_mode="sloppy" ;;
++    sloppy|strict)
++        if [[ ! $hostonly ]]; then
++            unset hostonly_mode
++        fi
++        ;;
++    *)
++        printf "%s\n" "dracut: Invalid hostonly mode '$hostonly_mode'." >&2
++        exit 1
++esac
++
++
++
+ readonly TMPDIR="$tmpdir"
+ readonly DRACUT_TMPDIR="$(mktemp -p "$TMPDIR/" -d -t dracut.XXXXXX)"
+ [ -d "$DRACUT_TMPDIR" ] || {

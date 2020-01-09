@@ -1,0 +1,23 @@
+From da6411f59cba83491e0a9d274c3e79230ef48265 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 5 Jul 2018 13:17:53 +0200
+Subject: [PATCH] dracut.spec: remove 90multipath-hostonly
+
+Cherry-picked from: ca77afdeb37f96d23ad0673396333af8e859d817
+Resolves: #1599592
+---
+ dracut.spec | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/dracut.spec b/dracut.spec
+index ee12013b..2ddd90bb 100644
+--- a/dracut.spec
++++ b/dracut.spec
+@@ -351,7 +351,6 @@ rm -rf -- $RPM_BUILD_ROOT
+ %{dracutlibdir}/modules.d/90lvm
+ %{dracutlibdir}/modules.d/90mdraid
+ %{dracutlibdir}/modules.d/90multipath
+-%{dracutlibdir}/modules.d/90multipath-hostonly
+ %{dracutlibdir}/modules.d/90qemu
+ %{dracutlibdir}/modules.d/91crypt-gpg
+ %{dracutlibdir}/modules.d/91crypt-loop

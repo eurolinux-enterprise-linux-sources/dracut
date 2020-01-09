@@ -1,0 +1,72 @@
+From f055e5126f7d28553c3886a865e5f13fdc4c18d2 Mon Sep 17 00:00:00 2001
+From: Xunlei Pang <xlpang@redhat.com>
+Date: Mon, 25 Sep 2017 11:18:06 +0800
+Subject: [PATCH] fcoe: handle CNAs with DCB firmware support
+
+Some Combined Network Adapters(CNAs) implement DCB protocol
+in firmware, it is recommended that do not run software-based
+DCB or LLDP on CNAs that implement DCB, but we have to start
+the lldpad service anyway(there might be other software DCB).
+
+If the network interface provides hardware DCB/DCBX capabilities,
+the field DCB_REQUIRED in "/etc/fcoe/cfg-xxx" is expected to
+be set to "no".
+
+We met an issue on "QLogic BCM57810" with DCB firmware support,
+and found dracut still generated "fcoe=<mac>:dcb" which caused
+kdump boot failure when using that fcoe dump target.
+
+This patch parses /etc/fcoe/cfg-xxx to detect DCB_REQUIRED="no",
+and force "nodcb" if it is the case.
+
+Also improved some coding style in passing.
+
+Signed-off-by: Xunlei Pang <xlpang@redhat.com>
+
+Cherry-picked from: 795256bbb
+Resolves: #1442663
+---
+ modules.d/95fcoe/module-setup.sh | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
+
+diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
+index 4bab0c7d..ac27c76a 100755
+--- a/modules.d/95fcoe/module-setup.sh
++++ b/modules.d/95fcoe/module-setup.sh
+@@ -51,16 +51,30 @@ cmdline() {
+         read mac < ${i}/address
+         s=$(dcbtool gc ${i##*/} dcb | sed -n 's/^DCB State:\t*\(.*\)/\1/p')
+         if [ -z "$s" ] ; then
+-	    p=$(get_vlan_parent ${i})
+-	    if [ "$p" ] ; then
+-	        s=$(dcbtool gc ${p} dcb | sed -n 's/^DCB State:\t*\(.*\)/\1/p')
+-	    fi
++            p=$(get_vlan_parent ${i})
++            if [ "$p" ] ; then
++                s=$(dcbtool gc ${p} dcb | sed -n 's/^DCB State:\t*\(.*\)/\1/p')
++            fi
+         fi
+         if [ "$s" = "on" ] ; then
+-	    dcb="dcb"
++            dcb="dcb"
+         else
+-	    dcb="nodcb"
++            dcb="nodcb"
+         fi
++
++        # Some Combined Network Adapters(CNAs) implement DCB in firmware.
++        # Do not run software-based DCB or LLDP on CNAs that implement DCB.
++        # If the network interface provides hardware DCB/DCBX capabilities,
++        # DCB_REQUIRED in "/etc/fcoe/cfg-xxx" is expected to set to "no".
++        #
++        # Force "nodcb" if there's any DCB_REQUIRED="no"(child or vlan parent).
++        grep -q "^[[:blank:]]*DCB_REQUIRED=\"no\"" /etc/fcoe/cfg-${i##*/} &>/dev/null
++        [ $? -eq 0 ] && dcb="nodcb"
++        if [ "$p" ] ; then
++            grep -q "^[[:blank:]]*DCB_REQUIRED=\"no\"" /etc/fcoe/cfg-${p} &>/dev/null
++            [ $? -eq 0 ] && dcb="nodcb"
++        fi
++
+         echo "fcoe=${mac}:${dcb}"
+     done
+ }

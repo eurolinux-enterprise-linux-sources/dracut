@@ -1,0 +1,32 @@
+From 013030d9471fca3f99d358e8bc3cb7a418f9735b Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Thu, 13 Jul 2017 16:46:19 +0200
+Subject: [PATCH] 40network/dhclient.conf: rename classless-routes to
+ classless-static-routes
+
+We tell dhclient to name 121 option "classless-routes",
+but in dhclient-script we parse classless_static_routes.
+So either have to change the configuration or the script.
+
+And since dhclient uses by default classless_static_routes,
+let's change the configuration
+
+Cherry-picked from: 62b7920ed
+Resolves: #1453907
+---
+ modules.d/40network/dhclient.conf | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/modules.d/40network/dhclient.conf b/modules.d/40network/dhclient.conf
+index a1739ce3..49266db0 100644
+--- a/modules.d/40network/dhclient.conf
++++ b/modules.d/40network/dhclient.conf
+@@ -1,6 +1,6 @@
+ 
+-option classless-routes code 121 = array of unsigned integer 8;
++option classless-static-routes code 121 = array of unsigned integer 8;
+ 
+ request subnet-mask, broadcast-address, time-offset, routers,
+         domain-name, domain-name-servers, domain-search, host-name,
+-        root-path, interface-mtu, classless-routes;
++        root-path, interface-mtu, classless-static-routes;

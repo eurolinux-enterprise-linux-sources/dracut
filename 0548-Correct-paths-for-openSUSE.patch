@@ -1,0 +1,31 @@
+From 5f381a151fa210d31d8b6f71f83f1405f876c0aa Mon Sep 17 00:00:00 2001
+From: Christian Rodrigues <crrodriguez@opensuse.org>
+Date: Mon, 23 Mar 2015 17:12:15 +0100
+Subject: [PATCH] Correct paths for openSUSE
+
+openSUSE has things stored in different places, so fixup the
+paths here.
+
+Signed-off-by: Christian Rodrigues <crrodriguez@opensuse.org>
+Signed-off-by: Hannes Reinecke <hare@suse.de>
+Signed-off-by: Thomas Renninger <trenn@suse.de>
+
+Cherry-picked from: b52cfbea
+Resolves: #1608491
+---
+ dracut.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dracut.sh b/dracut.sh
+index 245b4c49..4f324439 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -809,7 +809,7 @@ stdloglvl=$((stdloglvl + verbosity_mod_l))
+ [[ $mdadmconf_l ]] && mdadmconf=$mdadmconf_l
+ [[ $lvmconf_l ]] && lvmconf=$lvmconf_l
+ [[ $dracutbasedir ]] || dracutbasedir=/usr/lib/dracut
+-[[ $fw_dir ]] || fw_dir="/lib/firmware/updates /lib/firmware"
++[[ $fw_dir ]] || fw_dir="/lib/firmware/updates /lib/firmware /lib/firmware/$kernel"
+ [[ $tmpdir_l ]] && tmpdir="$tmpdir_l"
+ [[ $tmpdir ]] || tmpdir=/var/tmp
+ [[ $INITRD_COMPRESS ]] && compress=$INITRD_COMPRESS

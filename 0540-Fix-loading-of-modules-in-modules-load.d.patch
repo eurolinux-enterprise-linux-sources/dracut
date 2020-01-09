@@ -1,0 +1,38 @@
+From 249dcc61ea2cfb5963c7f9565dcee3405e064c7b Mon Sep 17 00:00:00 2001
+From: Fabian Vogt <fvogt@suse.com>
+Date: Fri, 3 Feb 2017 16:02:34 +0100
+Subject: [PATCH] Fix loading of modules in modules-load.d
+
+With hostonly enabled, only modules that are currently
+loaded are included in the initrd. Modules which are
+explicitly listed in modules-load.d do not need to
+be filtered that way. Fix for boo#962224.
+
+Cherry-picked from: 9fd3e045d
+Resolves: #1547730
+---
+ modules.d/98systemd/module-setup.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/modules.d/98systemd/module-setup.sh b/modules.d/98systemd/module-setup.sh
+index 10beadda..c59cb945 100755
+--- a/modules.d/98systemd/module-setup.sh
++++ b/modules.d/98systemd/module-setup.sh
+@@ -166,7 +166,7 @@ install() {
+     }
+ 
+     _mods=$(modules_load_get /usr/lib/modules-load.d)
+-    [[ $_mods ]] && instmods $_mods
++    [[ $_mods ]] && hostonly='' instmods $_mods
+ 
+     if [[ $hostonly ]]; then
+         inst_multiple -o \
+@@ -181,7 +181,7 @@ install() {
+             /etc/sysctl.conf
+ 
+         _mods=$(modules_load_get /etc/modules-load.d)
+-        [[ $_mods ]] && instmods $_mods
++        [[ $_mods ]] && hostonly='' instmods $_mods
+     fi
+ 
+     if ! [[ -e "$initdir/etc/machine-id" ]]; then

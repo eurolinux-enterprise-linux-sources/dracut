@@ -10,7 +10,7 @@
 
 Name: dracut
 Version: 033
-Release: 535%{?dist}.1
+Release: 554%{?dist}
 
 Summary: Initramfs generator using udev
 %if 0%{?fedora} || 0%{?rhel}
@@ -563,8 +563,25 @@ Patch531: 0531-Align-dev_unit_name-with-systemd-s-function.patch
 Patch532: 0532-base-dracut-lib.sh-remove-bashism.patch
 Patch533: 0533-base-dracut-lib.sh-dev_unit_name-guard-against-dev-b.patch
 Patch534: 0534-90lvm-always-add-dm-snapshot.patch
-
-Patch900: 0001-dracut.sh-workaround-broken-read-from-proc-modules.patch
+Patch535: 0535-dracut.sh-workaround-broken-read-from-proc-modules.patch
+Patch536: 0536-net-lib-bump-carrier-timeout-to-15.patch
+Patch537: 0537-dracut-function.sh-check_block_and_slaves-check-for-.patch
+Patch538: 0538-dracut-functions.sh-check_vol_slaves-speedup-LV-VG-n.patch
+Patch539: 0539-40network-introduce-ip-either6-option.patch
+Patch540: 0540-Fix-loading-of-modules-in-modules-load.d.patch
+Patch541: 0541-Skip-iscsi-attachment-if-no-info.patch
+Patch542: 0542-dracut-Introduce-force-drivers-parameter-and-force_d.patch
+Patch543: 0543-mdraid-mdraid_start.sh-tell-mainloop-if-we-make-prog.patch
+Patch544: 0544-mdraid-wait-for-rd.md.uuid-specified-devices-to-be-a.patch
+Patch545: 0545-fcoe-handle-CNAs-with-DCB-firmware-support.patch
+Patch546: 0546-40network-dhclient.conf-rename-classless-routes-to-c.patch
+Patch547: 0547-Record-loaded-kernel-modules-when-hostonly-mode-is-e.patch
+Patch548: 0548-Correct-paths-for-openSUSE.patch
+Patch549: 0549-Introduce-tri-state-hostonly-mode.patch
+Patch550: 0550-Revert-add-90multipath-hostonly-module.patch
+Patch551: 0551-dracut.spec-remove-90multipath-hostonly.patch
+Patch552: 0552-dracut-functions-fix-the-word-splitting.patch
+Patch553: 0553-kernel-modules-add-nfit.patch
 
 
 BuildRequires: bash git
@@ -888,7 +905,6 @@ rm -rf -- $RPM_BUILD_ROOT
 %{dracutlibdir}/modules.d/90lvm
 %{dracutlibdir}/modules.d/90mdraid
 %{dracutlibdir}/modules.d/90multipath
-%{dracutlibdir}/modules.d/90multipath-hostonly
 %{dracutlibdir}/modules.d/90qemu
 %{dracutlibdir}/modules.d/91crypt-gpg
 %{dracutlibdir}/modules.d/91crypt-loop
@@ -997,7 +1013,50 @@ rm -rf -- $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Wed Jun 13 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-535.1
+* Thu Sep 27 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-554
+- kernel-modules: add nfit
+Resolves: #1288619
+
+* Thu Aug 09 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-553
+- dracut-functions: fix the word splitting
+Resolves: #1607744
+
+* Mon Jul 30 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-552
+- dracut.spec: remove 90multipath-hostonly
+Resolves: #1599592
+
+* Mon Jul 30 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-551
+- Revert "add 90multipath-hostonly module"
+- Introduce tri-state hostonly mode
+Resolves: #1599592
+- Correct paths for firmware
+Resolves: #1608491
+- Record loaded kernel modules when hostonly mode is enabled
+Resolves: #1607744
+
+* Thu Jun 21 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-547
+- 40network/dhclient.conf: rename classless-routes to classless-static-routes
+Resolves: #1453907
+
+* Wed Jun 20 2018 Lukas Nykryn <lnykryn@redhat.com> - 033-546
+- fcoe: handle CNAs with DCB firmware support
+Resolves: #1442663
+- mdraid: wait for rd.md.uuid specified devices to be assembled
+Resolves: #1451660
+- dracut: Introduce --force-drivers parameter and force_drivers=+ config option
+Resolves: #1577626
+- Skip iscsi attachment if no info
+Resolves: #1513397
+- Fix loading of modules in modules-load.d
+Resolves: #1547730
+- 40network: introduce ip=either6 option
+Resolves: #1582398
+- dracut-functions.sh:check_vol_slaves() speedup LV -> VG name
+Resolves: #1531503
+- dracut-function.sh:check_block_and_slaves() check for block devices
+Resolves: #1549498
+- net-lib: bump carrier timeout to 15
+Resolves: #1401811
 - dracut.sh: workaround broken read from /proc/modules
 Resolves: #1578222
 
