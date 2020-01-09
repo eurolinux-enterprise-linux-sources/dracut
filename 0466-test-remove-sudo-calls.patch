@@ -1,0 +1,682 @@
+From d2fd423a8de2cc4fa0325f5a371582f429c05a26 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 10 Nov 2016 14:57:05 +0100
+Subject: [PATCH] test: remove sudo calls
+
+rather run:
+
+$ sudo make check
+---
+ test/TEST-01-BASIC/test.sh              |  4 ++--
+ test/TEST-02-SYSTEMD/test.sh            |  4 ++--
+ test/TEST-03-USR-MOUNT/test.sh          |  4 ++--
+ test/TEST-04-FULL-SYSTEMD/test.sh       |  2 +-
+ test/TEST-10-RAID/test.sh               |  4 ++--
+ test/TEST-11-LVM/test.sh                |  4 ++--
+ test/TEST-12-RAID-DEG/test.sh           |  4 ++--
+ test/TEST-13-ENC-RAID-LVM/test.sh       |  4 ++--
+ test/TEST-14-IMSM/test.sh               |  4 ++--
+ test/TEST-15-BTRFSRAID/test.sh          |  4 ++--
+ test/TEST-16-DMSQUASH/test.sh           |  4 ++--
+ test/TEST-17-LVM-THIN/test.sh           |  4 ++--
+ test/TEST-20-NFS/test.sh                | 16 ++++++++--------
+ test/TEST-30-ISCSI/test.sh              | 16 ++++++++--------
+ test/TEST-40-NBD/test.sh                | 24 ++++++++++++------------
+ test/TEST-50-MULTINIC/test.sh           | 12 ++++++------
+ test/TEST-60-MTUMAC/test.sh             | 10 +++++-----
+ test/TEST-70-BONDBRIDGETEAMVLAN/test.sh | 10 +++++-----
+ test/run-qemu                           |  2 +-
+ 19 files changed, 68 insertions(+), 68 deletions(-)
+
+diff --git a/test/TEST-01-BASIC/test.sh b/test/TEST-01-BASIC/test.sh
+index aef0737..97e8017 100755
+--- a/test/TEST-01-BASIC/test.sh
++++ b/test/TEST-01-BASIC/test.sh
+@@ -45,7 +45,7 @@ test_setup() {
+ 	find_binary plymouth >/dev/null && inst_multiple plymouth
+ 	(cd "$initdir"; mkdir -p dev sys proc etc var/run tmp )
+ 	cp -a /etc/ld.so.conf* $initdir/etc
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -85,7 +85,7 @@ test_setup() {
+ 	inst_hook emergency 000 ./hard-off.sh
+ 	inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-a "debug watchdog" \
+         -o "plymouth" \
+ 	-d "piix ide-gd_mod ata_piix ext3 sd_mod i6300esb ib700wdt" \
+diff --git a/test/TEST-02-SYSTEMD/test.sh b/test/TEST-02-SYSTEMD/test.sh
+index 6f33181..2a077b0 100755
+--- a/test/TEST-02-SYSTEMD/test.sh
++++ b/test/TEST-02-SYSTEMD/test.sh
+@@ -45,7 +45,7 @@ test_setup() {
+ 	find_binary plymouth >/dev/null && inst_multiple plymouth
+ 	(cd "$initdir"; mkdir -p dev sys proc etc var/run tmp )
+ 	cp -a /etc/ld.so.conf* $initdir/etc
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -85,7 +85,7 @@ test_setup() {
+ 	inst_hook emergency 000 ./hard-off.sh
+ 	inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-a "debug systemd" \
+ 	-o "network plymouth" \
+ 	-d "piix ide-gd_mod ata_piix ext3 sd_mod" \
+diff --git a/test/TEST-03-USR-MOUNT/test.sh b/test/TEST-03-USR-MOUNT/test.sh
+index 363f8b0..c3f810a 100755
+--- a/test/TEST-03-USR-MOUNT/test.sh
++++ b/test/TEST-03-USR-MOUNT/test.sh
+@@ -72,7 +72,7 @@ test_setup() {
+ 	find_binary plymouth >/dev/null && inst_multiple plymouth
+ 	(cd "$initdir"; mkdir -p dev sys proc etc var/run tmp )
+ 	cp -a /etc/ld.so.conf* $initdir/etc
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -119,7 +119,7 @@ test_setup() {
+ 	inst_hook emergency 000 ./hard-off.sh
+ 	inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-a "debug" \
+         -o "network plymouth" \
+ 	-d "piix ide-gd_mod ata_piix btrfs sd_mod i6300esb ib700wdt" \
+diff --git a/test/TEST-04-FULL-SYSTEMD/test.sh b/test/TEST-04-FULL-SYSTEMD/test.sh
+index 93c3389..1adb34e 100755
+--- a/test/TEST-04-FULL-SYSTEMD/test.sh
++++ b/test/TEST-04-FULL-SYSTEMD/test.sh
+@@ -263,7 +263,7 @@ EOF
+ 	inst_hook emergency 000 ./hard-off.sh
+ 	inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-a "debug systemd" \
+ 	-I "/etc/machine-id /etc/hostname" \
+         -o "network plymouth lvm mdraid resume crypt i18n caps dm terminfo usrmount" \
+diff --git a/test/TEST-10-RAID/test.sh b/test/TEST-10-RAID/test.sh
+index 45edda2..7f99c0e 100755
+--- a/test/TEST-10-RAID/test.sh
++++ b/test/TEST-10-RAID/test.sh
+@@ -43,7 +43,7 @@ test_setup() {
+ 	inst_multiple -o /lib/systemd/systemd-shutdown
+ 	find_binary plymouth >/dev/null && inst_multiple plymouth
+ 	cp -a /etc/ld.so.conf* $initdir/etc
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -88,7 +88,7 @@ test_setup() {
+ 	inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+ 
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-o "plymouth network" \
+ 	-a "debug" \
+ 	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
+diff --git a/test/TEST-11-LVM/test.sh b/test/TEST-11-LVM/test.sh
+index dd1f8ea..a4ee86d 100755
+--- a/test/TEST-11-LVM/test.sh
++++ b/test/TEST-11-LVM/test.sh
+@@ -40,7 +40,7 @@ test_setup() {
+ 	(cd "$initdir"; mkdir -p dev sys proc etc var/run tmp )
+ 	cp -a /etc/ld.so.conf* $initdir/etc
+ 	mkdir $initdir/run
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -74,7 +74,7 @@ test_setup() {
+ 	inst_hook emergency 000 ./hard-off.sh
+ 	inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-o "plymouth network" \
+ 	-a "debug" \
+ 	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
+diff --git a/test/TEST-12-RAID-DEG/test.sh b/test/TEST-12-RAID-DEG/test.sh
+index 5f9cfc5..aae5e8b 100755
+--- a/test/TEST-12-RAID-DEG/test.sh
++++ b/test/TEST-12-RAID-DEG/test.sh
+@@ -81,7 +81,7 @@ test_setup() {
+ 	find_binary plymouth >/dev/null && inst_multiple plymouth
+ 	(cd "$initdir"; mkdir -p dev sys proc etc var/run tmp )
+ 	cp -a /etc/ld.so.conf* $initdir/etc
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -131,7 +131,7 @@ test_setup() {
+         echo -n test > $initdir/etc/key
+     )
+ 
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-o "plymouth network" \
+ 	-a "debug" \
+ 	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
+diff --git a/test/TEST-13-ENC-RAID-LVM/test.sh b/test/TEST-13-ENC-RAID-LVM/test.sh
+index 94801e4..8194166 100755
+--- a/test/TEST-13-ENC-RAID-LVM/test.sh
++++ b/test/TEST-13-ENC-RAID-LVM/test.sh
+@@ -77,7 +77,7 @@ test_setup() {
+ 	find_binary plymouth >/dev/null && inst_multiple plymouth
+ 	(cd "$initdir"; mkdir -p dev sys proc etc var/run tmp )
+ 	cp -a /etc/ld.so.conf* $initdir/etc
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -127,7 +127,7 @@ test_setup() {
+         done > $initdir/etc/crypttab
+         echo -n test > $initdir/etc/key
+     )
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-o "plymouth network" \
+ 	-a "debug" \
+ 	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
+diff --git a/test/TEST-14-IMSM/test.sh b/test/TEST-14-IMSM/test.sh
+index 8e99b1f..783ec4a 100755
+--- a/test/TEST-14-IMSM/test.sh
++++ b/test/TEST-14-IMSM/test.sh
+@@ -70,7 +70,7 @@ test_setup() {
+ 	(cd "$initdir"; mkdir -p dev sys proc etc var/run tmp )
+ 	cp -a /etc/ld.so.conf* $initdir/etc
+ 	mkdir $initdir/run
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -109,7 +109,7 @@ test_setup() {
+ 	inst_hook emergency 000 ./hard-off.sh
+ 	inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-o "plymouth network" \
+ 	-a "debug" \
+ 	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
+diff --git a/test/TEST-15-BTRFSRAID/test.sh b/test/TEST-15-BTRFSRAID/test.sh
+index c086677..1e3e18c 100755
+--- a/test/TEST-15-BTRFSRAID/test.sh
++++ b/test/TEST-15-BTRFSRAID/test.sh
+@@ -41,7 +41,7 @@ test_setup() {
+ 	find_binary plymouth >/dev/null && inst_multiple plymouth
+ 	(cd "$initdir"; mkdir -p dev sys proc etc var/run tmp )
+ 	cp -a /etc/ld.so.conf* $initdir/etc
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -82,7 +82,7 @@ test_setup() {
+ 	inst_hook emergency 000 ./hard-off.sh
+ 	inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-o "plymouth network" \
+ 	-a "debug" \
+ 	-d "piix ide-gd_mod ata_piix btrfs sd_mod" \
+diff --git a/test/TEST-16-DMSQUASH/test.sh b/test/TEST-16-DMSQUASH/test.sh
+index e80ec5c..6daa35e 100755
+--- a/test/TEST-16-DMSQUASH/test.sh
++++ b/test/TEST-16-DMSQUASH/test.sh
+@@ -38,7 +38,7 @@ test_setup() {
+ 
+     dd if=/dev/zero of="$TESTDIR"/root.img count=100
+ 
+-    sudo $basedir/dracut.sh -l -i "$TESTDIR"/overlay / \
++    $basedir/dracut.sh -l -i "$TESTDIR"/overlay / \
+ 	-a "debug dmsquash-live" \
+ 	-d "piix ide-gd_mod ata_piix ext3 sd_mod sr_mod" \
+ 	-f "$TESTDIR"/initramfs.testing "$KVERSION" || return 1
+@@ -69,7 +69,7 @@ test_setup() {
+ 	find_binary plymouth >/dev/null && inst_multiple plymouth
+ 	(cd "$initdir"; mkdir -p -- dev sys proc etc var/run tmp )
+ 	cp -a -- /etc/ld.so.conf* "$initdir"/etc
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+     python create.py -d -c livecd-fedora-minimal.ks
+     return 0
+diff --git a/test/TEST-17-LVM-THIN/test.sh b/test/TEST-17-LVM-THIN/test.sh
+index dc6e588..f15e1a3 100755
+--- a/test/TEST-17-LVM-THIN/test.sh
++++ b/test/TEST-17-LVM-THIN/test.sh
+@@ -40,7 +40,7 @@ test_setup() {
+ 	(cd "$initdir"; mkdir -p dev sys proc etc var/run tmp )
+ 	cp -a /etc/ld.so.conf* $initdir/etc
+ 	mkdir $initdir/run
+-	sudo ldconfig -r "$initdir"
++	ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -74,7 +74,7 @@ test_setup() {
+ 	inst_hook emergency 000 ./hard-off.sh
+ 	inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-o "plymouth network" \
+ 	-a "debug" -I lvs \
+ 	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
+diff --git a/test/TEST-20-NFS/test.sh b/test/TEST-20-NFS/test.sh
+index 49dbc10..64fc550 100755
+--- a/test/TEST-20-NFS/test.sh
++++ b/test/TEST-20-NFS/test.sh
+@@ -26,7 +26,7 @@ run_server() {
+         -append "rd.debug loglevel=77 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
+         -initrd $TESTDIR/initramfs.server \
+         -pidfile $TESTDIR/server.pid -daemonize || return 1
+-    sudo chmod 644 $TESTDIR/server.pid || return 1
++    chmod 644 $TESTDIR/server.pid || return 1
+ 
+     # Cleanup the terminal if we have one
+     tty -s && stty sane
+@@ -185,7 +185,7 @@ test_nfsv4() {
+ 
+ test_run() {
+     if [[ -s server.pid ]]; then
+-        sudo kill -TERM $(cat $TESTDIR/server.pid)
++        kill -TERM $(cat $TESTDIR/server.pid)
+         rm -f -- $TESTDIR/server.pid
+     fi
+ 
+@@ -200,7 +200,7 @@ test_run() {
+     ret=$?
+ 
+     if [[ -s $TESTDIR/server.pid ]]; then
+-        sudo kill -TERM $(cat $TESTDIR/server.pid)
++        kill -TERM $(cat $TESTDIR/server.pid)
+         rm -f -- $TESTDIR/server.pid
+     fi
+ 
+@@ -212,7 +212,7 @@ test_setup() {
+     dd if=/dev/null of=$TESTDIR/server.ext3 bs=1M seek=60
+     mke2fs -j -F $TESTDIR/server.ext3
+     mkdir $TESTDIR/mnt
+-    sudo mount -o loop $TESTDIR/server.ext3 $TESTDIR/mnt
++    mount -o loop $TESTDIR/server.ext3 $TESTDIR/mnt
+ 
+ 
+     export kernel=$KVERSION
+@@ -279,7 +279,7 @@ test_setup() {
+         inst /etc/group /etc/group
+ 
+         cp -a /etc/ld.so.conf* $initdir/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+         dracut_kernel_post
+     )
+ 
+@@ -318,14 +318,14 @@ test_setup() {
+         inst_libdir_file -n "$_nsslibs" 'libnss_*.so*'
+ 
+         cp -a /etc/ld.so.conf* $initdir/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+     )
+ 
+     mkdir -p $TESTDIR/mnt/nfs/nfs3-5
+     mkdir -p $TESTDIR/mnt/nfs/ip/192.168.50.101
+     mkdir -p $TESTDIR/mnt/nfs/tftpboot/nfs4-5
+ 
+-    sudo umount $TESTDIR/mnt
++    umount $TESTDIR/mnt
+     rm -fr -- $TESTDIR/mnt
+ 
+     # Make an overlay with needed tools for the test harness
+@@ -354,7 +354,7 @@ test_setup() {
+ 
+ test_cleanup() {
+     if [[ -s $TESTDIR/server.pid ]]; then
+-        sudo kill -TERM $(cat $TESTDIR/server.pid)
++        kill -TERM $(cat $TESTDIR/server.pid)
+         rm -f -- $TESTDIR/server.pid
+     fi
+ }
+diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
+index 5e59f0a..62bef9c 100755
+--- a/test/TEST-30-ISCSI/test.sh
++++ b/test/TEST-30-ISCSI/test.sh
+@@ -28,7 +28,7 @@ run_server() {
+         -append "root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0 $SERVER_DEBUG" \
+         -initrd $TESTDIR/initramfs.server \
+         -pidfile $TESTDIR/server.pid -daemonize || return 1
+-    sudo chmod 644 $TESTDIR/server.pid || return 1
++    chmod 644 $TESTDIR/server.pid || return 1
+ 
+     # Cleanup the terminal if we have one
+     tty -s && stty sane
+@@ -129,7 +129,7 @@ test_run() {
+     do_test_run
+     ret=$?
+     if [[ -s $TESTDIR/server.pid ]]; then
+-        sudo kill -TERM $(cat $TESTDIR/server.pid)
++        kill -TERM $(cat $TESTDIR/server.pid)
+         rm -f -- $TESTDIR/server.pid
+     fi
+     return $ret
+@@ -169,7 +169,7 @@ test_setup() {
+         inst_simple /etc/os-release
+         inst ./client-init.sh /sbin/init
+         cp -a /etc/ld.so.conf* $initdir/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -216,7 +216,7 @@ test_setup() {
+         inst_hook emergency 000 ./hard-off.sh
+         inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+         -o "plymouth dmraid nfs" \
+         -a "debug" \
+         -d "af_packet piix ide-gd_mod ata_piix ext3 sd_mod" \
+@@ -227,7 +227,7 @@ test_setup() {
+     dd if=/dev/null of=$TESTDIR/server.ext3 bs=1M seek=60
+     mkfs.ext3 -j -F $TESTDIR/server.ext3
+     mkdir $TESTDIR/mnt
+-    sudo mount -o loop $TESTDIR/server.ext3 $TESTDIR/mnt
++    mount -o loop $TESTDIR/server.ext3 $TESTDIR/mnt
+ 
+     kernel=$KVERSION
+     (
+@@ -259,11 +259,11 @@ test_setup() {
+         inst /etc/group /etc/group
+ 
+         cp -a /etc/ld.so.conf* $initdir/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+         dracut_kernel_post
+     )
+ 
+-    sudo umount $TESTDIR/mnt
++    umount $TESTDIR/mnt
+     rm -fr -- $TESTDIR/mnt
+ 
+     # Make server's dracut image
+@@ -277,7 +277,7 @@ test_setup() {
+ 
+ test_cleanup() {
+     if [[ -s $TESTDIR/server.pid ]]; then
+-        sudo kill -TERM $(cat $TESTDIR/server.pid)
++        kill -TERM $(cat $TESTDIR/server.pid)
+         rm -f -- $TESTDIR/server.pid
+     fi
+ }
+diff --git a/test/TEST-40-NBD/test.sh b/test/TEST-40-NBD/test.sh
+index 848a103..73123c2 100755
+--- a/test/TEST-40-NBD/test.sh
++++ b/test/TEST-40-NBD/test.sh
+@@ -26,7 +26,7 @@ run_server() {
+         -kernel /boot/vmlinuz-$KVERSION \
+         -append "root=/dev/sda rootfstype=ext2 rw quiet console=ttyS0,115200n81 selinux=0" \
+         -initrd $TESTDIR/initramfs.server -pidfile $TESTDIR/server.pid -daemonize || return 1
+-    sudo chmod 644 $TESTDIR/server.pid || return 1
++    chmod 644 $TESTDIR/server.pid || return 1
+ 
+     # Cleanup the terminal if we have one
+     tty -s && stty sane
+@@ -179,7 +179,7 @@ client_run() {
+         "root=LABEL=dracut rd.luks.uuid=$ID_FS_UUID rd.lv.vg=dracut netroot=dhcp" || return 1
+ 
+     if [[ -s server.pid ]]; then
+-        sudo kill -TERM $(cat $TESTDIR/server.pid)
++        kill -TERM $(cat $TESTDIR/server.pid)
+         rm -f -- $TESTDIR/server.pid
+     fi
+ 
+@@ -207,7 +207,7 @@ make_encrypted_root() {
+         inst_simple /etc/os-release
+         find_binary plymouth >/dev/null && inst_multiple plymouth
+         cp -a /etc/ld.so.conf* $initdir/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+     )
+ 
+     # second, install the files needed to make the root filesystem
+@@ -247,7 +247,7 @@ make_client_root() {
+     dd if=/dev/null of=$TESTDIR/nbd.ext2 bs=1M seek=30
+     mke2fs -F -j $TESTDIR/nbd.ext2
+     mkdir $TESTDIR/mnt
+-    sudo mount -o loop $TESTDIR/nbd.ext2 $TESTDIR/mnt
++    mount -o loop $TESTDIR/nbd.ext2 $TESTDIR/mnt
+ 
+     kernel=$KVERSION
+     (
+@@ -271,10 +271,10 @@ make_client_root() {
+             inst $i
+         done
+         cp -a /etc/ld.so.conf* $initdir/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+     )
+ 
+-    sudo umount $TESTDIR/mnt
++    umount $TESTDIR/mnt
+     rm -fr -- $TESTDIR/mnt
+ }
+ 
+@@ -282,7 +282,7 @@ make_server_root() {
+     dd if=/dev/null of=$TESTDIR/server.ext2 bs=1M seek=30
+     mke2fs -F $TESTDIR/server.ext2
+     mkdir $TESTDIR/mnt
+-    sudo mount -o loop $TESTDIR/server.ext2 $TESTDIR/mnt
++    mount -o loop $TESTDIR/server.ext2 $TESTDIR/mnt
+ 
+     kernel=$KVERSION
+     (
+@@ -316,10 +316,10 @@ make_server_root() {
+         done
+ 
+         cp -a /etc/ld.so.conf* $initdir/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+     )
+ 
+-    sudo umount $TESTDIR/mnt
++    umount $TESTDIR/mnt
+     rm -fr -- $TESTDIR/mnt
+ }
+ 
+@@ -347,12 +347,12 @@ test_setup() {
+         echo -n test > $initdir/etc/key
+     )
+ 
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+         -m "udev-rules rootfs-block fs-lib base debug kernel-modules" \
+         -d "af_packet piix ide-gd_mod ata_piix ext2 ext3 sd_mod e1000" \
+         -f $TESTDIR/initramfs.server $KVERSION || return 1
+ 
+-    sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
++    $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+         -o "plymouth" \
+         -a "debug watchdog" \
+         -d "af_packet piix ide-gd_mod ata_piix ext2 ext3 sd_mod e1000 i6300esb ib700wdt" \
+@@ -361,7 +361,7 @@ test_setup() {
+ 
+ kill_server() {
+     if [[ -s $TESTDIR/server.pid ]]; then
+-        sudo kill -TERM $(cat $TESTDIR/server.pid)
++        kill -TERM $(cat $TESTDIR/server.pid)
+         rm -f -- $TESTDIR/server.pid
+     fi
+ }
+diff --git a/test/TEST-50-MULTINIC/test.sh b/test/TEST-50-MULTINIC/test.sh
+index 05273be..642a748 100755
+--- a/test/TEST-50-MULTINIC/test.sh
++++ b/test/TEST-50-MULTINIC/test.sh
+@@ -26,7 +26,7 @@ run_server() {
+         -append "loglevel=7 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
+         -initrd "$TESTDIR"/initramfs.server \
+         -pidfile "$TESTDIR"/server.pid -daemonize || return 1
+-    sudo chmod 644 -- "$TESTDIR"/server.pid || return 1
++    chmod 644 -- "$TESTDIR"/server.pid || return 1
+ 
+     # Cleanup the terminal if we have one
+     tty -s && stty sane
+@@ -159,7 +159,7 @@ test_setup() {
+     dd if=/dev/null of="$TESTDIR"/server.ext3 bs=1M seek=60
+     mke2fs -j -F -- "$TESTDIR"/server.ext3
+     mkdir -- "$TESTDIR"/mnt
+-    sudo mount -o loop -- "$TESTDIR"/server.ext3 "$TESTDIR"/mnt
++    mount -o loop -- "$TESTDIR"/server.ext3 "$TESTDIR"/mnt
+ 
+     (
+         export initdir="$TESTDIR"/mnt
+@@ -222,7 +222,7 @@ test_setup() {
+         inst /etc/group /etc/group
+ 
+         cp -a -- /etc/ld.so.conf* "$initdir"/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+         dracut_kernel_post
+     )
+ 
+@@ -260,10 +260,10 @@ test_setup() {
+         inst_libdir_file -n "$_nsslibs" 'libnss_*.so*'
+ 
+         cp -a -- /etc/ld.so.conf* "$initdir"/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+     )
+ 
+-    sudo umount "$TESTDIR"/mnt
++    umount "$TESTDIR"/mnt
+     rm -fr -- "$TESTDIR"/mnt
+ 
+     # Make an overlay with needed tools for the test harness
+@@ -291,7 +291,7 @@ test_setup() {
+ 
+ kill_server() {
+     if [[ -s "$TESTDIR"/server.pid ]]; then
+-        sudo kill -TERM -- $(cat "$TESTDIR"/server.pid)
++        kill -TERM -- $(cat "$TESTDIR"/server.pid)
+         rm -f -- "$TESTDIR"/server.pid
+     fi
+ }
+diff --git a/test/TEST-60-MTUMAC/test.sh b/test/TEST-60-MTUMAC/test.sh
+index 7633ac1..b70e316 100755
+--- a/test/TEST-60-MTUMAC/test.sh
++++ b/test/TEST-60-MTUMAC/test.sh
+@@ -25,7 +25,7 @@ run_server() {
+         -append "loglevel=7 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
+         -initrd "$TESTDIR"/initramfs.server \
+         -pidfile "$TESTDIR"/server.pid -daemonize || return 1
+-    sudo chmod 644 -- "$TESTDIR"/server.pid || return 1
++    chmod 644 -- "$TESTDIR"/server.pid || return 1
+ 
+     # Cleanup the terminal if we have one
+     tty -s && stty sane
+@@ -136,7 +136,7 @@ test_setup() {
+     dd if=/dev/null of="$TESTDIR"/server.ext3 bs=1M seek=60
+     mke2fs -j -F -- "$TESTDIR"/server.ext3
+     mkdir -- "$TESTDIR"/mnt
+-    sudo mount -o loop -- "$TESTDIR"/server.ext3 "$TESTDIR"/mnt
++    mount -o loop -- "$TESTDIR"/server.ext3 "$TESTDIR"/mnt
+ 
+     (
+         export initdir="$TESTDIR"/mnt
+@@ -237,10 +237,10 @@ test_setup() {
+         inst_libdir_file -n "$_nsslibs" 'libnss_*.so*'
+ 
+         cp -a -- /etc/ld.so.conf* "$initdir"/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+     )
+ 
+-    sudo umount "$TESTDIR"/mnt
++    umount "$TESTDIR"/mnt
+     rm -fr -- "$TESTDIR"/mnt
+ 
+     # Make an overlay with needed tools for the test harness
+@@ -270,7 +270,7 @@ test_setup() {
+ 
+ kill_server() {
+     if [[ -s "$TESTDIR"/server.pid ]]; then
+-        sudo kill -TERM -- $(cat "$TESTDIR"/server.pid)
++        kill -TERM -- $(cat "$TESTDIR"/server.pid)
+         rm -f -- "$TESTDIR"/server.pid
+     fi
+ }
+diff --git a/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh b/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh
+index 54ceb9e..dcf9d5c 100755
+--- a/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh
++++ b/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh
+@@ -32,7 +32,7 @@ run_server() {
+         -append "loglevel=7 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
+         -initrd "$TESTDIR"/initramfs.server \
+         -pidfile "$TESTDIR"/server.pid -daemonize || return 1
+-    sudo chmod 644 -- "$TESTDIR"/server.pid || return 1
++    chmod 644 -- "$TESTDIR"/server.pid || return 1
+ 
+     # Cleanup the terminal if we have one
+     tty -s && stty sane
+@@ -162,7 +162,7 @@ test_setup() {
+     dd if=/dev/null of="$TESTDIR"/server.ext3 bs=1M seek=60
+     mke2fs -j -F -- "$TESTDIR"/server.ext3
+     mkdir -- "$TESTDIR"/mnt
+-    sudo mount -o loop -- "$TESTDIR"/server.ext3 "$TESTDIR"/mnt
++    mount -o loop -- "$TESTDIR"/server.ext3 "$TESTDIR"/mnt
+ 
+     (
+         export initdir="$TESTDIR"/mnt
+@@ -263,10 +263,10 @@ test_setup() {
+         inst_libdir_file -n "$_nsslibs" 'libnss_*.so*'
+ 
+         cp -a -- /etc/ld.so.conf* "$initdir"/etc
+-        sudo ldconfig -r "$initdir"
++        ldconfig -r "$initdir"
+     )
+ 
+-    sudo umount "$TESTDIR"/mnt
++    umount "$TESTDIR"/mnt
+     rm -fr -- "$TESTDIR"/mnt
+ 
+     # Make an overlay with needed tools for the test harness
+@@ -296,7 +296,7 @@ test_setup() {
+ 
+ kill_server() {
+     if [[ -s "$TESTDIR"/server.pid ]]; then
+-        sudo kill -TERM -- $(cat "$TESTDIR"/server.pid)
++        kill -TERM -- $(cat "$TESTDIR"/server.pid)
+         rm -f -- "$TESTDIR"/server.pid
+     fi
+ }
+diff --git a/test/run-qemu b/test/run-qemu
+index 00c2f6a..07ce4a5 100755
+--- a/test/run-qemu
++++ b/test/run-qemu
+@@ -25,4 +25,4 @@ else
+     VMLINUZ="/boot/vmlinuz-${KVERSION}"
+ fi
+ 
+-exec sudo $BIN $ARGS -kernel $VMLINUZ "$@"
++exec $BIN $ARGS -kernel $VMLINUZ "$@"

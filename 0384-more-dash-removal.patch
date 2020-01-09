@@ -1,0 +1,131 @@
+From b14e0fb8267de59618dbfe4db79b12dcced6b1ec Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Tue, 1 Mar 2016 13:38:05 +0100
+Subject: [PATCH] more dash removal
+
+---
+ test/TEST-02-SYSTEMD/test.sh      | 2 +-
+ test/TEST-04-FULL-SYSTEMD/test.sh | 4 ++--
+ test/TEST-11-LVM/test.sh          | 2 +-
+ test/TEST-13-ENC-RAID-LVM/test.sh | 2 +-
+ test/TEST-15-BTRFSRAID/test.sh    | 2 +-
+ test/TEST-20-NFS/test.sh          | 4 ++--
+ test/TEST-30-ISCSI/test.sh        | 4 ++--
+ 7 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/test/TEST-02-SYSTEMD/test.sh b/test/TEST-02-SYSTEMD/test.sh
+index 4ebff83..47268b0 100755
+--- a/test/TEST-02-SYSTEMD/test.sh
++++ b/test/TEST-02-SYSTEMD/test.sh
+@@ -58,7 +58,7 @@ test_setup() {
+     # We do it this way so that we do not risk trashing the host mdraid
+     # devices, volume groups, encrypted partitions, etc.
+     $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+-	-m "dash udev-rules base rootfs-block fs-lib kernel-modules" \
++	-m "udev-rules base rootfs-block fs-lib kernel-modules" \
+ 	-d "piix ide-gd_mod ata_piix ext3 sd_mod" \
+         --nomdadmconf \
+ 	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
+diff --git a/test/TEST-04-FULL-SYSTEMD/test.sh b/test/TEST-04-FULL-SYSTEMD/test.sh
+index 3834238..01b406d 100755
+--- a/test/TEST-04-FULL-SYSTEMD/test.sh
++++ b/test/TEST-04-FULL-SYSTEMD/test.sh
+@@ -232,7 +232,7 @@ EOF
+     # We do it this way so that we do not risk trashing the host mdraid
+     # devices, volume groups, encrypted partitions, etc.
+     $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+-	-m "dash udev-rules btrfs base rootfs-block fs-lib kernel-modules" \
++	-m "udev-rules btrfs base rootfs-block fs-lib kernel-modules" \
+ 	-d "piix ide-gd_mod ata_piix btrfs sd_mod" \
+         --nomdadmconf \
+         --nohardlink \
+@@ -264,7 +264,7 @@ EOF
+     sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+ 	-a "debug systemd" \
+ 	-I "/etc/machine-id /etc/hostname" \
+-        -o "dash network plymouth lvm mdraid resume crypt i18n caps dm terminfo usrmount" \
++        -o "network plymouth lvm mdraid resume crypt i18n caps dm terminfo usrmount" \
+ 	-d "piix ide-gd_mod ata_piix btrfs sd_mod i6300esb ib700wdt" \
+ 	-f $TESTDIR/initramfs.testing $KVERSION || return 1
+ 
+diff --git a/test/TEST-11-LVM/test.sh b/test/TEST-11-LVM/test.sh
+index c3c27bc..dd1f8ea 100755
+--- a/test/TEST-11-LVM/test.sh
++++ b/test/TEST-11-LVM/test.sh
+@@ -57,7 +57,7 @@ test_setup() {
+     # We do it this way so that we do not risk trashing the host mdraid
+     # devices, volume groups, encrypted partitions, etc.
+     $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+-	-m "dash lvm mdraid udev-rules base rootfs-block fs-lib kernel-modules" \
++	-m "lvm mdraid udev-rules base rootfs-block fs-lib kernel-modules" \
+ 	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
+ 	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
+     rm -rf -- $TESTDIR/overlay
+diff --git a/test/TEST-13-ENC-RAID-LVM/test.sh b/test/TEST-13-ENC-RAID-LVM/test.sh
+index 993f71d..7f75b32 100755
+--- a/test/TEST-13-ENC-RAID-LVM/test.sh
++++ b/test/TEST-13-ENC-RAID-LVM/test.sh
+@@ -94,7 +94,7 @@ test_setup() {
+     # We do it this way so that we do not risk trashing the host mdraid
+     # devices, volume groups, encrypted partitions, etc.
+     $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+-	-m "dash crypt lvm mdraid udev-rules base rootfs-block fs-lib kernel-modules" \
++	-m "crypt lvm mdraid udev-rules base rootfs-block fs-lib kernel-modules" \
+ 	-d "piix ide-gd_mod ata_piix ext2 sd_mod" \
+ 	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
+     rm -rf -- $TESTDIR/overlay
+diff --git a/test/TEST-15-BTRFSRAID/test.sh b/test/TEST-15-BTRFSRAID/test.sh
+index 9b97136..c086677 100755
+--- a/test/TEST-15-BTRFSRAID/test.sh
++++ b/test/TEST-15-BTRFSRAID/test.sh
+@@ -58,7 +58,7 @@ test_setup() {
+     # We do it this way so that we do not risk trashing the host mdraid
+     # devices, volume groups, encrypted partitions, etc.
+     $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+-	-m "dash btrfs udev-rules base rootfs-block fs-lib kernel-modules" \
++	-m "btrfs udev-rules base rootfs-block fs-lib kernel-modules" \
+ 	-d "piix ide-gd_mod ata_piix btrfs sd_mod" \
+         --nomdadmconf \
+ 	-f $TESTDIR/initramfs.makeroot $KVERSION || return 1
+diff --git a/test/TEST-20-NFS/test.sh b/test/TEST-20-NFS/test.sh
+index 14350e9..49dbc10 100755
+--- a/test/TEST-20-NFS/test.sh
++++ b/test/TEST-20-NFS/test.sh
+@@ -340,13 +340,13 @@ test_setup() {
+ 
+     # Make server's dracut image
+     $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+-        -m "dash udev-rules base rootfs-block fs-lib debug kernel-modules watchdog" \
++        -m "udev-rules base rootfs-block fs-lib debug kernel-modules watchdog" \
+         -d "af_packet piix ide-gd_mod ata_piix ext3 sd_mod e1000 i6300esb" \
+         -f $TESTDIR/initramfs.server $KVERSION || return 1
+ 
+     # Make client's dracut image
+     $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+-        -o "plymouth dash" \
++        -o "plymouth" \
+         -a "debug watchdog" \
+         -d "af_packet piix ide-gd_mod ata_piix sd_mod e1000 nfs sunrpc i6300esb" \
+         -f $TESTDIR/initramfs.testing $KVERSION || return 1
+diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
+index 65457a5..5e59f0a 100755
+--- a/test/TEST-30-ISCSI/test.sh
++++ b/test/TEST-30-ISCSI/test.sh
+@@ -217,7 +217,7 @@ test_setup() {
+         inst_simple ./99-idesymlinks.rules /etc/udev/rules.d/99-idesymlinks.rules
+     )
+     sudo $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+-        -o "dash plymouth dmraid nfs" \
++        -o "plymouth dmraid nfs" \
+         -a "debug" \
+         -d "af_packet piix ide-gd_mod ata_piix ext3 sd_mod" \
+         --no-hostonly-cmdline -N \
+@@ -268,7 +268,7 @@ test_setup() {
+ 
+     # Make server's dracut image
+     $basedir/dracut.sh -l -i $TESTDIR/overlay / \
+-        -a "dash udev-rules base rootfs-block fs-lib debug kernel-modules" \
++        -a "udev-rules base rootfs-block fs-lib debug kernel-modules" \
+         -d "af_packet piix ide-gd_mod ata_piix ext3 sd_mod e1000 drbg" \
+         --no-hostonly-cmdline -N \
+         -f $TESTDIR/initramfs.server $KVERSION || return 1

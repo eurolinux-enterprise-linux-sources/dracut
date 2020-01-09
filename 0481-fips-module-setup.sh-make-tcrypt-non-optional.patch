@@ -1,0 +1,28 @@
+From 1bb76cea727468cf2c1a05814b93a83711be3ee9 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 30 Nov 2016 15:01:39 +0100
+Subject: [PATCH] fips/module-setup.sh: make tcrypt non-optional
+
+---
+ modules.d/01fips/module-setup.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/modules.d/01fips/module-setup.sh b/modules.d/01fips/module-setup.sh
+index 3bf6c33..d553a8c 100755
+--- a/modules.d/01fips/module-setup.sh
++++ b/modules.d/01fips/module-setup.sh
+@@ -21,12 +21,12 @@ installkernel() {
+         _fipsmodules+="ecb eseqiv fcrypt gcm ghash_generic hmac khazad lzo md4 md5 michael_mic rmd128 "
+         _fipsmodules+="rmd160 rmd256 rmd320 rot13 salsa20 seed seqiv serpent sha1 sha224 sha256 sha256_generic "
+         _fipsmodules+="aes_s390 des_s390 prng sha256_s390 sha_common des_check_key sha1_s390 sha512_s390 "
+-        _fipsmodules+="sha384 sha512 sha512_generic tcrypt tea tnepres twofish wp256 wp384 wp512 xeta xtea xts zlib "
++        _fipsmodules+="sha384 sha512 sha512_generic tea tnepres twofish wp256 wp384 wp512 xeta xtea xts zlib "
+     fi
+ 
+     mkdir -m 0755 -p "${initdir}/etc/modprobe.d"
+ 
+-    for _mod in $_fipsmodules; do
++    for _mod in $_fipsmodules tcrypt; do
+         if hostonly='' instmods -c -s $_mod; then
+             echo $_mod >> "${initdir}/etc/fipsmodules"
+             echo "blacklist $_mod" >> "${initdir}/etc/modprobe.d/fips.conf"

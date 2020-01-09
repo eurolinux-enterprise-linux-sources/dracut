@@ -1,0 +1,24 @@
+From 13a61f82ba6379d407d45bb9225099cd755e3c5b Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Fri, 11 Nov 2016 11:34:33 +0100
+Subject: [PATCH] TEST-ISCSI: fix command check
+
+---
+ test/TEST-30-ISCSI/test.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
+index 62bef9c..da86b83 100755
+--- a/test/TEST-30-ISCSI/test.sh
++++ b/test/TEST-30-ISCSI/test.sh
+@@ -136,8 +136,8 @@ test_run() {
+ }
+ 
+ test_setup() {
+-    if [ ! -x /usr/sbin/iscsi-target ]; then
+-        echo "Need iscsi-target from netbsd-iscsi"
++    if ! command -v tgtd &>/dev/null || ! command -v tgtadm &>/dev/null; then
++        echo "Need tgtd and tgtadm from scsi-target-utils"
+         return 1
+     fi
+ 

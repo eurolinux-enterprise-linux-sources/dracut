@@ -1,0 +1,23 @@
+From 573e508554e219dc57c3fb6462db181beb584e94 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Mon, 4 Jul 2016 16:30:31 +0200
+Subject: [PATCH] dracut.spec: remove dd
+
+dd is part of coreutils
+---
+ dracut.spec | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dracut.spec b/dracut.spec
+index 5c4b047..780ed70 100644
+--- a/dracut.spec
++++ b/dracut.spec
+@@ -91,7 +91,7 @@ Requires: gzip xz
+ Requires: kmod
+ Requires: sed
+ Requires: kpartx
+-Requires: tar dd
++Requires: tar 
+ 
+ %if 0%{?fedora} || 0%{?rhel} > 6
+ Requires: util-linux >= 2.21

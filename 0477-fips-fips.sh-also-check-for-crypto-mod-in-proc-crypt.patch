@@ -1,0 +1,24 @@
+From 455f87f41f808e97c243585691e615bc1a487013 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 30 Nov 2016 13:54:49 +0100
+Subject: [PATCH] fips/fips.sh: also check for crypto-$mod in /proc/crypto
+
+if the module name is the alias crypto-<algo>, check if <algo> is in
+/proc/crypto as "name : <algo>" or "driver: <algo>"
+---
+ modules.d/01fips/fips.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules.d/01fips/fips.sh b/modules.d/01fips/fips.sh
+index 7fa48f1..0b69a82 100755
+--- a/modules.d/01fips/fips.sh
++++ b/modules.d/01fips/fips.sh
+@@ -96,7 +96,7 @@ do_fips()
+                 _found=0
+                 while read _k _s _v; do
+                     [ "$_k" != "name" -a "$_k" != "driver" ] && continue
+-                    [ "$_v" != "$_module" ] && continue
++                    [ "$_v" != "$_module" ] && [ "crypto-$_v" != "$_module" ] && continue
+                     _found=1
+                     break
+                 done </proc/crypto

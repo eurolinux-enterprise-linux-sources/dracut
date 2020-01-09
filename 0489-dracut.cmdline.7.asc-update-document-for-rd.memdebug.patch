@@ -1,0 +1,38 @@
+From 01e66d43d84a9df9aa5de78a203b4c32e0fa98ec Mon Sep 17 00:00:00 2001
+From: Xunlei Pang <xlpang@redhat.com>
+Date: Fri, 25 Nov 2016 14:55:43 +0800
+Subject: [PATCH] dracut.cmdline.7.asc: update document for rd.memdebug=4
+
+"rd.memdebug=4" is for kernel module memory consumption debugging.
+
+Signed-off-by: Xunlei Pang <xlpang@redhat.com>
+---
+ dracut.cmdline.7.asc | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
+index b479fa8..1626638 100644
+--- a/dracut.cmdline.7.asc
++++ b/dracut.cmdline.7.asc
+@@ -161,8 +161,8 @@ It should be attached to any report about dracut problems.
+     _/run/initramfs/init.log_.
+     If "quiet" is set, it also logs to the console.
+ 
+-**rd.memdebug=[0-3]**::
+-    Print memory usage info at various points, set the verbose level from 0 to 3.
++**rd.memdebug=[0-4]**::
++    Print memory usage info at various points, set the verbose level from 0 to 4.
+ +    
+     Higher level means more debugging output:
+ +
+@@ -171,6 +171,10 @@ It should be attached to any report about dracut problems.
+     1 - partial /proc/meminfo
+     2 - /proc/meminfo
+     3 - /proc/meminfo + /proc/slabinfo
++    4 - /proc/meminfo + /proc/slabinfo + tracekomem
++        NOTE: tracekomem is a shell script utilizing kernel trace to track
++              the rough total memory consumption of kernel modules during
++              loading. It may override other trace configurations.
+ ----
+ 
+ **rd.break**::

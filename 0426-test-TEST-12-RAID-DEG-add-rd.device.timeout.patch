@@ -1,0 +1,41 @@
+From 6efee60f93ed8456ba93f72dd5d0443380a317f0 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 30 Jun 2016 15:27:04 +0200
+Subject: [PATCH] test/TEST-12-RAID-DEG: add rd.device.timeout
+
+---
+ test/TEST-12-RAID-DEG/test.sh | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/test/TEST-12-RAID-DEG/test.sh b/test/TEST-12-RAID-DEG/test.sh
+index e749ba0..5f9cfc5 100755
+--- a/test/TEST-12-RAID-DEG/test.sh
++++ b/test/TEST-12-RAID-DEG/test.sh
+@@ -36,19 +36,19 @@ test_run() {
+     echo "MD_UUID=$MD_UUID"
+     read LUKS_UUID < $TESTDIR/luksuuid
+ 
+-    client_run failme && return 1
+-    client_run rd.auto || return 1
++    client_run rd.device.timeout=60 failme && return 1
++    client_run rd.device.timeout=60 rd.auto || return 1
+ 
+ 
+-    client_run rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.md.conf=0 rd.lvm.vg=dracut || return 1
++    client_run rd.device.timeout=60 rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.md.conf=0 rd.lvm.vg=dracut || return 1
+ 
+-    client_run rd.luks.uuid=$LUKS_UUID rd.md.uuid=failme rd.md.conf=0 rd.lvm.vg=dracut failme && return 1
++    client_run rd.device.timeout=60 rd.luks.uuid=$LUKS_UUID rd.md.uuid=failme rd.md.conf=0 rd.lvm.vg=dracut failme && return 1
+ 
+-    client_run rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.lvm=0 failme && return 1
+-    client_run rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.lvm=0 rd.auto=1 failme && return 1
+-    client_run rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.lvm.vg=failme failme && return 1
++    client_run rd.device.timeout=60 rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.lvm=0 failme && return 1
++    client_run rd.device.timeout=60 rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.lvm=0 rd.auto=1 failme && return 1
++    client_run rd.device.timeout=60 rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.lvm.vg=failme failme && return 1
+     client_run rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.lvm.vg=dracut || return 1
+-    client_run rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.lvm.lv=dracut/failme failme && return 1
++    client_run rd.device.timeout=60 rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.lvm.lv=dracut/failme failme && return 1
+     client_run rd.luks.uuid=$LUKS_UUID rd.md.uuid=$MD_UUID rd.lvm.lv=dracut/root || return 1
+ 
+     return 0

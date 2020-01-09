@@ -1,0 +1,159 @@
+From fd8506b5da5e81736f408bc3c4c801544a38899e Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 30 Jun 2016 16:34:06 +0200
+Subject: [PATCH] systemd: let booting work after exiting emergency
+
+If the user managed to mount /sysroot, let it work
+---
+ modules.d/98systemd/dracut-cmdline-ask.service | 1 -
+ modules.d/98systemd/dracut-cmdline.service     | 1 -
+ modules.d/98systemd/dracut-emergency.service   | 2 --
+ modules.d/98systemd/dracut-initqueue.service   | 1 -
+ modules.d/98systemd/dracut-mount.service       | 1 -
+ modules.d/98systemd/dracut-pre-mount.service   | 1 -
+ modules.d/98systemd/dracut-pre-pivot.service   | 1 -
+ modules.d/98systemd/dracut-pre-trigger.service | 1 -
+ modules.d/98systemd/dracut-pre-udev.service    | 1 -
+ modules.d/98systemd/emergency.service          | 7 +++----
+ 10 files changed, 3 insertions(+), 14 deletions(-)
+
+diff --git a/modules.d/98systemd/dracut-cmdline-ask.service b/modules.d/98systemd/dracut-cmdline-ask.service
+index 3d489a4..f9dd379 100644
+--- a/modules.d/98systemd/dracut-cmdline-ask.service
++++ b/modules.d/98systemd/dracut-cmdline-ask.service
+@@ -16,7 +16,6 @@ Wants=systemd-journald.socket
+ ConditionPathExists=/etc/initrd-release
+ ConditionKernelCommandLine=rd.cmdline=ask
+ Conflicts=shutdown.target emergency.target
+-Before=shutdown.target emergency.target
+ 
+ [Service]
+ Environment=DRACUT_SYSTEMD=1
+diff --git a/modules.d/98systemd/dracut-cmdline.service b/modules.d/98systemd/dracut-cmdline.service
+index 7f0835b..e4797ca 100644
+--- a/modules.d/98systemd/dracut-cmdline.service
++++ b/modules.d/98systemd/dracut-cmdline.service
+@@ -21,7 +21,6 @@ ConditionKernelCommandLine=|rd.break=cmdline
+ ConditionKernelCommandLine=|resume
+ ConditionKernelCommandLine=|noresume
+ Conflicts=shutdown.target emergency.target
+-Before=shutdown.target emergency.target
+ 
+ [Service]
+ Environment=DRACUT_SYSTEMD=1
+diff --git a/modules.d/98systemd/dracut-emergency.service b/modules.d/98systemd/dracut-emergency.service
+index 5c01411..183f3af 100644
+--- a/modules.d/98systemd/dracut-emergency.service
++++ b/modules.d/98systemd/dracut-emergency.service
+@@ -12,10 +12,8 @@ Description=Dracut Emergency Shell
+ DefaultDependencies=no
+ After=systemd-vconsole-setup.service
+ Wants=systemd-vconsole-setup.service
+-Conflicts=emergency.service emergency.target
+ ConditionPathExists=!/lib/dracut/no-emergency-shell
+ Conflicts=shutdown.target emergency.target
+-Before=shutdown.target emergency.target
+ 
+ [Service]
+ Environment=HOME=/
+diff --git a/modules.d/98systemd/dracut-initqueue.service b/modules.d/98systemd/dracut-initqueue.service
+index 6340dd4..46d041e 100644
+--- a/modules.d/98systemd/dracut-initqueue.service
++++ b/modules.d/98systemd/dracut-initqueue.service
+@@ -24,7 +24,6 @@ ConditionPathExistsGlob=|/lib/dracut/hooks/initqueue/online/*.sh
+ ConditionPathExistsGlob=|/lib/dracut/hooks/initqueue/timeout/*.sh
+ ConditionKernelCommandLine=|rd.break=initqueue
+ Conflicts=shutdown.target emergency.target
+-Before=shutdown.target emergency.target
+ 
+ [Service]
+ Environment=DRACUT_SYSTEMD=1
+diff --git a/modules.d/98systemd/dracut-mount.service b/modules.d/98systemd/dracut-mount.service
+index 2e1e47b..e8e33fb 100644
+--- a/modules.d/98systemd/dracut-mount.service
++++ b/modules.d/98systemd/dracut-mount.service
+@@ -16,7 +16,6 @@ ConditionPathExists=/etc/initrd-release
+ ConditionDirectoryNotEmpty=|/lib/dracut/hooks/mount
+ ConditionKernelCommandLine=|rd.break=mount
+ Conflicts=shutdown.target emergency.target
+-Before=shutdown.target emergency.target
+ 
+ [Service]
+ Environment=DRACUT_SYSTEMD=1
+diff --git a/modules.d/98systemd/dracut-pre-mount.service b/modules.d/98systemd/dracut-pre-mount.service
+index ed67f9d..48c9b40 100644
+--- a/modules.d/98systemd/dracut-pre-mount.service
++++ b/modules.d/98systemd/dracut-pre-mount.service
+@@ -18,7 +18,6 @@ ConditionPathExists=/etc/initrd-release
+ ConditionDirectoryNotEmpty=|/lib/dracut/hooks/pre-mount
+ ConditionKernelCommandLine=|rd.break=pre-mount
+ Conflicts=shutdown.target emergency.target
+-Before=shutdown.target emergency.target
+ 
+ [Service]
+ Environment=DRACUT_SYSTEMD=1
+diff --git a/modules.d/98systemd/dracut-pre-pivot.service b/modules.d/98systemd/dracut-pre-pivot.service
+index 1faeb78..ae1f155 100644
+--- a/modules.d/98systemd/dracut-pre-pivot.service
++++ b/modules.d/98systemd/dracut-pre-pivot.service
+@@ -17,7 +17,6 @@ Wants=remote-fs.target
+ After=remote-fs.target
+ ConditionPathExists=/etc/initrd-release
+ Conflicts=shutdown.target emergency.target
+-Before=shutdown.target emergency.target
+ 
+ [Service]
+ Environment=DRACUT_SYSTEMD=1
+diff --git a/modules.d/98systemd/dracut-pre-trigger.service b/modules.d/98systemd/dracut-pre-trigger.service
+index f198036..5657450 100644
+--- a/modules.d/98systemd/dracut-pre-trigger.service
++++ b/modules.d/98systemd/dracut-pre-trigger.service
+@@ -18,7 +18,6 @@ ConditionPathExists=/etc/initrd-release
+ ConditionDirectoryNotEmpty=|/lib/dracut/hooks/pre-trigger
+ ConditionKernelCommandLine=|rd.break=pre-trigger
+ Conflicts=shutdown.target emergency.target
+-Before=shutdown.target emergency.target
+ 
+ [Service]
+ Environment=DRACUT_SYSTEMD=1
+diff --git a/modules.d/98systemd/dracut-pre-udev.service b/modules.d/98systemd/dracut-pre-udev.service
+index 7fb3304..a554eb7 100644
+--- a/modules.d/98systemd/dracut-pre-udev.service
++++ b/modules.d/98systemd/dracut-pre-udev.service
+@@ -21,7 +21,6 @@ ConditionKernelCommandLine=|rd.driver.blacklist
+ ConditionKernelCommandLine=|rd.driver.pre
+ ConditionKernelCommandLine=|rd.driver.post
+ Conflicts=shutdown.target emergency.target
+-Before=shutdown.target emergency.target
+ 
+ [Service]
+ Environment=DRACUT_SYSTEMD=1
+diff --git a/modules.d/98systemd/emergency.service b/modules.d/98systemd/emergency.service
+index 5c2c1c7..5da3aa3 100644
+--- a/modules.d/98systemd/emergency.service
++++ b/modules.d/98systemd/emergency.service
+@@ -14,21 +14,20 @@ After=systemd-vconsole-setup.service
+ Wants=systemd-vconsole-setup.service
+ ConditionPathExists=!/lib/dracut/no-emergency-shell
+ Conflicts=shutdown.target
+-Before=shutdown.target
+ 
+ [Service]
+ Environment=HOME=/
+ Environment=DRACUT_SYSTEMD=1
+ Environment=NEWROOT=/sysroot
+ WorkingDirectory=/
+-ExecStart=/bin/dracut-emergency
+-ExecStopPost=-/usr/bin/systemctl --fail --no-block default
+-Type=oneshot
++ExecStart=-/bin/dracut-emergency
++ExecStopPost=-/usr/bin/systemctl --no-block isolate default.target
+ StandardInput=tty-force
+ StandardOutput=inherit
+ StandardError=inherit
+ KillMode=process
+ IgnoreSIGPIPE=no
++TimeoutStartSec=0
+ 
+ # Bash ignores SIGTERM, so we send SIGHUP instead, to ensure that bash
+ # terminates cleanly.

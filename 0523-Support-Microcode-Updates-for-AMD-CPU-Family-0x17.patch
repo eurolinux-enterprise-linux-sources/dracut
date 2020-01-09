@@ -1,0 +1,30 @@
+From f93c34935fcf5cc70118766b3ae0150d44a5185c Mon Sep 17 00:00:00 2001
+From: Daniel Molkentin <dmolkentin@suse.com>
+Date: Tue, 12 Dec 2017 17:48:36 +0100
+Subject: [PATCH] Support Microcode Updates for AMD CPU Family 0x17
+
+Original-Patch-By: Tom Lendacky <thomas.lendacky@amd.com>
+
+Cherry-picked from: 215fe583240ae886c2096d502a96e44798b84163
+Resolves: #1476039
+---
+ dracut-functions.sh | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/dracut-functions.sh b/dracut-functions.sh
+index 4051596..ef52274 100755
+--- a/dracut-functions.sh
++++ b/dracut-functions.sh
+@@ -1739,7 +1739,11 @@ get_ucode_file ()
+ 
+     if [[ "$(get_cpu_vendor)" == "AMD" ]]; then
+         # If family greater or equal than 0x15
+-        if [[ $family -ge 21 ]]; then
++        if [[ $family -ge 23 ]]; then
++            printf "microcode_amd_fam17h.bin"
++        elif [[ $family -eq 22 ]]; then
++            printf "microcode_amd_fam16h.bin"
++        elif [[ $family -eq 21 ]]; then
+             printf "microcode_amd_fam15h.bin"
+         else
+             printf "microcode_amd.bin"

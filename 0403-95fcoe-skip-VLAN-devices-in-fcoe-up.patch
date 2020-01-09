@@ -1,0 +1,37 @@
+From b9668f8f000dc5d072ad4d12f7019776a0c18598 Mon Sep 17 00:00:00 2001
+From: Hannes Reinecke <hare@suse.de>
+Date: Thu, 11 Dec 2014 15:46:23 +0100
+Subject: [PATCH] 95fcoe: skip VLAN devices in fcoe-up
+
+DCB & fipvlan can only be called on real devices, not VLAN
+ones. So skip any VLAN devices which might been added to the
+list of network interfaces.
+
+References: bnc#878583
+
+Signed-off-by: Hannes Reinecke <hare@suse.de>
+Signed-off-by: Thomas Renninger <trenn@suse.de>
+(cherry picked from commit 0a68a26cffad7fc75e454b06206c0bbf297361b7)
+---
+ modules.d/95fcoe/fcoe-up.sh | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/modules.d/95fcoe/fcoe-up.sh b/modules.d/95fcoe/fcoe-up.sh
+index 1d62570..0399aff 100755
+--- a/modules.d/95fcoe/fcoe-up.sh
++++ b/modules.d/95fcoe/fcoe-up.sh
+@@ -22,6 +22,14 @@ netif=$1
+ dcb=$2
+ vlan="yes"
+ 
++iflink=$(cat /sys/class/net/$netif/iflink)
++ifindex=$(cat /sys/class/net/$netif/ifindex)
++if [ "$iflink" != "$ifindex" ] ; then
++    # Skip VLAN devices
++    exit 0
++fi
++
++ip link set dev $netif up
+ linkup "$netif"
+ 
+ netdriver=$(readlink -f /sys/class/net/$netif/device/driver)

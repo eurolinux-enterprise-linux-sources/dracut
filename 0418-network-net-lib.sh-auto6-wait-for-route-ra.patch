@@ -1,0 +1,25 @@
+From 6d22a6860ea22d4b5a78d0328be4524579cece98 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 30 Jun 2016 08:52:09 +0200
+Subject: [PATCH] network/net-lib.sh: auto6 wait for route ra
+
+Wait for a router advertised route
+---
+ modules.d/40network/net-lib.sh | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
+index 98dbbb6..b248133 100755
+--- a/modules.d/40network/net-lib.sh
++++ b/modules.d/40network/net-lib.sh
+@@ -659,7 +659,9 @@ wait_for_ipv6_auto() {
+     timeout=$(($timeout*10))
+ 
+     while [ $cnt -lt $timeout ]; do
+-        [ -z "$(ip -6 addr show dev $1 scope global tentative)" ] && return 0
++        [ -z "$(ip -6 addr show dev "$1" scope global tentative)" ] \
++            && [ -n "$(ip -6 route list proto ra dev "$1")" ] \
++            && return 0
+         sleep 0.1
+         cnt=$(($cnt+1))
+     done

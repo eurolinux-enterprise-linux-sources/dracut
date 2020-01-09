@@ -1,0 +1,43 @@
+From 9d030e4ef1037b0f3a75833f96803a341b084983 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Mon, 29 Feb 2016 13:12:02 +0100
+Subject: [PATCH] documentation: "--hostonly-i18n" "--no-hostonly-i18n"
+ "i18n_install_all"
+
+(cherry picked from commit fe6455a6e8f4b070ffa8116ef26d423a25d56049)
+---
+ dracut.8.asc      | 6 ++++++
+ dracut.conf.5.asc | 3 +++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/dracut.8.asc b/dracut.8.asc
+index 14ce26b..5f68d16 100644
+--- a/dracut.8.asc
++++ b/dracut.8.asc
+@@ -306,6 +306,12 @@ provide a valid _/etc/fstab_.
+ **--no-hostonly-cmdline**:
+     Do not store kernel command line arguments needed in the initramfs
+ 
++**--hostonly-i18n**:
++    Install only needed keyboard and font files according to the host configuration (default).
++
++**--no-hostonly-i18n**:
++    Install all keyboard and font files available.
++
+ **--persistent-policy** _<policy>_::
+     Use _<policy>_ to address disks and partitions.
+     _<policy>_ can be any directory name found in /dev/disk.
+diff --git a/dracut.conf.5.asc b/dracut.conf.5.asc
+index be62da9..99f70ff 100644
+--- a/dracut.conf.5.asc
++++ b/dracut.conf.5.asc
+@@ -79,6 +79,9 @@ Configuration files must have the extension .conf; other extensions are ignored.
+ *hostonly_cmdline*"__{yes|no}__"::
+     If set, store the kernel command line arguments needed in the initramfs
+ 
++*i18n_install_all=*"__{yes|no}__"::
++    If set to yes, install all available fonts and keyboard files.
++
+ *persistent_policy=*"__<policy>__"::
+     Use _<policy>_ to address disks and partitions.
+     _<policy>_ can be any directory name found in /dev/disk.

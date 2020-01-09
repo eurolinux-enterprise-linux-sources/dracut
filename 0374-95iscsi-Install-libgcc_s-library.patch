@@ -1,0 +1,29 @@
+From 9eab750787d7e94e53df282119640a5d2beb04e4 Mon Sep 17 00:00:00 2001
+From: Hannes Reinecke <hare@suse.de>
+Date: Thu, 25 Feb 2016 20:58:10 +0800
+Subject: [PATCH] 95iscsi: Install libgcc_s library
+
+iscsiuio is using pthread, which requires libgcc_s for
+pthread_cancel to work.
+Without this library iscsiuio will crash with SIGABRT.
+
+References: bnc#881692
+
+Signed-off-by: Hannes Reinecke <hare@suse.de>
+Signed-off-by: Thomas Renninger <trenn@suse.de>
+---
+ modules.d/95iscsi/module-setup.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/modules.d/95iscsi/module-setup.sh b/modules.d/95iscsi/module-setup.sh
+index 7ef0caa..422bea7 100755
+--- a/modules.d/95iscsi/module-setup.sh
++++ b/modules.d/95iscsi/module-setup.sh
+@@ -104,6 +104,7 @@ cmdline() {
+ install() {
+     inst_multiple umount iscsistart hostname iscsi-iname
+     inst_multiple -o iscsiuio
++    inst_libdir_file 'libgcc_s.so*'
+     inst_hook cmdline 90 "$moddir/parse-iscsiroot.sh"
+     inst_hook cleanup 90 "$moddir/cleanup-iscsi.sh"
+     inst "$moddir/iscsiroot.sh" "/sbin/iscsiroot"

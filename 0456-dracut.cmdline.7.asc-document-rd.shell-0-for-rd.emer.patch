@@ -1,0 +1,23 @@
+From 1d267fb82c1e12e06ef80de16f5232ef06c84240 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 17 Aug 2016 16:49:00 +0200
+Subject: [PATCH] dracut.cmdline.7.asc: document rd.shell=0 for rd.emergency
+
+---
+ dracut.cmdline.7.asc | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/dracut.cmdline.7.asc b/dracut.cmdline.7.asc
+index 1fb4f74..b479fa8 100644
+--- a/dracut.cmdline.7.asc
++++ b/dracut.cmdline.7.asc
+@@ -109,7 +109,8 @@ resume=UUID=3f5ad593-4546-4a94-a374-bcfb68aa11f7
+ Misc
+ ~~~~
+ **rd.emergency=**__[reboot|poweroff|halt]__::
+-    specify, what action to execute in case of a critical failure.
++    specify, what action to execute in case of a critical failure. rd.shell=0 also
++    be specified.
+ 
+ **rd.driver.blacklist=**__<drivername>__[,__<drivername>__,...]::
+     do not load kernel module <drivername>. This parameter can be specified

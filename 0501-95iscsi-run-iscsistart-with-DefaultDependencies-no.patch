@@ -1,0 +1,24 @@
+From 994a6cdd883482ccf24fa9587c28f0e6a8fe031d Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Thu, 15 Jun 2017 14:01:13 +0200
+Subject: [PATCH] 95iscsi: run iscsistart with DefaultDependencies=no
+
+In upstream part of 7e51a94f5bc6188511593eda9768aae41467ef04
+
+Resolves: #1461234
+---
+ modules.d/95iscsi/iscsiroot.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/modules.d/95iscsi/iscsiroot.sh b/modules.d/95iscsi/iscsiroot.sh
+index ce8f547..4cf3d35 100755
+--- a/modules.d/95iscsi/iscsiroot.sh
++++ b/modules.d/95iscsi/iscsiroot.sh
+@@ -182,6 +182,7 @@ handle_netroot()
+             if [ "$status" != "activating" ] && ! systemctl is-failed "$netroot_enc" >/dev/null 2>&1; then
+                 systemd-run --service-type=oneshot --remain-after-exit --quiet \
+                             --description="Login iSCSI Target $iscsi_target_name" \
++                            -p 'DefaultDependencies=no' \
+                             --unit="$netroot_enc" -- \
+                             $(command -v iscsistart) \
+                             -i "$iscsi_initiator" -t "$iscsi_target_name"        \

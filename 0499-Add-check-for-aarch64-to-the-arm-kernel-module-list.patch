@@ -1,0 +1,39 @@
+From 436052a84b84183a3b44b19d7a9db02d391bf26a Mon Sep 17 00:00:00 2001
+From: Peter Robinson <pbrobinson@gmail.com>
+Date: Thu, 23 Mar 2017 14:59:15 +0000
+Subject: [PATCH] Add check for aarch64 to the arm kernel module list
+
+This adds the same list of drivers we use for arm platforms for
+aarch64 too, also add the DMA drivers there too as they can add
+sigficant performance for some storage/usb and often need to be
+present when the storage drivers load.
+
+Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
+
+Cherry-picked from: 917e1b6b5b2669a30bce69061686adbb6abc5e35
+Resolves: #1459277
+---
+ modules.d/90kernel-modules/module-setup.sh | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/modules.d/90kernel-modules/module-setup.sh b/modules.d/90kernel-modules/module-setup.sh
+index 0a414ea..c4bf5af 100755
+--- a/modules.d/90kernel-modules/module-setup.sh
++++ b/modules.d/90kernel-modules/module-setup.sh
+@@ -52,13 +52,14 @@ installkernel() {
+             "=drivers/input/serio" \
+             "=drivers/input/keyboard"
+ 
+-        if [[ "$(uname -p)" == arm* ]]; then
+-            # arm specific modules
++	if [[ "$(uname -m)" == arm* || "$(uname -m)" == aarch64 ]]; then
++            # arm/aarch64 specific modules
+             hostonly='' instmods \
+ 	        connector-hdmi connector-dvi encoder-tfp410 \
+ 	        encoder-tpd12s015 i2c-tegra gpio-regulator \
+ 		as3722-regulator orion-ehci ehci-tegra
+             instmods \
++                "=drivers/dma" \
+                 "=drivers/i2c/busses" \
+                 "=drivers/regulator" \
+                 "=drivers/rtc" \

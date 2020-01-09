@@ -1,0 +1,81 @@
+From 61b5ee6d1d5708c0b41497facd8b97681f9729fb Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 29 Jun 2016 15:12:24 +0200
+Subject: [PATCH] network: set MTU and MACADDR for dhcp and auto6
+
+---
+ modules.d/40network/ifup.sh      | 7 ++++++-
+ modules.d/45ifcfg/write-ifcfg.sh | 7 +++----
+ 2 files changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
+index f681336..37f51b9 100755
+--- a/modules.d/40network/ifup.sh
++++ b/modules.d/40network/ifup.sh
+@@ -110,6 +110,9 @@ do_dhcp() {
+         return 1
+     fi
+ 
++    [ -n "$macaddr" ] && ip link set address $macaddr dev $netif
++    [ -n "$mtu" ] && ip link set mtu $mtu dev $netif
++
+     while [ $_COUNT -lt $_DHCPRETRY ]; do
+         info "Starting dhcp for interface $netif"
+         dhclient "$@" \
+@@ -144,6 +147,8 @@ do_ipv6auto() {
+     echo 1 > /proc/sys/net/ipv6/conf/$netif/accept_ra
+     echo 1 > /proc/sys/net/ipv6/conf/$netif/accept_redirects
+     linkup $netif
++    [ -n "$macaddr" ] && ip link set address $macaddr dev $netif
++    [ -n "$mtu" ] && ip link set mtu $mtu dev $netif
+     wait_for_ipv6_auto $netif
+ 
+     [ -n "$hostname" ] && echo "echo $hostname > /proc/sys/kernel/hostname" > /tmp/net.$netif.hostname
+@@ -388,7 +393,7 @@ for p in $(getargs ip=); do
+     done
+ 
+     # Store config for later use
+-    for i in ip srv gw mask hostname macaddr dns1 dns2; do
++    for i in ip srv gw mask hostname macaddr dns1 dns2 mtu; do
+         eval '[ "$'$i'" ] && echo '$i'="$'$i'"'
+     done > /tmp/net.$netif.override
+ 
+diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
+index a5114be..cab7477 100755
+--- a/modules.d/45ifcfg/write-ifcfg.sh
++++ b/modules.d/45ifcfg/write-ifcfg.sh
+@@ -144,6 +144,7 @@ for netup in /tmp/net.*.did-setup ; do
+ 
+     [ -e /tmp/bond.${netif}.info ] && . /tmp/bond.${netif}.info
+     [ -e /tmp/team.${netif}.info ] && . /tmp/team.${netif}.info
++    [ -e /tmp/net.${netif}.override ] && . /tmp/net.${netif}.override
+ 
+     uuid=$(cat /proc/sys/kernel/random/uuid)
+     if [ "$netif" = "$bridgename" ]; then
+@@ -178,8 +179,6 @@ for netup in /tmp/net.*.did-setup ; do
+             fi
+             cp /tmp/dhclient.$netif.lease /tmp/ifcfg-leases/dhclient-$uuid-$netif.lease
+         else
+-            # If we've booted with static ip= lines, the override file is there
+-            [ -e /tmp/net.$netif.override ] && . /tmp/net.$netif.override
+             if strstr "$ip" '*:*:*'; then
+                 echo "IPV6INIT=yes"
+                 echo "IPV6_AUTOCONF=no"
+@@ -245,7 +244,7 @@ for netup in /tmp/net.*.did-setup ; do
+                 echo "MASTER=\"$netif\""
+                 echo "UUID=\"$(cat /proc/sys/kernel/random/uuid)\""
+                 unset macaddr
+-                [ -e /tmp/net.$slave.override ] && . /tmp/net.$slave.override
++                [ -e /tmp/net.${slave}.override ] && . /tmp/net.${slave}.override
+                 interface_bind "$slave" "$macaddr"
+             ) >> /tmp/ifcfg/ifcfg-$slave
+         done
+@@ -268,7 +267,7 @@ for netup in /tmp/net.*.did-setup ; do
+                 echo "BRIDGE=\"$bridgename\""
+                 echo "UUID=\"$(cat /proc/sys/kernel/random/uuid)\""
+                 unset macaddr
+-                [ -e /tmp/net.$slave.override ] && . /tmp/net.$slave.override
++                [ -e /tmp/net.${slave}.override ] && . /tmp/net.${slave}.override
+                 interface_bind "$slave" "$macaddr"
+             ) >> /tmp/ifcfg/ifcfg-$slave
+         done

@@ -1,0 +1,26 @@
+From 043d61b54223ed6f9ef7faa2b9c01750272948c3 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Mon, 14 Mar 2016 15:55:03 +0100
+Subject: [PATCH] url-lib/url-lib.sh:nfs_fetch_url(): pass file directory to
+ query if nfs is already mounted
+
+Otherwise the returned mount path includes the file with the directory
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1302764
+---
+ modules.d/45url-lib/url-lib.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules.d/45url-lib/url-lib.sh b/modules.d/45url-lib/url-lib.sh
+index 12df9b4..f3d152d 100755
+--- a/modules.d/45url-lib/url-lib.sh
++++ b/modules.d/45url-lib/url-lib.sh
+@@ -106,7 +106,7 @@ nfs_fetch_url() {
+     local filepath="${path%/*}" filename="${path##*/}" mntdir=""
+ 
+     # skip mount if server:/filepath is already mounted
+-    mntdir=$(nfs_already_mounted "$server" "$path")
++    mntdir=$(nfs_already_mounted "$server" "$filepath")
+     if [ -z "$mntdir" ]; then
+         local mntdir="$(mkuniqdir /run nfs_mnt)"
+         mount_nfs "$nfs:$server:$filepath${options:+:$options}" "$mntdir"

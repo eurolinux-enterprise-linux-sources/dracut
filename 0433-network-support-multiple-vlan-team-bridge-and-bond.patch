@@ -1,0 +1,793 @@
+From 7a90c8b3434a27a347f6a963d0e673e04feb485a Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Mon, 4 Jul 2016 11:31:49 +0200
+Subject: [PATCH] network: support multiple vlan, team, bridge and bond
+
+---
+ modules.d/40network/ifup.sh         | 386 +++++++++++++++++-------------------
+ modules.d/40network/net-genrules.sh |  27 ++-
+ modules.d/40network/net-lib.sh      |   9 +-
+ modules.d/40network/parse-bridge.sh |  30 +--
+ modules.d/40network/parse-team.sh   |  47 ++---
+ modules.d/40network/parse-vlan.sh   |  27 +--
+ modules.d/45ifcfg/write-ifcfg.sh    |  26 +--
+ 7 files changed, 254 insertions(+), 298 deletions(-)
+
+diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
+index cedf9a7..d7503c7 100755
+--- a/modules.d/40network/ifup.sh
++++ b/modules.d/40network/ifup.sh
+@@ -17,79 +17,12 @@ type ip_to_var >/dev/null 2>&1 || . /lib/net-lib.sh
+ 
+ # $netif reads easier than $1
+ netif=$1
+-use_bridge='false'
+-use_vlan='false'
+ 
+-# enslave this interface to bond?
+-for i in /tmp/bond.*.info; do
+-    [ -e "$i" ] || continue
+-    unset bondslaves
+-    unset bondname
+-    . "$i"
+-    for slave in $bondslaves ; do
+-        if [ "$netif" = "$slave" ] ; then
+-            netif=$bondname
+-            break 2
+-        fi
+-    done
+-done
+-
+-for i in /tmp/team.*.info; do
+-    [ -e "$i" ] || continue
+-    unset teamslaves
+-    unset teammaster
+-    . "$i"
+-    for slave in $teamslaves ; do
+-        if [ "$netif" = "$slave" ] ; then
+-            netif=$teammaster
+-        fi
+-    done
+-done
+-
+-if [ -e /tmp/vlan.info ]; then
+-    . /tmp/vlan.info
+-    if [ "$netif" = "$phydevice" ]; then
+-        if [ "$netif" = "$bondname" ] && [ -n "$DO_BOND_SETUP" ] ; then
+-            : # We need to really setup bond (recursive call)
+-        elif [ "$netif" = "$teammaster" ] && [ -n "$DO_TEAM_SETUP" ] ; then
+-            : # We need to really setup team (recursive call)
+-        else
+-            netif="$vlanname"
+-            use_vlan='true'
+-        fi
+-    fi
+-fi
+-
+-# bridge this interface?
+-if [ -e /tmp/bridge.info ]; then
+-    . /tmp/bridge.info
+-    for ethname in $bridgeslaves ; do
+-        if [ "$netif" = "$ethname" ]; then
+-            if [ "$netif" = "$bondname" ] && [ -n "$DO_BOND_SETUP" ] ; then
+-                : # We need to really setup bond (recursive call)
+-            elif [ "$netif" = "$teammaster" ] && [ -n "$DO_TEAM_SETUP" ] ; then
+-                : # We need to really setup team (recursive call)
+-            elif [ "$netif" = "$vlanname" ] && [ -n "$DO_VLAN_SETUP" ]; then
+-                : # We need to really setup vlan (recursive call)
+-            else
+-                netif="$bridgename"
+-                use_bridge='true'
+-            fi
+-        fi
+-    done
+-fi
+-
+-# disable manual ifup while netroot is set for simplifying our logic
+-# in netroot case we prefer netroot to bringup $netif automaticlly
+-[ -n "$2" -a "$2" = "-m" ] && [ -z "$netroot" ] && manualup="$2"
+-
+-if [ -n "$manualup" ]; then
+-    >/tmp/net.$netif.manualup
+-    rm -f /tmp/net.${netif}.did-setup
+-else
+-    [ -e /tmp/net.${netif}.did-setup ] && exit 0
+-    [ -e /sys/class/net/$netif/address ] && \
+-        [ -e /tmp/net.$(cat /sys/class/net/$netif/address).did-setup ] && exit 0
++# loopback is always handled the same way
++if [ "$netif" = "lo" ] ; then
++    ip link set lo up
++    ip addr add 127.0.0.1/8 dev lo
++    exit 0
+ fi
+ 
+ # Run dhclient
+@@ -199,158 +132,213 @@ do_static() {
+     return 0
+ }
+ 
+-# loopback is always handled the same way
+-if [ "$netif" = "lo" ] ; then
+-    ip link set lo up
+-    ip addr add 127.0.0.1/8 dev lo
++get_vid() {
++    case "$1" in
++    vlan*)
++        echo ${1#vlan}
++        ;;
++    *.*)
++        echo ${1##*.}
++        ;;
++    esac
++}
++
++# check, if we need VLAN's for this interface
++if [ -z "$DO_VLAN_PHY" ] && [ -e /tmp/vlan.${netif}.phy ]; then
++    unset DO_VLAN
++    NO_AUTO_DHCP=yes DO_VLAN_PHY=yes ifup "$netif"
++    modprobe -b -q 8021q
++
++    for i in /tmp/vlan.*.${netif}; do
++        [ -e "$i" ] || continue
++        read vlanname < "$i"
++        if [ -n "$vlanname" ]; then
++            linkup "$netif"
++            ip link add dev "$vlanname" link "$netif" type vlan id "$(get_vid $vlanname)"
++            ifup "$vlanname"
++        fi
++    done
+     exit 0
+ fi
+ 
+-# start bond if needed
+-if [ -e /tmp/bond.${netif}.info ]; then
+-    . /tmp/bond.${netif}.info
++# Check, if interface is VLAN interface
++if ! [ -e /tmp/vlan.${netif}.phy ]; then
++    for i in /tmp/vlan.${netif}.*; do
++        [ -e "$i" ] || continue
++        export DO_VLAN=yes
++        break
++    done
++fi
+ 
+-    if [ "$netif" = "$bondname" ] && [ ! -e /tmp/net.$bondname.setup ] ; then # We are master bond device
+-        modprobe bonding
+-        udevadm settle
+-        if ! [ -e /sys/class/net/${netif} ]; then
+-            echo "+$netif" >  /sys/class/net/bonding_masters
+-        fi
+-        ip link set $netif down
+-
+-        # Stolen from ifup-eth
+-        # add the bits to setup driver parameters here
+-        for arg in $bondoptions ; do
+-            key=${arg%%=*};
+-            value=${arg##*=};
+-            # %{value:0:1} is replaced with non-bash specific construct
+-            if [ "${key}" = "arp_ip_target" -a "${#value}" != "0" -a "+${value%%+*}" != "+" ]; then
+-                OLDIFS=$IFS;
+-                IFS=',';
+-                for arp_ip in $value; do
+-                    echo +$arp_ip > /sys/class/net/${netif}/bonding/$key
+-                done
+-                IFS=$OLDIFS;
+-            else
+-                echo $value > /sys/class/net/${netif}/bonding/$key
++# bridge this interface?
++if [ -z "$NO_BRIDGE_MASTER" ]; then
++    for i in /tmp/bridge.*.info; do
++        [ -e "$i" ] || continue
++        unset bridgeslaves
++        unset bridgename
++        . "$i"
++        for ethname in $bridgeslaves ; do
++            [ "$netif" != "$ethname" ] && continue
++
++            NO_BRIDGE_MASTER=yes NO_AUTO_DHCP=yes ifup $ethname
++            linkup $ethname
++            if [ ! -e /tmp/bridge.$bridgename.up ]; then
++                brctl addbr $bridgename
++                brctl setfd $bridgename 0
++                > /tmp/bridge.$bridgename.up
+             fi
++            brctl addif $bridgename $ethname
++            ifup $bridgename
++            exit 0
+         done
++    done
++fi
+ 
+-        linkup $netif
+-
++# enslave this interface to bond?
++if [ -z "$NO_BOND_MASTER" ]; then
++    for i in /tmp/bond.*.info; do
++        [ -e "$i" ] || continue
++        unset bondslaves
++        unset bondname
++        . "$i"
+         for slave in $bondslaves ; do
+-            ip link set $slave down
+-            cat /sys/class/net/$slave/address > /tmp/net.${netif}.${slave}.hwaddr
+-            echo "+$slave" > /sys/class/net/$bondname/bonding/slaves
+-            linkup $slave
+-        done
++            [ "$netif" != "$slave" ] && continue
+ 
+-        # add the bits to setup the needed post enslavement parameters
+-        for arg in $BONDING_OPTS ; do
+-            key=${arg%%=*};
+-            value=${arg##*=};
+-            if [ "${key}" = "primary" ]; then
+-                echo $value > /sys/class/net/${netif}/bonding/$key
+-            fi
++            # already setup
++            [ -e /tmp/bond.$bondname.up ] && exit 0
++
++            # wait for all slaves to show up
++            for slave in $bondslaves ; do
++                # try to create the slave (maybe vlan or bridge)
++                NO_BOND_MASTER=yes NO_AUTO_DHCP=yes ifup $slave
++
++                if ! ip link show dev $slave >/dev/null 2>&1; then
++                    # wait for the last slave to show up
++                    exit 0
++                fi
++            done
++
++            modprobe -q -b bonding
++            echo "+$bondname" >  /sys/class/net/bonding_masters 2>/dev/null
++            ip link set $bondname down
++
++            # Stolen from ifup-eth
++            # add the bits to setup driver parameters here
++            for arg in $bondoptions ; do
++                key=${arg%%=*};
++                value=${arg##*=};
++                # %{value:0:1} is replaced with non-bash specific construct
++                if [ "${key}" = "arp_ip_target" -a "${#value}" != "0" -a "+${value%%+*}" != "+" ]; then
++                    OLDIFS=$IFS;
++                    IFS=',';
++                    for arp_ip in $value; do
++                        echo +$arp_ip > /sys/class/net/${bondname}/bonding/$key
++                    done
++                    IFS=$OLDIFS;
++                else
++                    echo $value > /sys/class/net/${bondname}/bonding/$key
++                fi
++            done
++
++            linkup $bondname
++
++            for slave in $bondslaves ; do
++                cat /sys/class/net/$slave/address > /tmp/net.${bondname}.${slave}.hwaddr
++                ip link set $slave down
++                echo "+$slave" > /sys/class/net/$bondname/bonding/slaves
++                linkup $slave
++            done
++
++            # add the bits to setup the needed post enslavement parameters
++            for arg in $bondoptions ; do
++                key=${arg%%=*};
++                value=${arg##*=};
++                if [ "${key}" = "primary" ]; then
++                    echo $value > /sys/class/net/${bondname}/bonding/$key
++                fi
++            done
++
++            > /tmp/bond.$bondname.up
++
++            NO_BOND_MASTER=yes ifup $bondname
++            exit $?
+         done
+-        > /tmp/net.$bondname.setup
+-    fi
++    done
+ fi
+ 
+-if [ -e /tmp/team.${netif}.info ]; then
+-    . /tmp/team.${netif}.info
+-    if [ "$netif" = "$teammaster" ] && [ ! -e /tmp/net.$teammaster.setup ] ; then
+-        # We shall only bring up those _can_ come up
+-        # in case of some slave is gone in active-backup mode
+-        working_slaves=""
++if [ -z "$NO_TEAM_MASTER" ]; then
++    for i in /tmp/team.*.info; do
++        [ -e "$i" ] || continue
++        unset teammaster
++        unset teamslaves
++        . "$i"
+         for slave in $teamslaves ; do
+-            teamdctl ${teammaster} port present ${slave} 2>/dev/null \
+-                     && continue
+-            ip link set dev $slave up 2>/dev/null
+-            if wait_for_if_up $slave; then
+-                working_slaves+="$slave "
+-            fi
+-        done
+-        # Do not add slaves now
+-        teamd -d -U -n -N -t $teammaster -f /etc/teamd/$teammaster.conf
+-        for slave in $working_slaves; do
+-            # team requires the slaves to be down before joining team
+-            ip link set dev $slave down
+-            (
+-                unset TEAM_PORT_CONFIG
+-                _hwaddr=$(cat /sys/class/net/$slave/address)
+-                _subchannels=$(iface_get_subchannels "$slave")
+-                if [ -n "$_hwaddr" ] && [ -e "/etc/sysconfig/network-scripts/mac-${_hwaddr}.conf" ]; then
+-                    . "/etc/sysconfig/network-scripts/mac-${_hwaddr}.conf"
+-                elif [ -n "$_subchannels" ] && [ -e "/etc/sysconfig/network-scripts/ccw-${_subchannels}.conf" ]; then
+-                    . "/etc/sysconfig/network-scripts/ccw-${_subchannels}.conf"
+-                elif [ -e "/etc/sysconfig/network-scripts/ifcfg-${slave}" ]; then
+-                    . "/etc/sysconfig/network-scripts/ifcfg-${slave}"
+-                fi
++            [ "$netif" != "$slave" ] && continue
++
++            [ -e /tmp/team.$teammaster.up ] && exit 0
+ 
+-                if [ -n "${TEAM_PORT_CONFIG}" ]; then
+-                    /usr/bin/teamdctl ${teammaster} port config update ${slave} "${TEAM_PORT_CONFIG}"
++            # wait for all slaves to show up
++            for slave in $teamslaves ; do
++                # try to create the slave (maybe vlan or bridge)
++                NO_BOND_MASTER=yes NO_AUTO_DHCP=yes ifup $slave
++
++                if ! ip link show dev $slave >/dev/null 2>&1; then
++                    # wait for the last slave to show up
++                    exit 0
+                 fi
+-            )
+-            teamdctl $teammaster port add $slave
+-        done
+-        ip link set dev $teammaster up
+-        > /tmp/net.$teammaster.setup
+-    fi
+-fi
++            done
++
++            if [ ! -e /tmp/team.$teammaster.up ] ; then
++                # We shall only bring up those _can_ come up
++                # in case of some slave is gone in active-backup mode
++                working_slaves=""
++                for slave in $teamslaves ; do
++                    ip link set $slave up 2>/dev/null
++                    if wait_for_if_up $slave; then
++                        working_slaves="$working_slaves$slave "
++                    fi
++                done
++                # Do not add slaves now
++                teamd -d -U -n -N -t $teammaster -f /etc/teamd/$teammaster.conf
++                for slave in $working_slaves; do
++                    # team requires the slaves to be down before joining team
++                    ip link set $slave down
++                    teamdctl $teammaster port add $slave
++                done
+ 
+-# XXX need error handling like dhclient-script
++                ip link set $teammaster up
+ 
+-if [ -e /tmp/bridge.info ]; then
+-    . /tmp/bridge.info
+-# start bridge if necessary
+-    if [ "$netif" = "$bridgename" ] && [ ! -e /tmp/net.$bridgename.setup ]; then
+-        brctl addbr $bridgename
+-        brctl setfd $bridgename 0
+-        for ethname in $bridgeslaves ; do
+-            if [ "$ethname" = "$bondname" ] ; then
+-                DO_BOND_SETUP=yes ifup $bondname -m
+-            elif [ "$ethname" = "$teammaster" ] ; then
+-                DO_TEAM_SETUP=yes ifup $teammaster -m
+-            elif [ "$ethname" = "$vlanname" ]; then
+-                DO_VLAN_SETUP=yes ifup $vlanname -m
+-            else
+-                linkup $ethname
++                > /tmp/team.$teammaster.up
++                NO_TEAM_MASTER=yes ifup $teammaster
++                exit $?
+             fi
+-            brctl addif $bridgename $ethname
+         done
+-        > /tmp/net.$bridgename.setup
+-    fi
++    done
+ fi
+ 
+-get_vid() {
+-    case "$1" in
+-    vlan*)
+-        echo ${1#vlan}
+-        ;;
+-    *.*)
+-        echo ${1##*.}
+-        ;;
+-    esac
+-}
++# all synthetic interfaces done.. now check if the interface is available
++if ! ip link show dev $netif >/dev/null 2>&1; then
++    exit 1
++fi
+ 
+-if [ "$netif" = "$vlanname" ] && [ ! -e /tmp/net.$vlanname.up ]; then
+-    modprobe 8021q
+-    if [ "$phydevice" = "$bondname" ] ; then
+-        DO_BOND_SETUP=yes ifup $phydevice -m
+-    elif [ "$phydevice" = "$teammaster" ] ; then
+-        DO_TEAM_SETUP=yes ifup $phydevice -m
+-    else
+-        linkup "$phydevice"
+-    fi
+-    ip link add dev "$vlanname" link "$phydevice" type vlan id "$(get_vid $vlanname)"
+-    ip link set "$vlanname" up
++# disable manual ifup while netroot is set for simplifying our logic
++# in netroot case we prefer netroot to bringup $netif automaticlly
++[ -n "$2" -a "$2" = "-m" ] && [ -z "$netroot" ] && manualup="$2"
++
++if [ -n "$manualup" ]; then
++    >/tmp/net.$netif.manualup
++    rm -f /tmp/net.${netif}.did-setup
++else
++    [ -e /tmp/net.${netif}.did-setup ] && exit 0
++    [ -z "$DO_VLAN" ] && \
++        [ -e /sys/class/net/$netif/address ] && \
++        [ -e /tmp/net.$(cat /sys/class/net/$netif/address).did-setup ] && exit 0
+ fi
+ 
+ # No ip lines default to dhcp
+ ip=$(getarg ip)
+ 
+-if [ -z "$ip" ]; then
++if [ -z "$NO_AUTO_DHCP" ] && [ -z "$ip" ]; then
+     if [ "$netroot" = "dhcp6" ]; then
+         do_dhcp -6
+     else
+@@ -415,7 +403,7 @@ for p in $(getargs ip=); do
+     if [ $ret -eq 0 ]; then
+         > /tmp/net.${netif}.up
+ 
+-        if [ -e /sys/class/net/${netif}/address ]; then
++        if [ -z "$DO_VLAN" ] && [ -e /sys/class/net/${netif}/address ]; then
+             > /tmp/net.$(cat /sys/class/net/${netif}/address).up
+         fi
+ 
+@@ -444,7 +432,7 @@ if [ -n "$DO_BOND_SETUP" -o -n "$DO_TEAM_SETUP" -o -n "$DO_VLAN_SETUP" ]; then
+ fi
+ 
+ # no ip option directed at our interface?
+-if [ ! -e /tmp/net.${netif}.up ]; then
++if  [ -z "$NO_AUTO_DHCP" ] && [ ! -e /tmp/net.${netif}.up ]; then
+     if [ -e /tmp/net.bootdev ]; then
+         BOOTDEV=$(cat /tmp/net.bootdev)
+         if [ "$netif" = "$BOOTDEV" ] || [ "$BOOTDEV" = "$(cat /sys/class/net/${netif}/address)" ]; then
+diff --git a/modules.d/40network/net-genrules.sh b/modules.d/40network/net-genrules.sh
+index 526dd5c..08072fb 100755
+--- a/modules.d/40network/net-genrules.sh
++++ b/modules.d/40network/net-genrules.sh
+@@ -1,6 +1,4 @@
+ #!/bin/sh
+-# -*- mode: shell-script; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
+-# ex: ts=8 sw=4 sts=4 et filetype=sh
+ 
+ getargbool 0 rd.neednet && NEEDNET=1
+ 
+@@ -14,11 +12,14 @@ command -v fix_bootif >/dev/null || . /lib/net-lib.sh
+ # Write udev rules
+ {
+     # bridge: attempt only the defined interface
+-    if [ -e /tmp/bridge.info ]; then
+-        . /tmp/bridge.info
++    for i in /tmp/bridge.*.info; do
++        [ -e "$i" ] || continue
++        unset bridgeslaves
++        unset bridgename
++        . "$i"
+         RAW_IFACES="$RAW_IFACES $bridgeslaves"
+         MASTER_IFACES="$MASTER_IFACES $bridgename"
+-    fi
++    done
+ 
+     # bond: attempt only the defined interface (override bridge defines)
+     for i in /tmp/bond.*.info; do
+@@ -40,11 +41,19 @@ command -v fix_bootif >/dev/null || . /lib/net-lib.sh
+         MASTER_IFACES="$MASTER_IFACES ${teammaster}"
+     done
+ 
+-    if [ -e /tmp/vlan.info ]; then
+-        . /tmp/vlan.info
++    for j in /tmp/vlan.*.phy; do
++        [ -e "$j" ] || continue
++        unset phydevice
++	read phydevice < "$j"
+         RAW_IFACES="$RAW_IFACES $phydevice"
+-        MASTER_IFACES="$MASTER_IFACES ${vlanname}"
+-    fi
++        for i in /tmp/vlan.*.${phydevice}; do
++            [ -e "$i" ] || continue
++            unset vlanname
++	    read vlanname < "$i"
++            MASTER_IFACES="$MASTER_IFACES ${vlanname}"
++        done
++    done
++
+     MASTER_IFACES="$(trim "$MASTER_IFACES")"
+     RAW_IFACES="$(trim "$RAW_IFACES")"
+ 
+diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
+index 7120193..de334d9 100755
+--- a/modules.d/40network/net-lib.sh
++++ b/modules.d/40network/net-lib.sh
+@@ -102,7 +102,8 @@ ifdown() {
+     ip addr flush dev $netif
+     echo "#empty" > /etc/resolv.conf
+     rm -f -- /tmp/net.$netif.did-setup
+-    [ -e /sys/class/net/$netif/address ] && \
++    [ -z "$DO_VLAN" ] && \
++        [ -e /sys/class/net/$netif/address ] && \
+         rm -f -- /tmp/net.$(cat /sys/class/net/$netif/address).did-setup
+     # TODO: send "offline" uevent?
+ }
+@@ -111,7 +112,8 @@ setup_net() {
+     local netif="$1" f="" gw_ip="" netroot_ip="" iface="" IFACES=""
+     local _p
+     [ -e /tmp/net.$netif.did-setup ] && return
+-    [ -e /sys/class/net/$netif/address ] && \
++    [ -z "$DO_VLAN" ] && \
++        [ -e /sys/class/net/$netif/address ] && \
+         [ -e /tmp/net.$(cat /sys/class/net/$netif/address).did-setup ] && return
+     [ -e "/tmp/net.ifaces" ] && read IFACES < /tmp/net.ifaces
+     [ -z "$IFACES" ] && IFACES="$netif"
+@@ -168,7 +170,8 @@ setup_net() {
+     unset layer2
+ 
+     > /tmp/net.$netif.did-setup
+-    [ -e /sys/class/net/$netif/address ] && \
++    [ -z "$DO_VLAN" ] && \
++        [ -e /sys/class/net/$netif/address ] && \
+         > /tmp/net.$(cat /sys/class/net/$netif/address).did-setup
+ }
+ 
+diff --git a/modules.d/40network/parse-bridge.sh b/modules.d/40network/parse-bridge.sh
+index a910109..5c3af29 100755
+--- a/modules.d/40network/parse-bridge.sh
++++ b/modules.d/40network/parse-bridge.sh
+@@ -1,6 +1,4 @@
+ #!/bin/sh
+-# -*- mode: shell-script; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
+-# ex: ts=8 sw=4 sts=4 et filetype=sh
+ #
+ # Format:
+ #       bridge=<bridgename>:<bridgeslaves>
+@@ -9,14 +7,6 @@
+ #       bridge without parameters assumes bridge=br0:eth0
+ #
+ 
+-# return if bridge already parsed
+-[ -n "$bridgename" ] && return
+-
+-# Check if bridge parameter is valid
+-if getarg bridge= >/dev/null ; then
+-    command -v brctl >/dev/null 2>&1 || die "No 'brctl' installed" 
+-fi
+-
+ parsebridge() {
+     local v=${1}:
+     set --
+@@ -24,8 +14,6 @@ parsebridge() {
+         set -- "$@" "${v%%:*}"
+         v=${v#*:}
+     done
+-
+-    unset bridgename bridgeslaves
+     case $# in
+         0)  bridgename=br0; bridgeslaves=$iface ;;
+         1)  die "bridge= requires two parameters" ;;
+@@ -34,14 +22,13 @@ parsebridge() {
+     esac
+ }
+ 
+-unset bridgename bridgeslaves
+-
+-iface=eth0
+-
+ # Parse bridge for bridgename and bridgeslaves
+-if bridge="$(getarg bridge)"; then
++for bridge in $(getargs bridge=); do
++    unset bridgename
++    unset bridgeslaves
++    iface=eth0
+     # Read bridge= parameters if they exist
+-    if [ -n "$bridge" ]; then
++    if [ "$bridge" != "bridge" ]; then
+         parsebridge $bridge
+     fi
+     # Simple default bridge
+@@ -49,7 +36,6 @@ if bridge="$(getarg bridge)"; then
+         bridgename=br0
+         bridgeslaves=$iface
+     fi
+-    echo "bridgename=$bridgename" > /tmp/bridge.info
+-    echo "bridgeslaves=\"$bridgeslaves\"" >> /tmp/bridge.info
+-    return
+-fi
++    echo "bridgename=$bridgename" > /tmp/bridge.${bridgename}.info
++    echo "bridgeslaves=\"$bridgeslaves\"" >> /tmp/bridge.${bridgename}.info
++done
+diff --git a/modules.d/40network/parse-team.sh b/modules.d/40network/parse-team.sh
+index a836d68..136c370 100755
+--- a/modules.d/40network/parse-team.sh
++++ b/modules.d/40network/parse-team.sh
+@@ -6,14 +6,6 @@
+ #       teamslaves is a comma-separated list of physical (ethernet) interfaces
+ #
+ 
+-# return if team already parsed
+-[ -n "$teammaster" ] && return
+-
+-# Check if team parameter is valid
+-if getarg team= >/dev/null ; then
+-    :
+-fi
+-
+ parseteam() {
+     local v=${1}:
+     set --
+@@ -22,33 +14,22 @@ parseteam() {
+         v=${v#*:}
+     done
+ 
+-    unset teammaster teamslaves
+     case $# in
+-        2)  teammaster=$1; teamslaves=$(str_replace "$2" "," " ") ;;
+-        *)  warn "team= requires two parameters"; return 1;;
++    2)  teammaster=$1; teamslaves=$(str_replace "$2" "," " ") ;;
++    *)  die "team= requires two parameters" ;;
+     esac
+-    return 0
+ }
+ 
+-unset teammaster teamslaves
+-
+-if getarg team>/dev/null; then
+-    # Read team= parameters if they exist
+-    for team in $(getargs team); do
+-        [ "$team" = "team" ] && continue
+-
+-        unset teammaster
+-        unset teamslaves
+ 
+-        parseteam "$team" || continue
+-
+-        echo "teammaster=$teammaster" > /tmp/team.${teammaster}.info
+-        echo "teamslaves=\"$teamslaves\"" >> /tmp/team.${teammaster}.info
+-
+-        if ! [ -e /etc/teamd/${teammaster}.conf ]; then
+-            warn "Team master $teammaster specified, but no /etc/teamd/$teammaster.conf present. Using activebackup."
+-            mkdir -p /etc/teamd
+-            printf -- "%s" '{"runner": {"name": "activebackup"}, "link_watch": {"name": "ethtool"}}' > "/etc/teamd/${teammaster}.conf"
+-        fi
+-    done
+-fi
++for team in $(getargs team=); do
++    unset teammaster teamslaves
++    parseteam "$(getarg team=)"
++
++    echo "teammaster=$teammaster" > /tmp/team.${teammaster}.info
++    echo "teamslaves=\"$teamslaves\"" >> /tmp/team.${teammaster}.info
++    if ! [ -e /etc/teamd/${teammaster}.conf ]; then
++        warn "Team master $teammaster specified, but no /etc/teamd/$teammaster.conf present. Using activebackup."
++        mkdir -p /etc/teamd
++        printf -- "%s" '{"runner": {"name": "activebackup"}, "link_watch": {"name": "ethtool"}}' > "/etc/teamd/${teammaster}.conf"
++    fi
++done
+diff --git a/modules.d/40network/parse-vlan.sh b/modules.d/40network/parse-vlan.sh
+index 3ba2289..5a747f0 100755
+--- a/modules.d/40network/parse-vlan.sh
++++ b/modules.d/40network/parse-vlan.sh
+@@ -4,14 +4,6 @@
+ #	vlan=<vlanname>:<phydevice>
+ #
+ 
+-# return if vlan already parsed
+-[ -n "$vlanname" ] && return
+-
+-# Check if vlan parameter is valid
+-if getarg vlan= >/dev/null ; then
+-    :
+-fi
+-
+ parsevlan() {
+     local v=${1}:
+     set --
+@@ -27,16 +19,11 @@ parsevlan() {
+     esac
+ }
+ 
+-unset vlanname phydevice
+-
+-if getarg vlan >/dev/null; then
+-    # Read vlan= parameters if they exist
+-    vlan="$(getarg vlan=)"
+-    if [ ! "$vlan" = "vlan" ]; then
+-        parsevlan "$(getarg vlan=)"
+-    fi
++for vlan in $(getargs vlan=); do
++    unset vlanname
++    unset phydevice
++    parsevlan "$vlan"
+ 
+-    echo "vlanname=\"$vlanname\"" > /tmp/vlan.info
+-    echo "phydevice=\"$phydevice\"" >> /tmp/vlan.info
+-    return
+-fi
++    echo "$phydevice" > /tmp/vlan.${phydevice}.phy
++    echo "$vlanname" > /tmp/vlan.${vlanname}.${phydevice}
++done
+diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
+index cab7477..a077da1 100755
+--- a/modules.d/45ifcfg/write-ifcfg.sh
++++ b/modules.d/45ifcfg/write-ifcfg.sh
+@@ -7,14 +7,6 @@ type is_persistent_ethernet_name >/dev/null 2>&1 || . /lib/net-lib.sh
+ 
+ udevadm settle --timeout=30
+ 
+-if [ -e /tmp/bridge.info ]; then
+-    . /tmp/bridge.info
+-fi
+-
+-if [ -e /tmp/vlan.info ]; then
+-    . /tmp/vlan.info
+-fi
+-
+ mkdir -m 0755 -p /tmp/ifcfg/
+ mkdir -m 0755 -p /tmp/ifcfg-leases/
+ 
+@@ -24,7 +16,7 @@ get_config_line_by_subchannel()
+     local line
+ 
+     CHANNELS="$1"
+-    while read line; do
++    while read line || [ -n "$line" ]; do
+         if strstr "$line" "$CHANNELS"; then
+             echo $line
+             return 0
+@@ -132,6 +124,8 @@ for netup in /tmp/net.*.did-setup ; do
+     unset bondslaves
+     unset bondname
+     unset bondoptions
++    unset bridgename
++    unset bridgeslaves
+     unset uuid
+     unset ip
+     unset gw
+@@ -141,8 +135,10 @@ for netup in /tmp/net.*.did-setup ; do
+     unset slave
+     unset ethname
+     unset vlan
++    unset phydevice
+ 
+     [ -e /tmp/bond.${netif}.info ] && . /tmp/bond.${netif}.info
++    [ -e /tmp/bridge.${netif}.info ] && . /tmp/bridge.${netif}.info
+     [ -e /tmp/team.${netif}.info ] && . /tmp/team.${netif}.info
+     [ -e /tmp/net.${netif}.override ] && . /tmp/net.${netif}.override
+ 
+@@ -152,11 +148,17 @@ for netup in /tmp/net.*.did-setup ; do
+     elif [ "$netif" = "$teammaster" ]; then
+         team=yes
+     elif [ "$netif" = "$bondname" ]; then
+-    # $netif can't be bridge and bond at the same time
++        # $netif can't be bridge and bond at the same time
+         bond=yes
+     fi
+-    if [ "$netif" = "$vlanname" ]; then
+-        vlan=yes
++
++    if ! [ -e /tmp/vlan.${netif}.phy ]; then
++        for i in /tmp/vlan.${netif}.*; do
++            [ ! -e "$i" ] && continue
++            phydevice=${i##/tmp/vlan.${netif}.}
++            vlan=yes
++            break
++        done
+     fi
+ 
+     # skip team interfaces for now, the host config must be in sync

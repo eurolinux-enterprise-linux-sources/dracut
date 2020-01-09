@@ -1,0 +1,22 @@
+From 038f142ef9fce4cf896ef0bb4860bcfd6e407ecd Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 6 Jul 2016 09:17:36 +0200
+Subject: [PATCH] dracut.spec: remove trailing space
+
+---
+ dracut.spec | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dracut.spec b/dracut.spec
+index 780ed70..efb50b7 100644
+--- a/dracut.spec
++++ b/dracut.spec
+@@ -91,7 +91,7 @@ Requires: gzip xz
+ Requires: kmod
+ Requires: sed
+ Requires: kpartx
+-Requires: tar 
++Requires: tar
+ 
+ %if 0%{?fedora} || 0%{?rhel} > 6
+ Requires: util-linux >= 2.21

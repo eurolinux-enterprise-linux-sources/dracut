@@ -1,0 +1,24 @@
+From ea8bef9893f51797eb9312dbb145112297401f47 Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Thu, 2 Feb 2017 13:02:10 +0100
+Subject: [PATCH] ifup: don't ifup team master indefinitely
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1416958
+Thanks to martin.moore@hpe.com for the patch
+---
+ modules.d/40network/ifup.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
+index b5c9ad2..f2b5894 100755
+--- a/modules.d/40network/ifup.sh
++++ b/modules.d/40network/ifup.sh
+@@ -280,7 +280,7 @@ if [ -z "$NO_TEAM_MASTER" ]; then
+             # wait for all slaves to show up
+             for slave in $teamslaves ; do
+                 # try to create the slave (maybe vlan or bridge)
+-                NO_BOND_MASTER=yes NO_AUTO_DHCP=yes ifup $slave
++                NO_TEAM_MASTER=yes NO_AUTO_DHCP=yes ifup $slave
+ 
+                 if ! ip link show dev $slave >/dev/null 2>&1; then
+                     # wait for the last slave to show up

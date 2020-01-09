@@ -1,0 +1,19 @@
+From 11366030aab04d48b9dc14ad46a6598c5fb4598a Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 30 Nov 2016 14:01:03 +0100
+Subject: [PATCH] README.md: correct CentOS build job link
+
+---
+ README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/README.md b/README.md
+index 9617eaf..8bfda44 100644
+--- a/README.md
++++ b/README.md
+@@ -2,4 +2,4 @@
+ 
+ dracut is an initramfs infrastructure.
+ 
+-CentOS CI Status: [![Build Status](https://ci.centos.org/buildStatus/icon?job=dracut-pr-build)](https://ci.centos.org/job/dracut-pr-build/)
++CentOS CI Status: [![Build Status](https://ci.centos.org/buildStatus/icon?job=dracut-matrix-master)](https://ci.centos.org/job/dracut-matrix-master/)

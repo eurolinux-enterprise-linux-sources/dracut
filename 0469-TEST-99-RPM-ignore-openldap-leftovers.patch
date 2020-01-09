@@ -1,0 +1,21 @@
+From 81bb61b52577d1866c9faf9ec8112892c4ba428a Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Fri, 11 Nov 2016 11:42:54 +0100
+Subject: [PATCH] TEST-99-RPM: ignore openldap leftovers
+
+---
+ test/TEST-99-RPM/test.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/test/TEST-99-RPM/test.sh b/test/TEST-99-RPM/test.sh
+index 5afc313..fc68273 100755
+--- a/test/TEST-99-RPM/test.sh
++++ b/test/TEST-99-RPM/test.sh
+@@ -54,6 +54,7 @@ find / -xdev -type f -not -path '/var/*' \
+   -not -path '/dev/null' \
+   -not -path "/boot/loader/entries/\$(cat /etc/machine-id)-*" \
+   -not -path "/boot/\$(cat /etc/machine-id)/*" \
++  -not -path '/etc/openldap/certs/*' \
+   -exec rpm -qf '{}' ';' | \
+   grep -F 'not owned' &> /test.output
+ exit

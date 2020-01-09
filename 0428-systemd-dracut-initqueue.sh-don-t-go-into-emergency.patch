@@ -1,0 +1,27 @@
+From 4c5f1b3b4a3b303b3eb19b0a16122b4fc552e089 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 30 Jun 2016 16:33:18 +0200
+Subject: [PATCH] systemd/dracut-initqueue.sh: don't go into emergency
+
+let systemd go into emergency.target later on
+---
+ modules.d/98systemd/dracut-initqueue.sh | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/modules.d/98systemd/dracut-initqueue.sh b/modules.d/98systemd/dracut-initqueue.sh
+index 5822556..c12531e 100755
+--- a/modules.d/98systemd/dracut-initqueue.sh
++++ b/modules.d/98systemd/dracut-initqueue.sh
+@@ -68,11 +68,7 @@ while :; do
+ 
+     main_loop=$(($main_loop+1))
+     if [ $main_loop -gt $RDRETRY ]; then
+-        if ! [ -f /sysroot/etc/fstab ] || ! [ -e /sysroot/sbin/init ] ; then
+-            action_on_fail "Could not boot." && break
+-        fi
+-        warn "Not all disks have been found."
+-        warn "You might want to regenerate your initramfs."
++        # let systemd go into emergency mode, if it cannot boot
+         break
+     fi
+ done

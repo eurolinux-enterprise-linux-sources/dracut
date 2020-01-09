@@ -1,0 +1,28 @@
+From ac422d577c1de1e94620787380932b9ccbd7b10a Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Fri, 10 Jun 2016 14:31:52 +0200
+Subject: [PATCH] base/dracut-lib.sh: add trim()
+
+trim() to remove leading and trailing whitespace
+---
+ modules.d/99base/dracut-lib.sh | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
+index cb1ddd7..71dcedc 100755
+--- a/modules.d/99base/dracut-lib.sh
++++ b/modules.d/99base/dracut-lib.sh
+@@ -39,6 +39,13 @@ str_ends() {
+     [ "${1%*$2}" != "$1" ]
+ }
+ 
++trim() {
++    local var="$*"
++    var="${var#"${var%%[![:space:]]*}"}"   # remove leading whitespace characters
++    var="${var%"${var##*[![:space:]]}"}"   # remove trailing whitespace characters
++    echo -n "$var"
++}
++
+ if [ -z "$DRACUT_SYSTEMD" ]; then
+ 
+     warn() {

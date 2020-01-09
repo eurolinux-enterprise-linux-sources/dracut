@@ -1,0 +1,43 @@
+From a603e1f3a625a6f3257e6eb30bccc545c7c6f376 Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Tue, 7 Feb 2017 17:09:41 +0100
+Subject: [PATCH] network/ifup: write override file before dhcp_do
+
+Commit cf376023e6d0d4abd9816fa954bb917fc2557713 moved writing .resolv.conf and .override
+after dhcp_do, because dhcp_do was overwriting .resolv.conf. But .override does not have
+such problem and on the contrary dhcp_do reads .override file if it is present. So let\'s
+move it back.
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1415004
+---
+ modules.d/40network/ifup.sh | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/modules.d/40network/ifup.sh b/modules.d/40network/ifup.sh
+index d7503c7..b5c9ad2 100755
+--- a/modules.d/40network/ifup.sh
++++ b/modules.d/40network/ifup.sh
+@@ -374,6 +374,11 @@ for p in $(getargs ip=); do
+     [ "$use_bridge" != 'true' ] && \
+     [ "$use_vlan" != 'true' ] && continue
+ 
++    # Store config for later use
++    for i in ip srv gw mask hostname macaddr mtu dns1 dns2; do
++        eval '[ "$'$i'" ] && echo '$i'="$'$i'"'
++    done > /tmp/net.$netif.override
++
+     for autoopt in $(str_replace "$autoconf" "," " "); do
+         case $autoopt in
+             dhcp|on|any)
+@@ -395,11 +400,6 @@ for p in $(getargs ip=); do
+         echo nameserver $s >> /tmp/net.$netif.resolv.conf
+     done
+ 
+-    # Store config for later use
+-    for i in ip srv gw mask hostname macaddr dns1 dns2 mtu; do
+-        eval '[ "$'$i'" ] && echo '$i'="$'$i'"'
+-    done > /tmp/net.$netif.override
+-
+     if [ $ret -eq 0 ]; then
+         > /tmp/net.${netif}.up
+ 

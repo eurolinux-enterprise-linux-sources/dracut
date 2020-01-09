@@ -1,0 +1,28 @@
+From 3186abd76ef732f2aeec4f3901d0b6a17a701f3a Mon Sep 17 00:00:00 2001
+From: Lukas Nykryn <lnykryn@redhat.com>
+Date: Wed, 1 Mar 2017 14:43:53 +0100
+Subject: [PATCH] write-ifcfg: do't write MTU twice for regular eth devices
+
+If MTU is specified, we write it for every type of device in the
+beginning. There is not point writing it again for Type=ethernet
+devices.
+---
+ modules.d/45ifcfg/write-ifcfg.sh | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
+index a077da1..fa395b3 100755
+--- a/modules.d/45ifcfg/write-ifcfg.sh
++++ b/modules.d/45ifcfg/write-ifcfg.sh
+@@ -210,10 +210,7 @@ for netup in /tmp/net.*.did-setup ; do
+     # bridge needs different things written to ifcfg
+     if [ -z "$bridge" ] && [ -z "$bond" ] && [ -z "$vlan" ] && [ -z "$team" ]; then
+         # standard interface
+-        {
+-            echo "TYPE=Ethernet"
+-            [ -n "$mtu" ] && echo "MTU=\"$mtu\""
+-        } >> /tmp/ifcfg/ifcfg-$netif
++        echo "TYPE=Ethernet" >> /tmp/ifcfg/ifcfg-$netif
+     fi
+ 
+     if [ -n "$vlan" ] ; then

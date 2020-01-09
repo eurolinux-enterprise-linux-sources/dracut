@@ -1,0 +1,36 @@
+From 55712f46c06d782be7829b860e5009701fcb9da9 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 29 Jun 2016 15:11:39 +0200
+Subject: [PATCH] test: don't call ldconfig with -- path separator
+
+---
+ test/TEST-16-DMSQUASH/test.sh | 2 +-
+ test/TEST-50-MULTINIC/test.sh | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/test/TEST-16-DMSQUASH/test.sh b/test/TEST-16-DMSQUASH/test.sh
+index c08a2a4..9d584e3 100755
+--- a/test/TEST-16-DMSQUASH/test.sh
++++ b/test/TEST-16-DMSQUASH/test.sh
+@@ -69,7 +69,7 @@ test_setup() {
+ 	find_binary plymouth >/dev/null && inst_multiple plymouth
+ 	(cd "$initdir"; mkdir -p -- dev sys proc etc var/run tmp )
+ 	cp -a -- /etc/ld.so.conf* "$initdir"/etc
+-	sudo ldconfig -r -- "$initdir"
++	sudo ldconfig -r "$initdir"
+     )
+     python create.py -d -c livecd-fedora-minimal.ks
+     return 0
+diff --git a/test/TEST-50-MULTINIC/test.sh b/test/TEST-50-MULTINIC/test.sh
+index c0c3615..05273be 100755
+--- a/test/TEST-50-MULTINIC/test.sh
++++ b/test/TEST-50-MULTINIC/test.sh
+@@ -222,7 +222,7 @@ test_setup() {
+         inst /etc/group /etc/group
+ 
+         cp -a -- /etc/ld.so.conf* "$initdir"/etc
+-        sudo ldconfig -r -- "$initdir"
++        sudo ldconfig -r "$initdir"
+         dracut_kernel_post
+     )
+ 

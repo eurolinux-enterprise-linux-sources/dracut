@@ -1,0 +1,45 @@
+From 5ae8333947bb6a71232fbb99c626e08f177178e2 Mon Sep 17 00:00:00 2001
+From: Tong Li <tonli@redhat.com>
+Date: Wed, 30 Nov 2016 17:05:57 +0800
+Subject: [PATCH] 95ssh-client: attempt to copy UserKnownHostsFile to kdump's
+ initramfs
+
+Bug related to this issue: https://bugzilla.redhat.com/show_bug.cgi?id=1360131
+Now dracut only attempts to copy GlobalKnownHostsFile while generating kdump's
+initramfs. This method will cause kdump's failure if users set customized
+UserKnownHostsFile in /etc/ssh/ssh_config. This patch simply attempts to copy
+those files too while going through /etc/ssh/ssh_config. Note that we need to
+make sure ~/foo will be copied as /root/foo in kdump's initramfs.
+
+Cherry-picked from: 32f5af2f5e20ee982745262c444c50b20bfb4c01
+Resolves: #1360131
+---
+ modules.d/95ssh-client/module-setup.sh | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/modules.d/95ssh-client/module-setup.sh b/modules.d/95ssh-client/module-setup.sh
+index 6b44107..743de98 100755
+--- a/modules.d/95ssh-client/module-setup.sh
++++ b/modules.d/95ssh-client/module-setup.sh
+@@ -44,10 +44,17 @@ inst_sshenv()
+     if [[ -f /etc/ssh/ssh_config ]]; then
+         inst_simple /etc/ssh/ssh_config
+         sed -i -e 's/\(^[[:space:]]*\)ProxyCommand/\1# ProxyCommand/' ${initdir}/etc/ssh/ssh_config
+-        while read key val; do
+-            [[ $key != "GlobalKnownHostsFile" ]] && continue
+-            inst_simple "$val"
+-            break
++        while read key val || [ -n "$key" ]; do
++            if [[ $key == "GlobalKnownHostsFile" ]]; then
++                inst_simple "$val"
++            # Copy customized UserKnowHostsFile
++            elif [[ $key == "UserKnownHostsFile" ]]; then
++                # Make sure that ~/foo will be copied as /root/foo in kdump's initramfs
++                if str_starts "$val" "~/"; then
++                    val="/root/${val#"~/"}"
++                fi
++                inst_simple "$val"
++            fi
+         done < /etc/ssh/ssh_config
+     fi
+ 

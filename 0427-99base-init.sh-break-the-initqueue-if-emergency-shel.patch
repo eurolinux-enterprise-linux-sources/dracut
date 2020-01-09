@@ -1,0 +1,24 @@
+From a95fe14581ff39fb4354dac5782a25d578dcc972 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 30 Jun 2016 16:32:44 +0200
+Subject: [PATCH] 99base/init.sh: break the initqueue, if emergency shell was
+ successful
+
+---
+ modules.d/99base/init.sh | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/modules.d/99base/init.sh b/modules.d/99base/init.sh
+index a07d0f9..7bbe670 100755
+--- a/modules.d/99base/init.sh
++++ b/modules.d/99base/init.sh
+@@ -214,7 +214,8 @@ while :; do
+ 
+     main_loop=$(($main_loop+1))
+     [ $main_loop -gt $RDRETRY ] \
+-        && { flock -s 9 ; action_on_fail "Could not boot." && break; } 9>/.console_lock
++        && { flock -s 9 ; action_on_fail "Could not boot."; } 9>/.console_lock \
++        && break
+ done
+ unset job
+ unset queuetriggered

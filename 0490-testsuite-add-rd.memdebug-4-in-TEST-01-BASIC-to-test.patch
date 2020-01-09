@@ -1,0 +1,27 @@
+From 414834306b69df65ba22bc6f8a3b4fd4a25bf4e4 Mon Sep 17 00:00:00 2001
+From: Xunlei Pang <xlpang@redhat.com>
+Date: Sun, 27 Nov 2016 12:19:41 +0800
+Subject: [PATCH] testsuite: add "rd.memdebug=4" in TEST-01-BASIC to test
+ rd.memdebug
+
+"rd.memdebug=4" includes all the test level, so add it to test
+rd.memdebug function.
+
+Signed-off-by: Xunlei Pang <xlpang@redhat.com>
+---
+ test/TEST-01-BASIC/test.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/test/TEST-01-BASIC/test.sh b/test/TEST-01-BASIC/test.sh
+index 6b79dee..0ef7e10 100755
+--- a/test/TEST-01-BASIC/test.sh
++++ b/test/TEST-01-BASIC/test.sh
+@@ -15,7 +15,7 @@ test_run() {
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+ 	-watchdog i6300esb -watchdog-action poweroff \
+         -no-reboot \
+-	-append "panic=1 root=LABEL=dracut rw systemd.log_level=debug systemd.log_target=console rd.retry=3 rd.debug console=ttyS0,115200n81 $DEBUGFAIL" \
++	-append "panic=1 root=LABEL=dracut rw systemd.log_level=debug systemd.log_target=console rd.retry=3 rd.debug console=ttyS0,115200n81 $DEBUGFAIL rd.memdebug=4" \
+ 	-initrd $TESTDIR/initramfs.testing || return 1
+     grep -F -m 1 -q dracut-root-block-success $TESTDIR/result || return 1
+ }

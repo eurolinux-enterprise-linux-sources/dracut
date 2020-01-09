@@ -1,0 +1,44 @@
+From 15ec719501af349a3b02495d6151e3b92854572b Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Tue, 1 Mar 2016 12:32:23 +0100
+Subject: [PATCH] test/NBD: add checks for needed binaries
+
+---
+ test/TEST-40-NBD/test.sh | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/test/TEST-40-NBD/test.sh b/test/TEST-40-NBD/test.sh
+index 1a6524d..848a103 100755
+--- a/test/TEST-40-NBD/test.sh
++++ b/test/TEST-40-NBD/test.sh
+@@ -95,7 +95,6 @@ client_test() {
+ }
+ 
+ test_run() {
+-    modinfo nbd &>/dev/null || { echo "Kernel does not support nbd"; exit 1; }
+     if ! run_server; then
+         echo "Failed to start server" 1>&2
+         return 1
+@@ -325,9 +324,6 @@ make_server_root() {
+ }
+ 
+ test_setup() {
+-
+-    modinfo nbd &>/dev/null || { echo "Kernel does not support nbd"; exit 1; }
+-
+     make_encrypted_root || return 1
+     make_client_root || return 1
+     make_server_root || return 1
+@@ -370,6 +366,12 @@ kill_server() {
+     fi
+ }
+ 
++test_check() {
++    modinfo nbd &>/dev/null || { echo "Kernel does not support nbd"; return 1; }
++    command -v nbd-client &>/dev/null || { echo "No nbd-client available"; return 1; }
++    command -v nbd-server &>/dev/null || { echo "No nbd-server available"; return 1; }
++}
++
+ test_cleanup() {
+     kill_server
+ }

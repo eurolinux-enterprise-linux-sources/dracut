@@ -1,0 +1,23 @@
+From 2877acadc0be3dff39c3a92650bacfac7e0603de Mon Sep 17 00:00:00 2001
+From: Lidong Zhong <lzhong@suse.com>
+Date: Mon, 24 Aug 2015 18:02:10 +0800
+Subject: [PATCH] dracut-functions.sh: remove duplicate declaratio of local
+ variable
+
+---
+ dracut-functions.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dracut-functions.sh b/dracut-functions.sh
+index 61726e4..3c4118a 100755
+--- a/dracut-functions.sh
++++ b/dracut-functions.sh
+@@ -426,7 +426,7 @@ shorten_persistent_dev() {
+ # $ find_block_device /usr
+ # 8:4
+ find_block_device() {
+-    local _majmin _dev _majmin _find_mpt
++    local _dev _majmin _find_mpt
+     _find_mpt="$1"
+     if [[ $use_fstab != yes ]]; then
+         [[ -d $_find_mpt/. ]]

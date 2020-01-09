@@ -1,0 +1,26 @@
+From 33710dfbfcf43f4438ed58e45e2599d3fe47e2f3 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 7 Sep 2016 09:33:31 +0200
+Subject: [PATCH] network: fix dhcp classless_static_routes
+
+removed copy&paste artifact "modify_routes add"
+
+there is no modify_routes() function, and we simply want the output
+of the parse function.
+---
+ modules.d/40network/dhclient-script.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules.d/40network/dhclient-script.sh b/modules.d/40network/dhclient-script.sh
+index f6c77f2..2a2e234 100755
+--- a/modules.d/40network/dhclient-script.sh
++++ b/modules.d/40network/dhclient-script.sh
+@@ -175,7 +175,7 @@ case $reason in
+             echo '. /lib/net-lib.sh'
+             echo "setup_net $netif"
+             if [ -n "$new_classless_static_routes" ]; then
+-                modify_routes add "$(parse_option_121 $new_classless_static_routes)"
++                parse_option_121 $new_classless_static_routes
+             fi
+             echo "source_hook initqueue/online $netif"
+             [ -e /tmp/net.$netif.manualup ] || echo "/sbin/netroot $netif"

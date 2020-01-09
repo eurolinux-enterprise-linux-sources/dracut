@@ -1,0 +1,23 @@
+From f105eaebb8ede98c44cc33705384c05a5b12adb1 Mon Sep 17 00:00:00 2001
+From: Hannes Reinecke <hare@suse.de>
+Date: Thu, 11 Dec 2014 15:46:21 +0100
+Subject: [PATCH] 95fcoe: update fcoe interface check
+
+---
+ modules.d/95fcoe/parse-fcoe.sh | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/modules.d/95fcoe/parse-fcoe.sh b/modules.d/95fcoe/parse-fcoe.sh
+index e8a77e0..3d82912 100755
+--- a/modules.d/95fcoe/parse-fcoe.sh
++++ b/modules.d/95fcoe/parse-fcoe.sh
+@@ -26,9 +26,6 @@
+ 
+ initqueue --onetime modprobe -b -q bnx2fc
+ 
+-# FCoE actually supported?
+-[ -e /sys/bus/fcoe/ctlr_create ] || modprobe fcoe || die "FCoE requested but kernel/initrd does not support FCoE"
+-
+ parse_fcoe_opts() {
+     local OLDIFS="$IFS"
+     local IFS=:

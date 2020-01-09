@@ -1,0 +1,372 @@
+From 904c466cdb424a10c68cc97d8974754acd04dad9 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Fri, 11 Nov 2016 13:45:24 +0100
+Subject: [PATCH] testsuite: guard against kernel panic
+
+call qemu with --no-reboot and append "panic=1" to the kernel cmdline
+---
+ test/TEST-01-BASIC/test.sh                 | 3 ++-
+ test/TEST-02-SYSTEMD/test.sh               | 3 ++-
+ test/TEST-03-USR-MOUNT/test.sh             | 3 ++-
+ test/TEST-04-FULL-SYSTEMD/test.sh          | 3 ++-
+ test/TEST-10-RAID/test.sh                  | 3 ++-
+ test/TEST-11-LVM/test.sh                   | 3 ++-
+ test/TEST-12-RAID-DEG/test.sh              | 3 ++-
+ test/TEST-13-ENC-RAID-LVM/test.sh          | 9 ++++++---
+ test/TEST-14-IMSM/test.sh                  | 3 ++-
+ test/TEST-15-BTRFSRAID/test.sh             | 3 ++-
+ test/TEST-16-DMSQUASH/test.sh              | 3 ++-
+ test/TEST-17-LVM-THIN/test.sh              | 3 ++-
+ test/TEST-20-NFS/test.sh                   | 6 ++++--
+ test/TEST-30-ISCSI/test.sh                 | 6 ++++--
+ test/TEST-40-NBD/test.sh                   | 6 ++++--
+ test/TEST-50-MULTINIC/test.sh              | 6 ++++--
+ test/TEST-60-MTUMAC/test.sh                | 6 ++++--
+ test/TEST-70-BONDBRIDGETEAMVLAN/dhcpd.conf | 2 +-
+ test/TEST-70-BONDBRIDGETEAMVLAN/test.sh    | 6 ++++--
+ 19 files changed, 53 insertions(+), 27 deletions(-)
+
+diff --git a/test/TEST-01-BASIC/test.sh b/test/TEST-01-BASIC/test.sh
+index 97e8017..6b79dee 100755
+--- a/test/TEST-01-BASIC/test.sh
++++ b/test/TEST-01-BASIC/test.sh
+@@ -14,7 +14,8 @@ test_run() {
+ 	-m 256M -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+ 	-watchdog i6300esb -watchdog-action poweroff \
+-	-append "root=LABEL=dracut rw systemd.log_level=debug systemd.log_target=console rd.retry=3 rd.debug console=ttyS0,115200n81 $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=LABEL=dracut rw systemd.log_level=debug systemd.log_target=console rd.retry=3 rd.debug console=ttyS0,115200n81 $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing || return 1
+     grep -F -m 1 -q dracut-root-block-success $TESTDIR/result || return 1
+ }
+diff --git a/test/TEST-02-SYSTEMD/test.sh b/test/TEST-02-SYSTEMD/test.sh
+index 2a077b0..2359180 100755
+--- a/test/TEST-02-SYSTEMD/test.sh
++++ b/test/TEST-02-SYSTEMD/test.sh
+@@ -13,7 +13,8 @@ test_run() {
+ 	-hdb $TESTDIR/marker.disk \
+ 	-m 256M -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "root=LABEL=dracut rw loglevel=77 rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 init=/sbin/init $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=LABEL=dracut rw loglevel=77 rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 init=/sbin/init $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+     grep -F -m 1 -q dracut-root-block-success $TESTDIR/marker.disk || return 1
+ }
+diff --git a/test/TEST-03-USR-MOUNT/test.sh b/test/TEST-03-USR-MOUNT/test.sh
+index c3f810a..cd6f282 100755
+--- a/test/TEST-03-USR-MOUNT/test.sh
++++ b/test/TEST-03-USR-MOUNT/test.sh
+@@ -20,7 +20,8 @@ client_run() {
+ 	-hdc $TESTDIR/result \
+ 	-m 256M -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "root=LABEL=dracut $client_opts rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=LABEL=dracut $client_opts rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+ 
+     if (($? != 0)); then
+diff --git a/test/TEST-04-FULL-SYSTEMD/test.sh b/test/TEST-04-FULL-SYSTEMD/test.sh
+index 1adb34e..13ab37b 100755
+--- a/test/TEST-04-FULL-SYSTEMD/test.sh
++++ b/test/TEST-04-FULL-SYSTEMD/test.sh
+@@ -22,7 +22,8 @@ client_run() {
+ 	-hdc $TESTDIR/result \
+ 	-m 256M -smp 2 -nographic \
+ 	-net none \
+-	-append "$client_opts rd.device.timeout=20 rd.retry=3 console=ttyS0,115200n81 selinux=0 $DEBUGOUT $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 $client_opts rd.device.timeout=20 rd.retry=3 console=ttyS0,115200n81 selinux=0 $DEBUGOUT $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+ 
+     if (($? != 0)); then
+diff --git a/test/TEST-10-RAID/test.sh b/test/TEST-10-RAID/test.sh
+index 7f99c0e..364f7d5 100755
+--- a/test/TEST-10-RAID/test.sh
++++ b/test/TEST-10-RAID/test.sh
+@@ -12,7 +12,8 @@ test_run() {
+ 	-hda $DISKIMAGE \
+ 	-m 256M -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "root=/dev/dracut/root rd.auto rw rd.retry=10 console=ttyS0,115200n81 selinux=0 $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=/dev/dracut/root rd.auto rw rd.retry=10 console=ttyS0,115200n81 selinux=0 $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+     grep -F -m 1 -q dracut-root-block-success $DISKIMAGE || return 1
+ }
+diff --git a/test/TEST-11-LVM/test.sh b/test/TEST-11-LVM/test.sh
+index a4ee86d..fb00946 100755
+--- a/test/TEST-11-LVM/test.sh
++++ b/test/TEST-11-LVM/test.sh
+@@ -11,7 +11,8 @@ test_run() {
+ 	-hda $TESTDIR/root.ext2 \
+ 	-m 256M -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "root=/dev/dracut/root rw rd.auto=1 quiet rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 rd.debug  $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=/dev/dracut/root rw rd.auto=1 quiet rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 rd.debug  $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+     grep -F -m 1 -q dracut-root-block-success $TESTDIR/root.ext2 || return 1
+ }
+diff --git a/test/TEST-12-RAID-DEG/test.sh b/test/TEST-12-RAID-DEG/test.sh
+index aae5e8b..d4cb9d0 100755
+--- a/test/TEST-12-RAID-DEG/test.sh
++++ b/test/TEST-12-RAID-DEG/test.sh
+@@ -19,7 +19,8 @@ client_run() {
+ 	-hdc $TESTDIR/disk2.img.new \
+ 	-hdd $TESTDIR/disk3.img.new \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "$* root=LABEL=root rw rd.retry=20 rd.info console=ttyS0,115200n81 selinux=0 rd.debug $DEBUGFAIL " \
++        -no-reboot \
++	-append "panic=1 $* root=LABEL=root rw rd.retry=20 rd.info console=ttyS0,115200n81 selinux=0 rd.debug $DEBUGFAIL " \
+ 	-initrd $TESTDIR/initramfs.testing
+     if ! grep -F -m 1 -q dracut-root-block-success $TESTDIR/root.ext2; then
+ 	echo "CLIENT TEST END: $@ [FAIL]"
+diff --git a/test/TEST-13-ENC-RAID-LVM/test.sh b/test/TEST-13-ENC-RAID-LVM/test.sh
+index 8194166..196dd3b 100755
+--- a/test/TEST-13-ENC-RAID-LVM/test.sh
++++ b/test/TEST-13-ENC-RAID-LVM/test.sh
+@@ -19,7 +19,8 @@ test_run() {
+ 	-hdb $TESTDIR/check-success.img \
+ 	-m 256M -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "root=/dev/dracut/root rw rd.auto rd.retry=20 console=ttyS0,115200n81 selinux=0 $LUKSARGS rd.device.timeout=40 $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=/dev/dracut/root rw rd.auto rd.retry=20 console=ttyS0,115200n81 selinux=0 $LUKSARGS rd.device.timeout=40 $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+     grep -F -m 1 -q dracut-root-block-success $TESTDIR/check-success.img || return 1
+     echo "CLIENT TEST END: [OK]"
+@@ -32,7 +33,8 @@ test_run() {
+ 	-hdb $TESTDIR/check-success.img \
+ 	-m 256M -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "root=/dev/dracut/root rw quiet rd.auto rd.retry=20 rd.info console=ttyS0,115200n81 selinux=0 rd.device.timeout=40 $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=/dev/dracut/root rw quiet rd.auto rd.retry=20 rd.info console=ttyS0,115200n81 selinux=0 rd.device.timeout=40 $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+     grep -F -m 1 -q dracut-root-block-success $TESTDIR/check-success.img || return 1
+     echo "CLIENT TEST END: [OK]"
+@@ -45,7 +47,8 @@ test_run() {
+ 	-hdb $TESTDIR/check-success.img \
+ 	-m 256M -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "root=/dev/dracut/root rw quiet rd.auto rd.retry=10 rd.info console=ttyS0,115200n81 selinux=0 rd.debug rd.luks.uuid=failme rd.device.timeout=40 $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=/dev/dracut/root rw quiet rd.auto rd.retry=10 rd.info console=ttyS0,115200n81 selinux=0 rd.debug rd.luks.uuid=failme rd.device.timeout=40 $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+     grep -F -m 1 -q dracut-root-block-success $TESTDIR/check-success.img && return 1
+     echo "CLIENT TEST END: [OK]"
+diff --git a/test/TEST-14-IMSM/test.sh b/test/TEST-14-IMSM/test.sh
+index 783ec4a..4e5d665 100755
+--- a/test/TEST-14-IMSM/test.sh
++++ b/test/TEST-14-IMSM/test.sh
+@@ -15,7 +15,8 @@ client_run() {
+ 	-hdc $TESTDIR/disk2 \
+ 	-m 256M -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "$* root=LABEL=root rw debug rd.retry=20 rd.debug console=ttyS0,115200n81 selinux=0 rd.info $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 $* root=LABEL=root rw debug rd.retry=20 rd.debug console=ttyS0,115200n81 selinux=0 rd.info $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+     if ! grep -F -m 1 -q dracut-root-block-success $TESTDIR/root.ext2; then
+ 	echo "CLIENT TEST END: $@ [FAIL]"
+diff --git a/test/TEST-15-BTRFSRAID/test.sh b/test/TEST-15-BTRFSRAID/test.sh
+index 1e3e18c..51ffd96 100755
+--- a/test/TEST-15-BTRFSRAID/test.sh
++++ b/test/TEST-15-BTRFSRAID/test.sh
+@@ -11,7 +11,8 @@ test_run() {
+ 	-hda $DISKIMAGE \
+ 	-m 256M  -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "root=LABEL=root rw rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=LABEL=root rw rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+     dd if=$DISKIMAGE bs=512 count=2 | grep -F -m 1 -q dracut-root-block-success $DISKIMAGE || return 1
+ }
+diff --git a/test/TEST-16-DMSQUASH/test.sh b/test/TEST-16-DMSQUASH/test.sh
+index 6daa35e..3b4600e 100755
+--- a/test/TEST-16-DMSQUASH/test.sh
++++ b/test/TEST-16-DMSQUASH/test.sh
+@@ -21,7 +21,8 @@ test_run() {
+ 	-hda "$TESTDIR"/root.img \
+ 	-m 256M -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-"$KVERSION" \
+-	-append "root=live:CDLABEL=LiveCD live rw quiet rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 rd.debug $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=live:CDLABEL=LiveCD live rw quiet rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 rd.debug $DEBUGFAIL" \
+ 	-initrd "$TESTDIR"/initramfs.testing
+     grep -F -m 1 -q dracut-root-block-success -- "$TESTDIR"/root.img || return 1
+ }
+diff --git a/test/TEST-17-LVM-THIN/test.sh b/test/TEST-17-LVM-THIN/test.sh
+index f15e1a3..9a9ed6f 100755
+--- a/test/TEST-17-LVM-THIN/test.sh
++++ b/test/TEST-17-LVM-THIN/test.sh
+@@ -11,7 +11,8 @@ test_run() {
+ 	-hda $TESTDIR/root.ext2 \
+ 	-m 256M -smp 2 -nographic \
+ 	-net none -kernel /boot/vmlinuz-$KVERSION \
+-	-append "root=/dev/dracut/root rw rd.auto=1 quiet rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 rd.debug  $DEBUGFAIL" \
++        -no-reboot \
++	-append "panic=1 root=/dev/dracut/root rw rd.auto=1 quiet rd.retry=3 rd.info console=ttyS0,115200n81 selinux=0 rd.debug  $DEBUGFAIL" \
+ 	-initrd $TESTDIR/initramfs.testing
+     grep -F -m 1 -q dracut-root-block-success $TESTDIR/root.ext2 || return 1
+ }
+diff --git a/test/TEST-20-NFS/test.sh b/test/TEST-20-NFS/test.sh
+index 64fc550..9e02a18 100755
+--- a/test/TEST-20-NFS/test.sh
++++ b/test/TEST-20-NFS/test.sh
+@@ -23,7 +23,8 @@ run_server() {
+         -serial ${SERIAL:-null} \
+         -watchdog i6300esb -watchdog-action poweroff \
+         -kernel /boot/vmlinuz-$KVERSION \
+-        -append "rd.debug loglevel=77 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
++        -no-reboot \
++        -append "panic=1 rd.debug loglevel=77 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
+         -initrd $TESTDIR/initramfs.server \
+         -pidfile $TESTDIR/server.pid -daemonize || return 1
+     chmod 644 $TESTDIR/server.pid || return 1
+@@ -58,7 +59,8 @@ client_test() {
+         -net socket,connect=127.0.0.1:12320 \
+         -kernel /boot/vmlinuz-$KVERSION \
+         -watchdog i6300esb -watchdog-action poweroff \
+-        -append "$cmdline $DEBUGFAIL rd.debug rd.retry=10 rd.info quiet  ro console=ttyS0,115200n81 selinux=0" \
++        -no-reboot \
++        -append "panic=1 $cmdline $DEBUGFAIL rd.debug rd.retry=10 rd.info quiet  ro console=ttyS0,115200n81 selinux=0" \
+         -initrd $TESTDIR/initramfs.testing
+ 
+     if [[ $? -ne 0 ]] || ! grep -F -m 1 -q nfs-OK $TESTDIR/client.img; then
+diff --git a/test/TEST-30-ISCSI/test.sh b/test/TEST-30-ISCSI/test.sh
+index a610b0e..a82a950 100755
+--- a/test/TEST-30-ISCSI/test.sh
++++ b/test/TEST-30-ISCSI/test.sh
+@@ -25,7 +25,8 @@ run_server() {
+         -net nic,macaddr=52:54:00:12:34:56,model=e1000 \
+         -net nic,macaddr=52:54:00:12:34:57,model=e1000 \
+         -net socket,listen=127.0.0.1:12330 \
+-        -append "root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0 $SERVER_DEBUG" \
++        -no-reboot \
++        -append "panic=1 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0 $SERVER_DEBUG" \
+         -initrd $TESTDIR/initramfs.server \
+         -pidfile $TESTDIR/server.pid -daemonize || return 1
+     chmod 644 $TESTDIR/server.pid || return 1
+@@ -49,7 +50,8 @@ run_client() {
+         -net nic,macaddr=52:54:00:12:34:00,model=e1000 \
+         -net nic,macaddr=52:54:00:12:34:01,model=e1000 \
+         -net socket,connect=127.0.0.1:12330 \
+-        -append "rw rd.auto rd.device.timeout=300 rd.retry=50 console=ttyS0,115200n81 selinux=0 rd.debug=0 $DEBUGFAIL $*" \
++        -no-reboot \
++        -append "panic=1 rw rd.auto rd.device.timeout=300 rd.retry=50 console=ttyS0,115200n81 selinux=0 rd.debug=0 $DEBUGFAIL $*" \
+         -initrd $TESTDIR/initramfs.testing
+     if ! grep -F -m 1 -q iscsi-OK $TESTDIR/client.img; then
+ 	echo "CLIENT TEST END: $test_name [FAILED - BAD EXIT]"
+diff --git a/test/TEST-40-NBD/test.sh b/test/TEST-40-NBD/test.sh
+index 73123c2..a781ef0 100755
+--- a/test/TEST-40-NBD/test.sh
++++ b/test/TEST-40-NBD/test.sh
+@@ -24,7 +24,8 @@ run_server() {
+         -net socket,listen=127.0.0.1:12340 \
+         -serial $SERIAL \
+         -kernel /boot/vmlinuz-$KVERSION \
+-        -append "root=/dev/sda rootfstype=ext2 rw quiet console=ttyS0,115200n81 selinux=0" \
++        -no-reboot \
++        -append "panic=1 root=/dev/sda rootfstype=ext2 rw quiet console=ttyS0,115200n81 selinux=0" \
+         -initrd $TESTDIR/initramfs.server -pidfile $TESTDIR/server.pid -daemonize || return 1
+     chmod 644 $TESTDIR/server.pid || return 1
+ 
+@@ -61,7 +62,8 @@ client_test() {
+         -net nic,macaddr=$mac,model=e1000 \
+         -net socket,connect=127.0.0.1:12340 \
+         -kernel /boot/vmlinuz-$KVERSION \
+-        -append "$cmdline $DEBUGFAIL rd.auto rd.info rd.retry=10 ro console=ttyS0,115200n81  selinux=0  " \
++        -no-reboot \
++        -append "panic=1 $cmdline $DEBUGFAIL rd.auto rd.info rd.retry=10 ro console=ttyS0,115200n81  selinux=0  " \
+         -initrd $TESTDIR/initramfs.testing
+ 
+     if [[ $? -ne 0 ]] || ! grep -F -m 1 -q nbd-OK $TESTDIR/flag.img; then
+diff --git a/test/TEST-50-MULTINIC/test.sh b/test/TEST-50-MULTINIC/test.sh
+index 642a748..627b8ca 100755
+--- a/test/TEST-50-MULTINIC/test.sh
++++ b/test/TEST-50-MULTINIC/test.sh
+@@ -23,7 +23,8 @@ run_server() {
+         ${SERIAL:+-serial "$SERIAL"} \
+         -watchdog i6300esb -watchdog-action poweroff \
+         -kernel /boot/vmlinuz-"$KVERSION" \
+-        -append "loglevel=7 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
++        -no-reboot \
++        -append "panic=1 loglevel=7 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
+         -initrd "$TESTDIR"/initramfs.server \
+         -pidfile "$TESTDIR"/server.pid -daemonize || return 1
+     chmod 644 -- "$TESTDIR"/server.pid || return 1
+@@ -58,7 +59,8 @@ client_test() {
+         -net nic,macaddr=52:54:00:12:34:$mac3,model=e1000 \
+         -watchdog i6300esb -watchdog-action poweroff \
+         -kernel /boot/vmlinuz-"$KVERSION" \
+-        -append "$cmdline $DEBUGFAIL rd.retry=5 rw console=ttyS0,115200n81 selinux=0 init=/sbin/init rd.debug systemd.log_target=console loglevel=7" \
++        -no-reboot \
++        -append "panic=1 $cmdline $DEBUGFAIL rd.retry=5 rw console=ttyS0,115200n81 selinux=0 init=/sbin/init rd.debug systemd.log_target=console loglevel=7" \
+         -initrd "$TESTDIR"/initramfs.testing
+ 
+     { read OK; read IFACES; } < "$TESTDIR"/client.img
+diff --git a/test/TEST-60-MTUMAC/test.sh b/test/TEST-60-MTUMAC/test.sh
+index b70e316..f2d5c4a 100755
+--- a/test/TEST-60-MTUMAC/test.sh
++++ b/test/TEST-60-MTUMAC/test.sh
+@@ -22,7 +22,8 @@ run_server() {
+         ${SERIAL:+-serial "$SERIAL"} \
+         -watchdog i6300esb -watchdog-action poweroff \
+         -kernel /boot/vmlinuz-"$KVERSION" \
+-        -append "loglevel=7 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
++        -no-reboot \
++        -append "panic=1 loglevel=7 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
+         -initrd "$TESTDIR"/initramfs.server \
+         -pidfile "$TESTDIR"/server.pid -daemonize || return 1
+     chmod 644 -- "$TESTDIR"/server.pid || return 1
+@@ -56,7 +57,8 @@ client_test() {
+         -net nic,macaddr=52:54:00:12:34:05,model=e1000 \
+         -watchdog i6300esb -watchdog-action poweroff \
+         -kernel /boot/vmlinuz-"$KVERSION" \
+-        -append "$cmdline $DEBUGFAIL rd.retry=5 rw console=ttyS0,115200n81 selinux=0 init=/sbin/init" \
++        -no-reboot \
++        -append "panic=1 $cmdline $DEBUGFAIL rd.retry=5 rw console=ttyS0,115200n81 selinux=0 init=/sbin/init" \
+         -initrd "$TESTDIR"/initramfs.testing
+ 
+     { 
+diff --git a/test/TEST-70-BONDBRIDGETEAMVLAN/dhcpd.conf b/test/TEST-70-BONDBRIDGETEAMVLAN/dhcpd.conf
+index ec810c2..e26bd60 100644
+--- a/test/TEST-70-BONDBRIDGETEAMVLAN/dhcpd.conf
++++ b/test/TEST-70-BONDBRIDGETEAMVLAN/dhcpd.conf
+@@ -22,6 +22,6 @@ subnet 192.168.51.0 netmask 255.255.255.0 {
+ 	option domain-name-servers 192.168.51.1;
+ 	option domain-search "example.com";
+ 	option domain-name "other.com";
+-	option root-path "nfs:192.168.50.1:/nfs/client";
++	option root-path "nfs:192.168.51.1:/nfs/client";
+ 	range 192.168.51.10 192.168.51.100;
+ }
+diff --git a/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh b/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh
+index dcf9d5c..9cf1f1a 100755
+--- a/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh
++++ b/test/TEST-70-BONDBRIDGETEAMVLAN/test.sh
+@@ -29,7 +29,8 @@ run_server() {
+         ${SERIAL:+-serial "$SERIAL"} \
+         -watchdog i6300esb -watchdog-action poweroff \
+         -kernel /boot/vmlinuz-"$KVERSION" \
+-        -append "loglevel=7 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
++        -no-reboot \
++        -append "panic=1 loglevel=7 root=/dev/sda rootfstype=ext3 rw console=ttyS0,115200n81 selinux=0" \
+         -initrd "$TESTDIR"/initramfs.server \
+         -pidfile "$TESTDIR"/server.pid -daemonize || return 1
+     chmod 644 -- "$TESTDIR"/server.pid || return 1
+@@ -70,7 +71,8 @@ client_test() {
+         -net nic,vlan=3,macaddr=52:54:00:12:34:05,model=e1000 \
+         -watchdog i6300esb -watchdog-action poweroff \
+         -kernel /boot/vmlinuz-"$KVERSION" \
+-        -append "$cmdline rd.info $DEBUGFAIL rd.retry=5 rw console=ttyS0,115200n81 selinux=0 init=/sbin/init" \
++        -no-reboot \
++        -append "panic=1 $cmdline rd.info $DEBUGFAIL rd.retry=5 rw console=ttyS0,115200n81 selinux=0 init=/sbin/init" \
+         -initrd "$TESTDIR"/initramfs.testing
+ 
+     { 

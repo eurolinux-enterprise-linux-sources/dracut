@@ -1,0 +1,22 @@
+From de8cc25d70385725b5652dff9f308896084c00b8 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Mon, 29 Feb 2016 11:55:25 +0100
+Subject: [PATCH] dracut: add "tar" and "dd" requirement
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1285810
+---
+ dracut.spec | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/dracut.spec b/dracut.spec
+index ad737c2..c937909 100644
+--- a/dracut.spec
++++ b/dracut.spec
+@@ -91,6 +91,7 @@ Requires: gzip xz
+ Requires: kmod
+ Requires: sed
+ Requires: kpartx
++Requires: tar dd
+ 
+ %if 0%{?fedora} || 0%{?rhel} > 6
+ Requires: util-linux >= 2.21

@@ -1,0 +1,23 @@
+From 39c4892772a3afa8b1103c1b06db576976cbf066 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Fri, 26 Aug 2016 11:24:42 +0200
+Subject: [PATCH] TEST-16-DMSQUASH: add sr_mod
+
+otherwise no cdrom can be accessed on RHEL-7
+---
+ test/TEST-16-DMSQUASH/test.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/test/TEST-16-DMSQUASH/test.sh b/test/TEST-16-DMSQUASH/test.sh
+index 9d584e3..e80ec5c 100755
+--- a/test/TEST-16-DMSQUASH/test.sh
++++ b/test/TEST-16-DMSQUASH/test.sh
+@@ -40,7 +40,7 @@ test_setup() {
+ 
+     sudo $basedir/dracut.sh -l -i "$TESTDIR"/overlay / \
+ 	-a "debug dmsquash-live" \
+-	-d "piix ide-gd_mod ata_piix ext3 sd_mod" \
++	-d "piix ide-gd_mod ata_piix ext3 sd_mod sr_mod" \
+ 	-f "$TESTDIR"/initramfs.testing "$KVERSION" || return 1
+ 
+     mkdir -p -- "$TESTDIR"/root-source

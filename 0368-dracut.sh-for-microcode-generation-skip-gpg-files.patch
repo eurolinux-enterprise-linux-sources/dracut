@@ -1,0 +1,30 @@
+From 3a39dd027f1574bdddb664d14dd592d23ce7eef1 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 18 Nov 2015 10:58:54 +0100
+Subject: [PATCH] dracut.sh: for microcode generation, skip gpg files
+
+skip all ".asc" files for the AMD microcode generation
+
+(cherry picked from commit c44d2252bb4b9e72f2b058f8c185698e88dc8374)
+---
+ dracut.sh | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/dracut.sh b/dracut.sh
+index 5b72221..6bbde70 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -1497,7 +1497,12 @@ if [[ $early_microcode = yes ]]; then
+                     [ -e "$i" ] && break
+                     break 2
+                 done
+-                cat $_fwdir/$_fw/$_src > $_dest_dir/${ucode_dest[$idx]}
++                for i in $_fwdir/$_fw/$_src; do
++                    [[ -e "$i" ]] || continue
++                    # skip gpg files
++                    str_ends "$i" ".asc" && continue
++                    cat "$i" >> $_dest_dir/${ucode_dest[$idx]}
++                done
+                 create_early_cpio="yes"
+             fi
+         done

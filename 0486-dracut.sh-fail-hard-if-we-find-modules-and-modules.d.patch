@@ -1,0 +1,34 @@
+From 9301650e17a24194b0a4f78d8f91b87ef62d46dc Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 13 Jan 2016 09:32:24 +0100
+Subject: [PATCH] dracut.sh: fail hard, if we find modules and modules.dep is
+ missing
+
+If modules are present in /lib/modules/<kernelversion> and modules.dep
+is empty, depmod was not run most likely.
+---
+ dracut.sh | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/dracut.sh b/dracut.sh
+index e45dc7b..f4e8509 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -969,9 +969,14 @@ esac
+ abs_outfile=$(readlink -f "$outfile") && outfile="$abs_outfile"
+ 
+ if [[ -d $srcmods ]]; then
+-    [[ -f $srcmods/modules.dep ]] || {
+-      dwarn "$srcmods/modules.dep is missing. Did you run depmod?"
+-    }
++    if ! [[ -f $srcmods/modules.dep ]]; then
++        if [[ -n "$(find "$srcmods" -name '*.ko*')" ]]; then
++            dfatal "$srcmods/modules.dep is missing. Did you run depmod?"
++            exit 1
++        else
++            dwarn "$srcmods/modules.dep is missing. Did you run depmod?"
++        fi
++    fi
+ fi
+ 
+ if [[ ! $print_cmdline ]]; then

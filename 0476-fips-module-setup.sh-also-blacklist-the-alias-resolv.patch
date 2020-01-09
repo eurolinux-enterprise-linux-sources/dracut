@@ -1,0 +1,34 @@
+From 73cf135d804f18b7a1c51ad30004cab9636d2fe8 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 30 Nov 2016 13:54:20 +0100
+Subject: [PATCH] fips/module-setup.sh: also blacklist the alias resolved
+ modules
+
+---
+ modules.d/01fips/module-setup.sh | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/modules.d/01fips/module-setup.sh b/modules.d/01fips/module-setup.sh
+index dc47634..3bf6c33 100755
+--- a/modules.d/01fips/module-setup.sh
++++ b/modules.d/01fips/module-setup.sh
+@@ -11,7 +11,7 @@ depends() {
+ }
+ 
+ installkernel() {
+-    local _fipsmodules _mod
++    local _fipsmodules _mod i
+ 
+     if [[ -f "${srcmods}/modules.fips" ]]; then
+         _fipsmodules="$(cat "${srcmods}/modules.fips")"
+@@ -30,6 +30,10 @@ installkernel() {
+         if hostonly='' instmods -c -s $_mod; then
+             echo $_mod >> "${initdir}/etc/fipsmodules"
+             echo "blacklist $_mod" >> "${initdir}/etc/modprobe.d/fips.conf"
++            for i in $(modprobe --resolve-alias $_mod 2>/dev/null); do
++                [[ $i == $_mod ]] && continue
++                echo "blacklist $i" >> "${initdir}/etc/modprobe.d/fips.conf"
++            done
+         fi
+     done
+ }

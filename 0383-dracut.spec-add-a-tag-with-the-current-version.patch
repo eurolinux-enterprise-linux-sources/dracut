@@ -1,0 +1,21 @@
+From 863105bce149bf41b6c41483042d3e32ed713dfe Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Tue, 1 Mar 2016 12:33:28 +0100
+Subject: [PATCH] dracut.spec: add a tag with the current version
+
+---
+ dracut.spec | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/dracut.spec b/dracut.spec
+index c937909..5c4b047 100644
+--- a/dracut.spec
++++ b/dracut.spec
+@@ -203,6 +203,7 @@ git commit -a -q -m "%{version} baseline."
+ 
+ # Apply all the patches.
+ git am -p1 %{patches}
++git tag %{version}
+ %endif
+ 
+ %build

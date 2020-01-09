@@ -1,0 +1,49 @@
+From f45726652fd8c6fd6b5560e1142753bac62dc426 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 29 Jun 2016 10:49:00 +0200
+Subject: [PATCH] fcoe: check if needed for hostonly
+
+---
+ modules.d/95fcoe-uefi/module-setup.sh | 8 ++++++++
+ modules.d/95fcoe/module-setup.sh      | 9 +++++++++
+ 2 files changed, 17 insertions(+)
+
+diff --git a/modules.d/95fcoe-uefi/module-setup.sh b/modules.d/95fcoe-uefi/module-setup.sh
+index f5277f4..242363e 100755
+--- a/modules.d/95fcoe-uefi/module-setup.sh
++++ b/modules.d/95fcoe-uefi/module-setup.sh
+@@ -4,6 +4,14 @@
+ 
+ # called by dracut
+ check() {
++    local _fcoe_ctlr
++    [[ $hostonly ]] || [[ $mount_needs ]] && {
++        for c in /sys/bus/fcoe/devices/ctlr_* ; do
++            [ -L $c ] || continue
++            _fcoe_ctlr=$c
++        done
++        [ -z "$_fcoe_ctlr" ] && return 255
++    }
+     [[ $hostonly ]] || [[ $mount_needs ]] && {
+         [ -d /sys/firmware/efi ] || return 255
+     }
+diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
+index 646cfa8..ba10b0a 100755
+--- a/modules.d/95fcoe/module-setup.sh
++++ b/modules.d/95fcoe/module-setup.sh
+@@ -3,6 +3,15 @@
+ # ex: ts=8 sw=4 sts=4 et filetype=sh
+ 
+ check() {
++    local _fcoe_ctlr
++    [[ $hostonly ]] || [[ $mount_needs ]] && {
++        for c in /sys/bus/fcoe/devices/ctlr_* ; do
++            [ -L $c ] || continue
++            _fcoe_ctlr=$c
++        done
++        [ -z "$_fcoe_ctlr" ] && return 255
++    }
++
+     require_binaries dcbtool fipvlan lldpad ip readlink fcoemon fcoeadm || return 1
+     return 0
+ }

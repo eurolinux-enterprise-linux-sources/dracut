@@ -1,0 +1,22 @@
+From b120b0c116591c80503404cd4d2f630508ce9b34 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 11 Jan 2017 13:40:13 +0100
+Subject: [PATCH] dracut.sh: skip empty lines in /proc/modules
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1405025
+---
+ dracut.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/dracut.sh b/dracut.sh
+index 90ea9c3..e45dc7b 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -1132,6 +1132,7 @@ if [[ $hostonly ]]; then
+     # check /proc/modules
+     declare -A host_modules
+     while read m rest; do
++        [ -z "$m" ] && continue
+         host_modules["$m"]=1
+     done </proc/modules
+ fi

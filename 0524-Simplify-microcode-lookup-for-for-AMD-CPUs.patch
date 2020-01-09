@@ -1,0 +1,33 @@
+From a0e7bc11c8d95e18be89bc96a82d3482b929c0b5 Mon Sep 17 00:00:00 2001
+From: Daniel Molkentin <dmolkentin@suse.com>
+Date: Thu, 14 Dec 2017 12:24:53 +0100
+Subject: [PATCH] Simplify microcode lookup for for AMD CPUs
+
+Suggested by Tom Lendacky <thomas.lendacky@amd.com>
+
+Cherry-picked from: 19453dc8744e6a59725c43b61b2e3db01cb4c57c
+Resolves: #1476039
+---
+ dracut-functions.sh | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/dracut-functions.sh b/dracut-functions.sh
+index ef52274..98a4b88 100755
+--- a/dracut-functions.sh
++++ b/dracut-functions.sh
+@@ -1738,13 +1738,8 @@ get_ucode_file ()
+     local stepping=`grep -E "stepping" /proc/cpuinfo | head -1 | sed s/.*:\ //`
+ 
+     if [[ "$(get_cpu_vendor)" == "AMD" ]]; then
+-        # If family greater or equal than 0x15
+-        if [[ $family -ge 23 ]]; then
+-            printf "microcode_amd_fam17h.bin"
+-        elif [[ $family -eq 22 ]]; then
+-            printf "microcode_amd_fam16h.bin"
+-        elif [[ $family -eq 21 ]]; then
+-            printf "microcode_amd_fam15h.bin"
++        if [[ $family -ge 21 ]]; then
++            printf "microcode_amd_fam%xh.bin" $family
+         else
+             printf "microcode_amd.bin"
+         fi

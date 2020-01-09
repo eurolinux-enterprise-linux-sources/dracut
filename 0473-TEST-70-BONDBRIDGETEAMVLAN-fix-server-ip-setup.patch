@@ -1,0 +1,38 @@
+From ba5efdcffa8e481b2442fea800d717b45fed240a Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Fri, 11 Nov 2016 13:45:00 +0100
+Subject: [PATCH] TEST-70-BONDBRIDGETEAMVLAN: fix server ip setup
+
+---
+ test/TEST-70-BONDBRIDGETEAMVLAN/server-init.sh | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/test/TEST-70-BONDBRIDGETEAMVLAN/server-init.sh b/test/TEST-70-BONDBRIDGETEAMVLAN/server-init.sh
+index 9585a47..9f45c42 100755
+--- a/test/TEST-70-BONDBRIDGETEAMVLAN/server-init.sh
++++ b/test/TEST-70-BONDBRIDGETEAMVLAN/server-init.sh
+@@ -58,7 +58,6 @@ ip addr add 192.168.50.1/24 dev ens3
+ linkup ens3
+ >/dev/watchdog
+ ip link set dev eth1 name ens4
+-linkup ens4
+ ip link add dev ens4.1 link ens4 type vlan id 1
+ ip link add dev ens4.2 link ens4 type vlan id 2
+ ip link add dev ens4.3 link ens4 type vlan id 3
+@@ -67,13 +66,12 @@ ip addr add 192.168.54.1/24 dev ens4.1
+ ip addr add 192.168.55.1/24 dev ens4.2
+ ip addr add 192.168.56.1/24 dev ens4.3
+ ip addr add 192.168.57.1/24 dev ens4.4
+-ip link set dev eth2 name ens5
+-ip link set dev eth3 name ens6
+ linkup ens4
++ip link set dev eth2 name ens5
++ip addr add 192.168.51.1/24 dev ens5
+ linkup ens5
++ip link set dev eth3 name ens6
+ linkup ens6
+-ip addr add 192.168.51.1/24 dev ens5
+-linkup ens4
+ >/dev/watchdog
+ modprobe af_packet
+ > /dev/watchdog

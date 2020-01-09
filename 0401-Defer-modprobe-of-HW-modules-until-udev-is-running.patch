@@ -1,0 +1,53 @@
+From 7335bd1e2358560ac461ef23715a0098f78330fb Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Fri, 24 Apr 2015 11:54:07 +0200
+Subject: [PATCH] Defer modprobe of HW modules, until udev is running
+
+Also honor blacklisting
+
+(cherry picked from commit 437dad70e9525a21da873652080bbd62a9d8b96a)
+---
+ modules.d/95fcoe/parse-fcoe.sh       | 5 ++---
+ modules.d/95iscsi/parse-iscsiroot.sh | 9 ++-------
+ 2 files changed, 4 insertions(+), 10 deletions(-)
+
+diff --git a/modules.d/95fcoe/parse-fcoe.sh b/modules.d/95fcoe/parse-fcoe.sh
+index 745a78c..e8a77e0 100755
+--- a/modules.d/95fcoe/parse-fcoe.sh
++++ b/modules.d/95fcoe/parse-fcoe.sh
+@@ -22,10 +22,9 @@
+ 
+ 
+ # BRCM: Later, should check whether bnx2x is loaded first before loading bnx2fc so do not load bnx2fc when there are no Broadcom adapters
+-[ -e /sys/bus/fcoe/ctlr_create ] || modprobe -a fcoe || die "FCoE requested but kernel/initrd does not support FCoE"
++[ -e /sys/bus/fcoe/ctlr_create ] || modprobe -b -a fcoe || die "FCoE requested but kernel/initrd does not support FCoE"
+ 
+-modprobe bnx2fc >/dev/null 2>&1
+-udevadm settle --timeout=30
++initqueue --onetime modprobe -b -q bnx2fc
+ 
+ # FCoE actually supported?
+ [ -e /sys/bus/fcoe/ctlr_create ] || modprobe fcoe || die "FCoE requested but kernel/initrd does not support FCoE"
+diff --git a/modules.d/95iscsi/parse-iscsiroot.sh b/modules.d/95iscsi/parse-iscsiroot.sh
+index 3d74ff2..80201d4 100755
+--- a/modules.d/95iscsi/parse-iscsiroot.sh
++++ b/modules.d/95iscsi/parse-iscsiroot.sh
+@@ -89,16 +89,11 @@ if [ -z "$netroot" ] || ! [ "${netroot%%:*}" = "iscsi" ]; then
+ fi
+ 
+ initqueue --unique --onetime --timeout /sbin/iscsiroot timeout "$netroot" "$NEWROOT"
+-
+-modprobe -b -q qla4xxx
+-modprobe -b -q cxgb3i
+-modprobe -b -q cxgb4i
+-modprobe -b -q bnx2i
+-modprobe -b -q be2iscsi
++initqueue --onetime modprobe --all -b -q qla4xxx cxgb3i cxgb4i bnx2i be2iscsi
+ 
+ # ISCSI actually supported?
+ if ! [ -e /sys/module/iscsi_tcp ]; then
+-    modprobe -q iscsi_tcp || die "iscsiroot requested but kernel/initrd does not support iscsi"
++    modprobe -b -q iscsi_tcp || die "iscsiroot requested but kernel/initrd does not support iscsi"
+ fi
+ 
+ if [ -n "$netroot" ] && [ "$root" != "/dev/root" ] && [ "$root" != "dhcp" ]; then

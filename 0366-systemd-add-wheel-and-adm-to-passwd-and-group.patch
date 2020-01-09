@@ -1,0 +1,64 @@
+From ba977abe6305b23fb2bec41798259a78185abaaa Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Mon, 29 Feb 2016 11:52:37 +0100
+Subject: [PATCH] systemd: add "wheel" and "adm" to passwd and group
+
+     # LANG=C journalctl -b -u systemd-tmpfiles-setup-dev.service | grep
+     # ACL
+     Dec 01 13:56:59 localhost.localdomain systemd-tmpfiles[112]: Failed
+to parse ACL "d:group:adm:r-x,d:group:wheel:r-x": Invalid argument.
+Ignoring
+     Dec 01 13:56:59 localhost.localdomain systemd-tmpfiles[112]: Failed
+to parse ACL "group:adm:r-x,group:wheel:r-x": Invalid argument. Ignoring
+     Dec 01 13:56:59 localhost.localdomain systemd-tmpfiles[112]: Failed
+to parse ACL "d:group:adm:r-x,d:group:wheel:r-x": Invalid argument.
+Ignoring
+     Dec 01 13:56:59 localhost.localdomain systemd-tmpfiles[112]: Failed
+to parse ACL "group:adm:r-x,group:wheel:r-x": Invalid argument. Ignoring
+
+     # grep ^[aA] /usr/lib/tmpfiles.d/systemd.conf
+     a+ /run/log/journal/%m - - - - d:group:adm:r-x,d:group:wheel:r-x
+     A+ /run/log/journal/%m - - - - group:adm:r-x,group:wheel:r-x
+     a+ /var/log/journal/%m - - - - d:group:adm:r-x,d:group:wheel:r-x
+     A+ /var/log/journal/%m - - - - group:adm:r-x,group:wheel:r-x
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1287537
+---
+ modules.d/98systemd/module-setup.sh | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/modules.d/98systemd/module-setup.sh b/modules.d/98systemd/module-setup.sh
+index a656fe0..647315f 100755
+--- a/modules.d/98systemd/module-setup.sh
++++ b/modules.d/98systemd/module-setup.sh
+@@ -22,6 +22,17 @@ installkernel() {
+     instmods -s efivarfs
+ }
+ 
++
++ug_check_and_add() {
++    local name="$1"
++    local file="$2"
++
++    if egrep -q "^$name:" "$file" 2>/dev/null \
++            && ! egrep -q "^$name:" "$initdir$file" 2>/dev/null; then
++        egrep "^$name:" "$file" 2>/dev/null >> "$initdir$file"
++    fi
++}
++
+ install() {
+     local _mods
+ 
+@@ -30,6 +41,12 @@ install() {
+         exit 1
+     fi
+ 
++    ug_check_and_add "wheel" "/etc/passwd"
++    ug_check_and_add "wheel" "/etc/group"
++
++    ug_check_and_add "adm" "/etc/passwd"
++    ug_check_and_add "adm" "/etc/group"
++
+     inst_multiple -o \
+         $systemdutildir/systemd \
+         $systemdutildir/systemd-cgroups-agent \

@@ -1,0 +1,30 @@
+From b7c7b16d4ec61e3924c1006bf13d641904825cda Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Fri, 22 Jul 2016 08:39:38 +0200
+Subject: [PATCH] dracut.sh: extend host_fs_types with $filesystems
+
+Additional filesystems specified on the kernel command line or in the
+configuration files, should trigger the inclusion of the corresponding
+dracut modules, therefore host_fs_types is extended with these
+filesystems.
+---
+ dracut.sh | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/dracut.sh b/dracut.sh
+index fefdefd..0a69973 100755
+--- a/dracut.sh
++++ b/dracut.sh
+@@ -1174,6 +1174,12 @@ for dev in "${!host_fs_types[@]}"; do
+     fi
+ done
+ 
++# also put the additional filesystems in host_fs_types
++# so that the according modules are installed.
++for fs in $filesystems; do
++    host_fs_types[$fs]="$fs"
++done
++
+ [[ -d $udevdir ]] \
+     || udevdir="$(pkg-config udev --variable=udevdir 2>/dev/null)"
+ if ! [[ -d "$udevdir" ]]; then

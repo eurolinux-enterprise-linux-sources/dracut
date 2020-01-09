@@ -1,0 +1,66 @@
+From 42dd8928a81ba5ec244a5634813285ab6f342480 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Thu, 30 Jun 2016 11:10:35 +0200
+Subject: [PATCH] network: differ between ipv6 local and global tentative
+
+For dhcpv6, only a non-tentative scope local address is needed.
+---
+ modules.d/40network/dhclient-script.sh |  2 +-
+ modules.d/40network/net-lib.sh         | 24 +++++++++++++++++++++---
+ 2 files changed, 22 insertions(+), 4 deletions(-)
+
+diff --git a/modules.d/40network/dhclient-script.sh b/modules.d/40network/dhclient-script.sh
+index 9553858..f6c77f2 100755
+--- a/modules.d/40network/dhclient-script.sh
++++ b/modules.d/40network/dhclient-script.sh
+@@ -149,7 +149,7 @@ case $reason in
+     PREINIT6)
+         echo "dhcp: PREINIT6 $netif up"
+         linkup $netif
+-        wait_for_ipv6_dad $netif
++        wait_for_ipv6_dad_link $netif
+         ;;
+ 
+     BOUND)
+diff --git a/modules.d/40network/net-lib.sh b/modules.d/40network/net-lib.sh
+index b248133..986c673 100755
+--- a/modules.d/40network/net-lib.sh
++++ b/modules.d/40network/net-lib.sh
+@@ -636,16 +636,34 @@ wait_for_route_ok() {
+     return 1
+ }
+ 
++wait_for_ipv6_dad_link() {
++    local cnt=0
++    local timeout="$(getargs rd.net.timeout.ipv6dad=)"
++    timeout=${timeout:-50}
++    timeout=$(($timeout*10))
++
++    while [ $cnt -lt $timeout ]; do
++        [ -z "$(ip -6 addr show dev "$1" scope link tentative)" ] \
++            && return 0
++        [ -n "$(ip -6 addr show dev "$1" scope link dadfailed)" ] \
++            && return 1
++        sleep 0.1
++        cnt=$(($cnt+1))
++    done
++    return 1
++}
++
+ wait_for_ipv6_dad() {
+     local cnt=0
+-    local li
+     local timeout="$(getargs rd.net.timeout.ipv6dad=)"
+     timeout=${timeout:-50}
+     timeout=$(($timeout*10))
+ 
+     while [ $cnt -lt $timeout ]; do
+-        li=$(ip -6 addr show dev $1 scope link)
+-        strstr "$li" "tentative" || return 0
++        [ -z "$(ip -6 addr show dev "$1" tentative)" ] \
++            && return 0
++        [ -n "$(ip -6 addr show dev "$1" dadfailed)" ] \
++            && return 1
+         sleep 0.1
+         cnt=$(($cnt+1))
+     done
